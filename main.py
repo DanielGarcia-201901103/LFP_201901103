@@ -28,7 +28,7 @@ def mostrarActores():
         print("\n********** Lista Actores**********")
         print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
         for ob in objetoPelicula[elejirMostrar-1].actores:
-            print("\t -"+ob.strip())
+            print("\t · "+ob.strip())
     except ValueError:
         print("\nPor favor ingrese un solo numeros")
 
@@ -53,13 +53,56 @@ def buscarPelicula(ingresadoN):
 
 # -------------------------------------------metodos del menu filtrado
 def filtradoActor():
-    pass
+    print("********** Filtrar por Actor**********\n")
+    try:
+        print("Buscar:")
+        palabra2 = input()
+        print("Actor: "+ palabra2)
+        print("\tPeliculas")
+        print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
+        #se tiene el actor a buscar
+        #recorrer la lista de actores de la pelicula actual
+        contador = 0
+        while contador < len(objetoPelicula):
+            contadoraux = 0
+            while contadoraux < len(objetoPelicula[contador].actores):
+                if objetoPelicula[contador].actores[contadoraux].strip().lower()== palabra2.strip().lower():
+                    print("\t · "+ objetoPelicula[contador].getNombrePelicula())
+                contadoraux +=1
+            contador+=1
+    except ValueError:
+        print("\nPor favor ingrese un solo palabras")
 
 def filtradoYear():
-    pass
+    print("********** Filtrar por Año**********\n")
+    try:
+        print("Buscar:")
+        palabra1 = int(input())
+        print("Año: "+ str(palabra1))
+        print("\n********** Lista Peliculas**********")
+        print("Genero    --> Pelicula")
+        print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
+
+        for r in objetoPelicula:
+            if r.getYear() == palabra1:
+                print(r.getGeneroPelicula()+"    --> " + r.getNombrePelicula())
+    except ValueError:
+        print("\nPor favor ingrese un solo palabras")
 
 def filtradoGenero():
-    pass
+    print("********** Filtrar por Genero**********\n")
+    try:
+        print("Buscar:")
+        palabra = input()
+        print("Genero: "+ palabra )
+        print("\n********** Lista Peliculas**********")
+        print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
+        for r in objetoPelicula:
+            if r.getGeneroPelicula().lower() == palabra.lower():
+                print("\t · "+ r.getNombrePelicula())
+    except ValueError:
+
+        print("\nPor favor ingrese un solo palabras")
 
 #   -------------------------------------------metodos del menu principal
 def cargarArchivo():
@@ -160,11 +203,11 @@ def menuFiltrado():
             opcion2 = int(input("Ingrese una opcion: "))
             print()
             if opcion2 == 1:
-                print("Filtrado por actor")
+                filtradoActor()
             elif opcion2 == 2:
-                print("Filtrado por año")
+                filtradoYear()
             elif opcion2 == 3:
-                print("Filtrado por genero")
+                filtradoGenero()
             elif opcion2 == 4:
                 break
             else:
