@@ -1,10 +1,11 @@
 from pelicula import Pelicula
 import msvcrt
+
 objetoPelicula = []
 # -------------------------------------------metodos del menu gestionar peliculas
 def mostrarPeliculas():
     #Recorrer los listados 
-    print("********** Lista Peliculas**********\n")
+    print("********** Lista de Peliculas**********\n")
     print("No.  | Año     | Genero    --> Pelicula")
     print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
     no_numero = 1
@@ -13,7 +14,7 @@ def mostrarPeliculas():
         no_numero +=1    
 
 def mostrarActores():
-    print("********** Listado de las Peliculas**********\n")
+    print("********** Lista de Peliculas**********\n")
     print("No.  | Pelicula")
     print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
     try:
@@ -24,13 +25,16 @@ def mostrarActores():
         print("\nElija el numero de la pelicula de la cual quiere ver los actores:")
         elejirMostrar = int(input())
         #mostrando los actores
-        print("Pelicula elegida: " + objetoPelicula[elejirMostrar-1].getNombrePelicula())
-        print("\n********** Lista Actores**********")
-        print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
-        for ob in objetoPelicula[elejirMostrar-1].actores:
-            print("\t · "+ob.strip())
+        if (elejirMostrar > 0) and (elejirMostrar < (len(objetoPelicula)+1)):
+            print("Pelicula elegida: " + objetoPelicula[elejirMostrar-1].getNombrePelicula())
+            print("\n********** Lista de Actores**********")
+            print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
+            for ob in objetoPelicula[elejirMostrar-1].actores:
+                print("\t · "+ob.strip())
+        else:
+            print("Por favor no ingrese un numero mayor o menor del que observa en la lista de Peliculas")
     except ValueError:
-        print("\nPor favor ingrese un solo numeros")
+        print("\nPor favor ingrese solo numeros")
 
 '''    
 def buscarPelicula(ingresadoN):
@@ -57,28 +61,31 @@ def filtradoActor():
     try:
         print("Buscar:")
         palabra2 = input()
-        print("Actor: "+ palabra2)
-        print("\tPeliculas")
-        print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
-        #se tiene el actor a buscar
-        #recorrer la lista de actores de la pelicula actual
-        contador = 0
-        while contador < len(objetoPelicula):
-            contadoraux = 0
-            while contadoraux < len(objetoPelicula[contador].actores):
-                if objetoPelicula[contador].actores[contadoraux].strip().lower()== palabra2.strip().lower():
-                    print("\t · "+ objetoPelicula[contador].getNombrePelicula())
-                contadoraux +=1
-            contador+=1
-    except ValueError:
-        print("\nPor favor ingrese un solo palabras")
+        if palabra2.isalpha() == False:
+            print("Por favor ingrese solo valores alfabeticos, no ingrese numeros")
+        else:
+            print("\nActor: "+ palabra2)
+            print("\tLista de Peliculas")
+            print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
+            #se tiene el actor a buscar
+            #recorrer la lista de actores de la pelicula actual
+            contador = 0
+            while contador < len(objetoPelicula):
+                contadoraux = 0
+                while contadoraux < len(objetoPelicula[contador].actores):
+                    if objetoPelicula[contador].actores[contadoraux].strip().lower()== palabra2.strip().lower():
+                        print("\t · "+ objetoPelicula[contador].getNombrePelicula())
+                    contadoraux +=1
+                contador+=1
+    except TypeError:
+        print("\nPor favor ingrese solo palabras")
 
 def filtradoYear():
     print("********** Filtrar por Año**********\n")
     try:
         print("Buscar:")
         palabra1 = int(input())
-        print("Año: "+ str(palabra1))
+        print("\nAño: "+ str(palabra1))
         print("\n********** Lista Peliculas**********")
         print("Genero    --> Pelicula")
         print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
@@ -87,22 +94,24 @@ def filtradoYear():
             if r.getYear() == palabra1:
                 print(r.getGeneroPelicula()+"    --> " + r.getNombrePelicula())
     except ValueError:
-        print("\nPor favor ingrese un solo palabras")
+        print("\nPor favor ingrese solo numeros")
 
 def filtradoGenero():
     print("********** Filtrar por Genero**********\n")
     try:
         print("Buscar:")
         palabra = input()
-        print("Genero: "+ palabra )
-        print("\n********** Lista Peliculas**********")
-        print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
-        for r in objetoPelicula:
-            if r.getGeneroPelicula().lower() == palabra.lower():
-                print("\t · "+ r.getNombrePelicula())
-    except ValueError:
-
-        print("\nPor favor ingrese un solo palabras")
+        if palabra.isalpha() == False:
+            print("Por favor ingrese solo valores alfabeticos, no ingrese numeros")
+        else:
+            print("\nGenero: "+ palabra )
+            print("\n********** Lista Peliculas**********")
+            print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
+            for r in objetoPelicula:
+                if r.getGeneroPelicula().lower() == palabra.lower():
+                    print("\t · "+ r.getNombrePelicula())
+    except TypeError:
+         print("\nPor favor ingrese solo palabras")
 
 #   -------------------------------------------metodos del menu principal
 def cargarArchivo():
@@ -176,8 +185,8 @@ def cargarArchivo():
     '''
     
 def menuGestionar():
-    try:
-        while True:
+    while True:
+        try:
             print("\n------- Menu Gestionar Peliculas --------")
             print("1. Mostrar peliculas"+"\n2. Mostrar actores"+"\n3. Regresar")
             # recibe la opcion ingresada y la guarda como entero
@@ -191,12 +200,12 @@ def menuGestionar():
                 break
             else:
                 print("Ingrese una opcion correcta")
-    except ValueError:
-        print("\nPor favor ingrese un solo numeros")
+        except ValueError:
+            print("\nPor favor ingrese solo numeros")
 
 def menuFiltrado():
-    try:
-        while True:
+    while True:    
+        try:
             print("\n------- Menu Filtrado --------")
             print("1. Filtrado por actor"+"\n2. Filtrado por año"+"\n3. Filtrado por genero"+"\n4. Regresar")
             # recibe la opcion ingresada y la guarda como entero
@@ -212,13 +221,13 @@ def menuFiltrado():
                 break
             else:
                 print("Ingrese una opcion correcta")
-    except ValueError:
-        print("\nPor favor ingrese un solo numeros")
+        except ValueError:
+            print("\nPor favor ingrese solo numeros")
 
 def graficar():
     pass
-#   -------------------------------------------metodo main
 
+#   -------------------------------------------metodo main
 if __name__ == '__main__':
     print("\n*********************************************")
     print("        Información del desarrollador")
@@ -229,8 +238,9 @@ if __name__ == '__main__':
     print("-----Presione una tecla para continuar-----")
     #presionar = str(input())
     msvcrt.getch()
-    try:
-        while True:
+
+    while True:
+        try:
             print("\n------- Menu Principal --------")
             print("1. Cargar archivo de entrada"+"\n2. Gestionar peliculas"+"\n3. Filtrado"+"\n4. Gráfica"+"\n5. Salir")
             # recibe la opcion ingresada y la guarda como entero
@@ -239,15 +249,24 @@ if __name__ == '__main__':
             if opcion == 1:
                 cargarArchivo()
             elif opcion == 2:
-                menuGestionar()
+                if len(objetoPelicula) != 0:
+                    menuGestionar()
+                else:
+                    print("Por favor carge el archivo de peliculas primero")
             elif opcion == 3:
-                menuFiltrado()
+                if len(objetoPelicula) != 0:
+                    menuFiltrado()
+                else:
+                    print("Por favor carge el archivo de peliculas primero")
             elif opcion == 4:
-                graficar()
+                if len(objetoPelicula) != 0:
+                    graficar()
+                else:
+                    print("Por favor carge el archivo de peliculas primero")
             elif opcion == 5:
-                print("Gracias por utilizar el programa\n")
+                print("Gracias por utilizar el programa \n")
                 break
             else:
                 print("Ingrese una opcion correcta\n")
-    except ValueError:
-        print("\nPor favor ingrese un solo numeros")
+        except ValueError:
+            print("\nPor favor ingrese solo numeros")
