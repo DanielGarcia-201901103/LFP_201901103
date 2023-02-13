@@ -226,7 +226,6 @@ def menuFiltrado():
             print("\nPor favor ingrese solo numeros")
 
 def graficar():
-
     grafo = graphviz.Digraph('tabla',filename ='tabla.dot')
     grafo.attr(rankdir = 'LR',size='8,5')
     #Este ya funciona ahora solo falta meterlo para graphviz
@@ -246,21 +245,60 @@ def graficar():
                 while contadorauxSiguiente < len(objetoPelicula[contadorSiguiente].actores):
                     #si el actor de la pelicula actual es igual al actor de la pelicula siguiente ...
                     if objetoPelicula[contador].actores[contadoraux].strip().lower() == objetoPelicula[contadorSiguiente].actores[contadorauxSiguiente].strip().lower():
-
+            
                         print("\t · "+ objetoPelicula[contador].getNombrePelicula()+" actor:"+objetoPelicula[contador].actores[contadoraux])
                         print("\t "+ objetoPelicula[contadorSiguiente].getNombrePelicula())
+
+                        grafo.attr('node', shape= 'plaintext')
+                        grafo.node(objetoPelicula[contador].getNombrePelicula(),'''<
+                        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                            <TR>
+                                <TD COLSPAN="2" BGCOLOR="YELLOW">'''+ objetoPelicula[contador].getNombrePelicula()+'''</TD>
+                            </TR>
+                            <TR>
+                                <TD>'''+str(objetoPelicula[contador].getYear())+'''</TD>
+                                <TD PORT="f1">'''+objetoPelicula[contador].getGeneroPelicula()+'''</TD>
+                            </TR>
+                        </TABLE>>''')
+
+                        grafo.attr('node', shape= 'square', style="filled", color="orange")
+                        #si el actor 
+                        contadorRepetido = 0
+                        while contadorRepetido < len(objetoPelicula[contador].actores):
+                            if objetoPelicula[contador].actores[contadorRepetido].strip().lower() == objetoPelicula[contadorSiguiente].actores[contadorauxSiguiente].strip().lower():
+                                pass
+                            else:
+                                grafo.node(objetoPelicula[contador].actores[contadorRepetido].strip())
+                                grafo.edge(objetoPelicula[contador].getNombrePelicula()+':e',objetoPelicula[contador].actores[contadorRepetido].strip()+':w')
+                                
+                            contadorRepetido +=1
+
+                        grafo.node(objetoPelicula[contador].actores[contadoraux].strip())
+                        grafo.edge(objetoPelicula[contador].getNombrePelicula()+':e',objetoPelicula[contador].actores[contadoraux].strip()+':w')
+                        grafo.attr('node',style='', color='')
+
+                        grafo.attr('node', shape= 'plaintext')
+                        grafo.node(objetoPelicula[contadorSiguiente].getNombrePelicula(),'''<
+                        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                            <TR>
+                                <TD COLSPAN="2" BGCOLOR="YELLOW">'''+ objetoPelicula[contadorSiguiente].getNombrePelicula()+'''</TD>
+                            </TR>
+                            <TR>
+                                <TD>'''+str(objetoPelicula[contadorSiguiente].getYear())+'''</TD>
+                                <TD PORT="f1">'''+objetoPelicula[contadorSiguiente].getGeneroPelicula()+'''</TD>
+                            </TR>
+                        </TABLE>>''')
+
+                        grafo.attr('node', shape= 'square', style="filled", color="orange")
+                        grafo.edge(objetoPelicula[contadorSiguiente].getNombrePelicula()+':e',objetoPelicula[contador].actores[contadoraux].strip()+':w')
+
+                        grafo.attr('node',style='', color='')
 
                     contadorauxSiguiente +=1
                 contadorSiguiente +=1
             contadoraux +=1
         contador+=1
-
-
-
-
-
-
-
+    """
     for ob in objetoPelicula:
         grafo.attr('node', shape= 'plaintext')
         grafo.node(ob.getNombrePelicula(),'''<
@@ -279,7 +317,7 @@ def graficar():
         grafo.edge(ob.getNombrePelicula()+':e','nombre de actor:w')
         grafo.attr('node',style='', color='')
 
-    
+    """
     
     grafo.view()
     
