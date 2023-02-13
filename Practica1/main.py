@@ -226,10 +226,47 @@ def menuFiltrado():
             print("\nPor favor ingrese solo numeros")
 
 def graficar():
-    grafo = graphviz.Digraph('automata', filename= 'AFD.gv')
-    #https://drive.google.com/drive/search?q=laboratorio%20lenguajes%20formales%20y%20de%20programacion%20seccion%20A-
-    # 1 hora con 16 minutos
 
+    '''grafo = graphviz.Digraph('automata', filename= 'AFD.gv')
+
+    grafo.attr(rankdir = 'LR',size='8,5')
+    grafo.attr('node', shape='circle', style = '')
+    grafo.node('q0')
+    grafo.attr('node', shape='doublecircle')
+    grafo.node('q1')
+    grafo.attr('node', style='invisible')
+    grafo.node('inv')
+    grafo.edge('inv','q0', label='Inicio')
+    grafo.edge('q0:w','q0:n', label='0') #hace las flechas
+    grafo.edge('q0:n','q1:n', label='1')
+    grafo.edge('q1:e','q1:n', label='1')
+    grafo.edge('q1:s','q0:s', label='0')
+'''
+    grafo = graphviz.Digraph('tabla',filename ='tabla.dot')
+    grafo.attr(rankdir = 'LR',size='8,5')
+    for ob in objetoPelicula:
+        grafo.attr('node', shape= 'plaintext')
+        grafo.node(ob.getNombrePelicula(),'''<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+            <TR>
+                <TD COLSPAN="2" BGCOLOR="YELLOW">'''+ ob.getNombrePelicula()+'''</TD>
+            </TR>
+            <TR>
+                <TD>'''+str(ob.getYear())+'''</TD>
+                <TD PORT="f1">'''+ob.getGeneroPelicula()+'''</TD>
+            </TR>
+        </TABLE>>''')
+        #Buscar los actores repetidos en las peliculas y si los encuentra almacena los indices de la pelicula en la que se encuentra
+        
+
+        grafo.attr('node', shape= 'square', style="filled", color="orange")
+        grafo.node("nombre de actor")
+        grafo.edge(ob.getNombrePelicula()+':e','nombre de actor:w')
+        grafo.attr('node',style='', color='')
+
+    grafo.view()
+        
+    #Practica1\datos.lfp
 #   -------------------------------------------metodo main
 if __name__ == '__main__':
     print("\n*********************************************")
