@@ -62,7 +62,7 @@ def filtradoActor():
     try:
         print("Buscar:")
         palabra2 = input()
-        if palabra2.isalpha() == False:
+        if palabra2.isdigit() == True:
             print("Por favor ingrese solo valores alfabeticos, no ingrese numeros")
         else:
             print("\nActor: "+ palabra2)
@@ -102,7 +102,7 @@ def filtradoGenero():
     try:
         print("Buscar:")
         palabra = input()
-        if palabra.isalpha() == False:
+        if palabra.isdigit() == True:
             print("Por favor ingrese solo valores alfabeticos, no ingrese numeros")
         else:
             print("\nGenero: "+ palabra )
@@ -227,23 +227,40 @@ def menuFiltrado():
 
 def graficar():
 
-    '''grafo = graphviz.Digraph('automata', filename= 'AFD.gv')
-
-    grafo.attr(rankdir = 'LR',size='8,5')
-    grafo.attr('node', shape='circle', style = '')
-    grafo.node('q0')
-    grafo.attr('node', shape='doublecircle')
-    grafo.node('q1')
-    grafo.attr('node', style='invisible')
-    grafo.node('inv')
-    grafo.edge('inv','q0', label='Inicio')
-    grafo.edge('q0:w','q0:n', label='0') #hace las flechas
-    grafo.edge('q0:n','q1:n', label='1')
-    grafo.edge('q1:e','q1:n', label='1')
-    grafo.edge('q1:s','q0:s', label='0')
-'''
     grafo = graphviz.Digraph('tabla',filename ='tabla.dot')
     grafo.attr(rankdir = 'LR',size='8,5')
+    #Este ya funciona ahora solo falta meterlo para graphviz
+    contador = 0
+    while contador < len(objetoPelicula):# recorre toda la lista de las peliculas
+        contadoraux = 0
+        while contadoraux < len(objetoPelicula[contador].actores):#recorre toda la lista de actores dentro de la pelicula pelicula actual
+            #recorre la lista de actores de las peliculas siguientes
+            #si contador aumenta en una unidad tambien lo debe hacer contadorSiguiente
+            #aqui falta codigo
+            contadorSiguiente = 1
+            if contadorSiguiente <= contador:
+                contadorSiguiente = contador + 1
+
+            while contadorSiguiente < len(objetoPelicula):
+                contadorauxSiguiente = 0
+                while contadorauxSiguiente < len(objetoPelicula[contadorSiguiente].actores):
+                    #si el actor de la pelicula actual es igual al actor de la pelicula siguiente ...
+                    if objetoPelicula[contador].actores[contadoraux].strip().lower() == objetoPelicula[contadorSiguiente].actores[contadorauxSiguiente].strip().lower():
+
+                        print("\t · "+ objetoPelicula[contador].getNombrePelicula()+" actor:"+objetoPelicula[contador].actores[contadoraux])
+                        print("\t "+ objetoPelicula[contadorSiguiente].getNombrePelicula())
+
+                    contadorauxSiguiente +=1
+                contadorSiguiente +=1
+            contadoraux +=1
+        contador+=1
+
+
+
+
+
+
+
     for ob in objetoPelicula:
         grafo.attr('node', shape= 'plaintext')
         grafo.node(ob.getNombrePelicula(),'''<
@@ -256,16 +273,16 @@ def graficar():
                 <TD PORT="f1">'''+ob.getGeneroPelicula()+'''</TD>
             </TR>
         </TABLE>>''')
-        #Buscar los actores repetidos en las peliculas y si los encuentra almacena los indices de la pelicula en la que se encuentra
-        
 
         grafo.attr('node', shape= 'square', style="filled", color="orange")
         grafo.node("nombre de actor")
         grafo.edge(ob.getNombrePelicula()+':e','nombre de actor:w')
         grafo.attr('node',style='', color='')
 
+    
+    
     grafo.view()
-        
+    
     #Practica1\datos.lfp
 #   -------------------------------------------metodo main
 if __name__ == '__main__':
