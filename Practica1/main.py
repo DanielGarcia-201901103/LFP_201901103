@@ -1,3 +1,4 @@
+import os
 from pelicula import Pelicula
 import msvcrt
 import graphviz
@@ -227,9 +228,8 @@ def menuFiltrado():
 
 def graficar():
     grafo = graphviz.Digraph('tabla',filename ='tabla.dot')
-    grafo.attr(rankdir = 'LR',size='8,5',ranksep="2")
+    grafo.attr(rankdir = 'LR',size='8,5', ranksep="2")
     for pe in objetoPelicula:
-        print(pe.getNombrePelicula())
         grafo.attr('node', shape= 'plaintext')
         grafo.node(pe.getNombrePelicula(),'''<
             <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
@@ -243,11 +243,12 @@ def graficar():
             </TABLE>>''')
         grafo.attr('node',style='', color='')
         for ac in pe.actores:
-            print(ac)
-            grafo.attr('node', shape= 'square', style="filled", color="orange")
+            grafo.attr('node', shape= 'rectangle', style="filled", color="orange")
             grafo.edge(pe.getNombrePelicula()+":e", ac.strip(), arrowhead = "vee")
             grafo.attr('node',style='', color='')
-    grafo.view()
+    #grafo.save(filename= "tabla.dot", directory="./Practica1") #,directory="Practica1\tabla.dot"
+    #os.system("dot.exe -Tpdf Practica1/tabla.dot -o Practica1/peliculas.pdf")
+    grafo.view(filename ="Peliculas y Actores.dot" ,directory="./Practica1")
         
 #   -------------------------------------------metodo main
 if __name__ == '__main__':

@@ -1,7 +1,0 @@
-graph G{
-    rankdir = TB
-    
-a [label = "hoja"];
-b [label = "mundo"];
-a -- b
-}
