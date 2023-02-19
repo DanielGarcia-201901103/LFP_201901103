@@ -227,8 +227,7 @@ def menuFiltrado():
 
 def graficar():
     grafo = graphviz.Digraph('tabla',filename ='tabla.dot')
-    grafo.attr(rankdir = 'LR',size='8,5')
-
+    grafo.attr(rankdir = 'LR',size='8,5',ranksep="2")
     for pe in objetoPelicula:
         print(pe.getNombrePelicula())
         grafo.attr('node', shape= 'plaintext')
@@ -244,12 +243,12 @@ def graficar():
             </TABLE>>''')
         grafo.attr('node',style='', color='')
         for ac in pe.actores:
+            print(ac)
             grafo.attr('node', shape= 'square', style="filled", color="orange")
-            grafo.edge(pe.getNombrePelicula()+':e', ac.strip()+':w')
+            grafo.edge(pe.getNombrePelicula()+":e", ac.strip(), arrowhead = "vee")
             grafo.attr('node',style='', color='')
     grafo.view()
         
-    #Practica1\datos.lfp
 #   -------------------------------------------metodo main
 if __name__ == '__main__':
     print("\n*********************************************")
