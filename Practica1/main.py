@@ -227,29 +227,31 @@ def menuFiltrado():
             print("\nPor favor ingrese solo numeros")
 
 def graficar():
-    grafo = graphviz.Digraph('tabla',filename ='tabla.dot')
-    grafo.attr(rankdir = 'LR',size='8,5', ranksep="2")
+    grafo = graphviz.Digraph('tabla',filename ='Peliculas y Actores.dot')
+    grafo.attr(rankdir = 'LR',size='8,5', ranksep="2", bgcolor = "lightgoldenrodyellow", margin = "0.1")
+    nombreN = 1
     for pe in objetoPelicula:
         grafo.attr('node', shape= 'plaintext')
-        grafo.node(pe.getNombrePelicula(),'''<
+        grafo.node(str(nombreN),'''<
             <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
                 <TR>
-                    <TD COLSPAN="2" BGCOLOR="YELLOW">'''+ pe.getNombrePelicula()+'''</TD>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>'''+ pe.getNombrePelicula()+'''</b></TD>
                 </TR>
                 <TR>
                     <TD>'''+str(pe.getYear())+'''</TD>
                     <TD PORT="f1">'''+pe.getGeneroPelicula()+'''</TD>
                 </TR>
             </TABLE>>''')
-        grafo.attr('node',style='', color='')
+        #grafo.attr('node',style='', color='')
         for ac in pe.actores:
-            grafo.attr('node', shape= 'rectangle', style="filled", color="orange")
-            grafo.edge(pe.getNombrePelicula()+":e", ac.strip(), arrowhead = "vee")
+            grafo.attr('node', shape= 'rectangle', style="filled", color="black",fillcolor="lightsalmon")
+            grafo.edge(str(nombreN)+':e', ac.strip(), arrowhead = 'vee')
             grafo.attr('node',style='', color='')
+        nombreN +=1
     #grafo.save(filename= "tabla.dot", directory="./Practica1") #,directory="Practica1\tabla.dot"
     #os.system("dot.exe -Tpdf Practica1/tabla.dot -o Practica1/peliculas.pdf")
     grafo.view(filename ="Peliculas y Actores.dot" ,directory="./Practica1")
-        
+        #La logica dle programa está nitido, solo el problema está en cuando escribe el .dot tiene inconvenientes en el nombre de la pelicula por los : en el titulo
 #   -------------------------------------------metodo main
 if __name__ == '__main__':
     print("\n*********************************************")
