@@ -251,7 +251,7 @@ def graficar():
     #grafo.save(filename= "tabla.dot", directory="./Practica1") #,directory="Practica1\tabla.dot"
     #os.system("dot.exe -Tpdf Practica1/tabla.dot -o Practica1/peliculas.pdf")
     grafo.view(filename ="Peliculas y Actores.dot" ,directory="./Practica1")
-        #La logica dle programa está nitido, solo el problema está en cuando escribe el .dot tiene inconvenientes en el nombre de la pelicula por los : en el titulo
+    
 #   -------------------------------------------metodo main
 if __name__ == '__main__':
     print("\n*********************************************")
