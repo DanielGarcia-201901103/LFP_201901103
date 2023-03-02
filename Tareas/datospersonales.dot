@@ -1,0 +1,24 @@
+digraph datos{
+    rankdir = TB
+    
+    node[fillcolor = "#bfe6ed",style = filled];
+    edge[arrowhead=vee]
+    a [label = "Josué Daniel Rojché García", color =blue, shape =box ];
+    node[fillcolor = "#ddbda67a",style = filled];
+    b [label = "201901103",color = blueviolet];
+    node[fillcolor = "#9be2a7",style = filled];
+    c [label = "12 de Julio 1999",color ="#f25055", shape = folder];
+    node[fillcolor = "#e2c49b",style = filled];
+    d [label = "Laboratorio de Lenguajes Formales y de Programación", color =red, shape = tripleoctagon];
+    node[fillcolor = "#f4d155d7",style = filled];
+    e [label = "Bachata",color =blue, shape = tab];
+    f [label = "Rock",color =blue, shape = component];
+    g [label = "Clásica",color =blue, shape = box3d];
+
+    d -> a;
+    a -> b;
+    b -> c;
+    c -> e;
+    c -> f;
+    c -> g
+}
