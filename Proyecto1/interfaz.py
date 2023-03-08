@@ -2,30 +2,48 @@ import sys
 import tkinter as tk
 from tkinter import CENTER, RIGHT, Y, Scrollbar, filedialog, Tk, ttk
 from tkinter.messagebox import showerror, showinfo, showwarning
-import json
+import webbrowser
 
-#para hacer json https://www.w3schools.com/python/python_json.asp
+leer =""
 #Metodos y Funciones para la sección de Archivo *********************************************************************************
 def abrir():
-    pass
+    urlArchivo = filedialog.askopenfilename(initialdir="./", title="Seleccione un Archivo", filetypes=(("Archivo json", "*.json"), ("all files", "*.*")))
+    if urlArchivo != "":
+        leer = open(urlArchivo, "rt")
+        print(leer.read())
+        leer.close()
+        showinfo(title="Abierto", message="Archivo leído exitosamente")
+    else :
+        #showerror(title="Error", message="El tamaño maximo de organismos es: 1000 \nPorfavor ingrese menos organismos")
+        showwarning(title="Advertencia", message="No ingresó ningun archivo")
+
 def guardar():
     pass
+
 def guardarComo():
-    pass 
+    guardar_Como = filedialog.asksaveasfilename(initialdir="./", title="Guardar Como", filetypes=(("Archivo json", "*.json"), ("all files", "*.*")))
+    if guardar_Como != "":
+        showinfo(title="Guardado", message="Archivo guardado exitosamente")
+    else :
+        showwarning(title="Advertencia", message="¡Si no guarda el archivo se perderan los datos!")
+
 def analizar():
     pass
+
 def errores():
     pass
 #\********************************************************************************************************************************
 #Metodos y funciones para la seccion de Ayuda ************************************************************************************
 def manualUsuario():
-    pass
+    pathUsuario = "Proyecto1\Documentacion\Manual Usuario.pdf"
+    webbrowser.open_new(pathUsuario)
 
 def manualTecnico():
-    pass
+    pathTecnico = "Proyecto1\Documentacion\Manual Tecnico.pdf"
+    webbrowser.open_new(pathTecnico)
 
 def temasAyuda():
-    pass
+    showinfo(title="Información del desarrollador", message="Josué Daniel Rojché García\nCarnet: 201901103")
 #\********************************************************************************************************************************
 #Main
 if __name__ == '__main__':
