@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import CENTER, RIGHT, Y, Scrollbar, filedialog, Tk, ttk
 from tkinter.messagebox import showerror, showinfo, showwarning
 import webbrowser
+from automataAFD import AFD
 
 leer =""
 #Metodos y Funciones para la sección de Archivo *********************************************************************************
@@ -28,7 +29,7 @@ def guardarComo():
         showwarning(title="Advertencia", message="¡Si no guarda el archivo se perderan los datos!")
 
 def analizar():
-    pass
+    enviandoAnalisis = AFD(leer)
 
 def errores():
     pass
