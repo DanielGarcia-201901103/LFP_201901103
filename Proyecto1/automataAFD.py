@@ -203,7 +203,7 @@ class AFD:
                     tok = ''
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q18'
-                    self.estadoActual = 'q21'
+                    self.estadoActual = 'q24'
                 elif caracter == '}':
                     self.almacenarToken(tok)
                     tok = ''
@@ -236,7 +236,6 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q20'
                     self.estadoActual = 'q21'
-                # estado de aceptación para las operaciones
                 elif caracter == '}':
                     self.almacenarToken(tok)
                     tok = ''
@@ -264,13 +263,17 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q22'
                     self.estadoActual = 'q23'
-                '''
-                AGREGAR q23 como estado de aceptación }, q22 no es un estado de aceptación
-                (q22, }) = q23
-                AGREGAR 
-                (q21, ,) = q2
-                Hay que modificar el automata
-                '''
+            #validando estado q24
+            elif self.estadoActual == 'q24':
+                if caracter == ',':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'q24'
+                    self.estadoActual = 'q2'
+                    #estado de acpetación
+                elif caracter == '}':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'q24'
+                    self.estadoActual = 'q22'
             self.columna +=1
             texto = texto[1:]
         return self.estadoActual in self.estadoFinal
