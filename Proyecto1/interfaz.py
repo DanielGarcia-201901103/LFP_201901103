@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import CENTER, RIGHT, Y, Scrollbar, filedialog, Tk, ttk
 from tkinter.messagebox import showerror, showinfo, showwarning
 import webbrowser
-from automataAFD import AFD
+from automataAFD import AFD 
 
 datos =""
 #Metodos y Funciones para la sección de Archivo *********************************************************************************
@@ -33,7 +33,7 @@ def analizar():
     global datos
     enviandoAnalisis = AFD()
     enviandoAnalisis.analizando(datos)
-
+    enviandoAnalisis.imprimir_tokens()
 def errores():
     pass
 #\********************************************************************************************************************************
