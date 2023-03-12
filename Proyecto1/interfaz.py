@@ -5,13 +5,14 @@ from tkinter.messagebox import showerror, showinfo, showwarning
 import webbrowser
 from automataAFD import AFD
 
-leer =""
+datos =""
 #Metodos y Funciones para la sección de Archivo *********************************************************************************
 def abrir():
     urlArchivo = filedialog.askopenfilename(initialdir="./", title="Seleccione un Archivo", filetypes=(("Archivo json", "*.json"), ("all files", "*.*")))
     if urlArchivo != "":
         leer = open(urlArchivo, "rt")
-        print(leer.read())
+        global datos
+        datos = leer.read()
         leer.close()
         showinfo(title="Abierto", message="Archivo leído exitosamente")
     else :
@@ -29,7 +30,9 @@ def guardarComo():
         showwarning(title="Advertencia", message="¡Si no guarda el archivo se perderan los datos!")
 
 def analizar():
-    enviandoAnalisis = AFD(leer)
+    global datos
+    enviandoAnalisis = AFD()
+    enviandoAnalisis.analizando(datos)
 
 def errores():
     pass

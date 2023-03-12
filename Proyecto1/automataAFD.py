@@ -6,7 +6,10 @@ class AFD:
         self.estadoInicial = 'q0'
         self.estadoFinal = 'por definirse'
         self.transiciones = 'por definirse'
-        self.alfabeto = {self.letras,self.numeros,self.simbolos}
 
     def analizando(self, texto):
         estadoActual = self.estadoInicial
+        texto = texto.replace("\n","")
+        texto = texto.replace(" ","")
+        
+
