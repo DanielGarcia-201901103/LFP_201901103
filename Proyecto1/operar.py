@@ -79,9 +79,9 @@ class Operaciones:
         https://docs.python.org/3.11/library/math.html
         '''
 
-calculando = Operaciones(1,5,"probando")
+#calculando = Operaciones(1,5,"probando")
 #funcionan todos los calculos
-print(calculando.operando(90,0,"tangente"))
-print(calculando.operando(45,0,"SENO"))
-print(calculando.operando(45,0,"coSeno"))
+#print(calculando.operando(90,0,"tangente"))
+#print(calculando.operando(45,0,"SENO"))
+#print(calculando.operando(45,0,"coSeno"))
             

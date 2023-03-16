@@ -146,7 +146,6 @@ class AFD:
             elif self.estadoActual == 'q14':
                 if caracter in self.numeros:
                     tok += caracter
-                    print(tok)
                     self.estadoAnterior = 'q14'
                     self.estadoActual = 'q18'
                 elif caracter == '"':
@@ -185,7 +184,6 @@ class AFD:
             elif self.estadoActual == 'q18':
                 if caracter in self.numeros:
                     tok += caracter
-                    print(tok)
                     self.estadoAnterior = 'q18'
                     self.estadoActual = 'q18'
                 elif caracter == ',':
@@ -196,7 +194,6 @@ class AFD:
                     self.estadoActual = 'q2'
                 elif caracter == '.':
                     tok += caracter
-                    print(tok)
                     self.estadoAnterior = 'q18'
                     self.estadoActual = 'q19'
                 elif caracter == ']':
@@ -215,14 +212,12 @@ class AFD:
             elif self.estadoActual == 'q19':
                 if caracter in self.numeros:
                     tok += caracter
-                    print(tok)
                     self.estadoAnterior = 'q19'
                     self.estadoActual = 'q20'
             # validando estado q20
             elif self.estadoActual == 'q20':
                 if caracter in self.numeros:
                     tok += caracter
-                    print(tok)
                     self.estadoAnterior = 'q20'
                     self.estadoActual = 'q20'
                 elif caracter == ',':
@@ -285,12 +280,12 @@ class AFD:
 
     def imprimir_tokens(self):
         print('-'*31)
-        print("| {:<4} | {:<7} | {:<10} |".format('Fila', 'Columna', 'Lexema'))
+        print("| {:<4} | {:<7} | {:<20} |".format('Fila', 'Columna', 'Lexema'))
         print('-'*31)
-        for token in self.tablaErrores:
-            print("| {:<4} | {:<7} | {:<10} |".format(
-                token.row, token.columna, token.lexema))
+        for token in self.tabla:
+            print("| {:<4} | {:<7} | {:<20} |".format(token.row, token.columna, token.lexema))
 
     def almacenarError(self, lexemaError):
         newToken1 = Token(self.fila, self.columna, lexemaError)
         self.tablaErrores.append(newToken1)
+#https://www.ibidemgroup.com/edu/traduccion-automatica-python/    para traducir idiomas
