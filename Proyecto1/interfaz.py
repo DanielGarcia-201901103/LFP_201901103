@@ -13,6 +13,7 @@ def abrir(event = None):
         leer = open(urlArchivo, "rt")
         global almacenar
         almacenar = leer.read()
+        textLeer.insert("1.0", almacenar)
         leer.close()
         showinfo(title="Abierto", message="Archivo leído exitosamente")
         menuArchivo.entryconfig(1,state = tk.NORMAL)
@@ -82,7 +83,7 @@ def temasAyuda(event = None):
 if __name__ == '__main__':
     menu = tk.Tk()
     menu.title("PROYECTO NO.1")
-    menu.geometry("607x400")
+    menu.geometry("900x400")
     menu.configure(bg="#212F3C")
     menu.resizable(False, False)
     #Crea la barra del menu
@@ -108,5 +109,19 @@ if __name__ == '__main__':
     barra_Menu.add_cascade(menu= menuArchivo, label= "Archivo")
     barra_Menu.add_cascade(menu= menuAyuda, label= "Ayuda")
 
+    textLeer = tk.Text()
+    textLeer.configure(bg="#C8C885")
+    textLeer.place(x= 5, y =5, height= 350, width= 440)
+
+    textErores = tk.Text()
+    textErores.configure(bg="#BFBF02")
+    textErores.place(x= 455, y =5, height= 350, width= 440)
+
+    label1 = tk.Label(menu, text="Archivo abierto", bg="#212F3C", fg="#FFFFFF",width= 20, font=("Arial", 13)).place(x= 125, y =370)
+
+    label1 = tk.Label(menu, text="Archivo Errores", bg="#212F3C", fg="#FFFFFF",width= 20, font=("Arial", 13)).place(x= 575, y =370)
+
     menu.config(menu=barra_Menu)
     menu.mainloop() # Permite mostrar la ventana 
+
+    #https://recursospython.com/codigos-de-fuente/bloc-de-notas-simple-con-tkinter/
