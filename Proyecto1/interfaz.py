@@ -6,11 +6,14 @@ import webbrowser
 from automataAFD import AFD 
 from operar import Operaciones
 almacenar =""
+urlAlmacenar = ""
 #Metodos y Funciones para la sección de Archivo *********************************************************************************
 def abrir(event = None):
+    global urlAlmacenar
     urlArchivo = filedialog.askopenfilename(initialdir="./", title="Seleccione un Archivo", filetypes=(("Archivo json", "*.json"), ("all files", "*.*")))
     if urlArchivo != "":
         leer = open(urlArchivo, "rt")
+        urlAlmacenar = urlArchivo
         global almacenar
         almacenar = leer.read()
         textLeer.insert("1.0", almacenar)
@@ -24,11 +27,16 @@ def abrir(event = None):
         #showerror(title="Error", message="El tamaño maximo de organismos es: 1000 \nPorfavor ingrese menos organismos")
         showwarning(title="Advertencia", message="No ingresó ningun archivo")
 def guardar(event = None):
-    pass
+    saveArchivo = open(urlAlmacenar, "w")
+    saveArchivo.write(textLeer.get("1.0","end"))
+    saveArchivo.close()
 
 def guardarComo(event = None):
     guardar_Como = filedialog.asksaveasfilename(initialdir="./", title="Guardar Como", filetypes=(("Archivo json", "*.json"), ("all files", "*.*")))
     if guardar_Como != "":
+        saveComoArchivo = open(guardar_Como, "w")
+        saveComoArchivo.write(textLeer.get("1.0","end"))
+        saveComoArchivo.close()
         showinfo(title="Guardado", message="Archivo guardado exitosamente")
     else :
         showwarning(title="Advertencia", message="¡Si no guarda el archivo se perderan los datos!")
@@ -114,7 +122,7 @@ if __name__ == '__main__':
     textLeer.place(x= 5, y =5, height= 350, width= 440)
 
     textErores = tk.Text()
-    textErores.configure(bg="#BFBF02")
+    textErores.configure(bg="#BFBF02", state="disabled")
     textErores.place(x= 455, y =5, height= 350, width= 440)
 
     label1 = tk.Label(menu, text="Archivo abierto", bg="#212F3C", fg="#FFFFFF",width= 20, font=("Arial", 13)).place(x= 125, y =370)
@@ -125,3 +133,4 @@ if __name__ == '__main__':
     menu.mainloop() # Permite mostrar la ventana 
 
     #https://recursospython.com/codigos-de-fuente/bloc-de-notas-simple-con-tkinter/
+    #https://www.delftstack.com/es/howto/python-tkinter/how-to-get-the-input-from-tkinter-text-box/
