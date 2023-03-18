@@ -1,10 +1,10 @@
 {
-    ?"Operacion":"Suma",
+    {"Operacion":"Suma",
     "Valor1":4.5,
     "Valor2":5.32},
     {"Operacion":"Resta",
-    "Valor1":4.5.84,
-    "Valor2!":[
+    "Valor1":4.5,
+    "Valor2":[
     "Operacion":"Potencia",
     "Valor1":10,
     "Valor2":3
@@ -15,8 +15,8 @@
     "Valor1":90
     ],
     "Valor2":5.32},
-    "Text%":"Realizacion de Operaciones",
+    "Text":"Realizacion de Operaciones",
     "Color-Fondo-Nodo":"Yellow",
     "Color-Fuente-Nodo":"Red",
-    "Forma-Nodo":"Circulo)"
+    "Forma-Nodo":"Circulo"
 }

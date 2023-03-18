@@ -14,12 +14,13 @@ class AFD:
         self.tablaErrores = []
         self.auxiliarTexto = ""
 
-    def analizando(self, texto):
+    def analizando(self, texto1):
         tok = ''
         # Eliminando espacios y saltos de linea de la cadena
         # texto = texto.replace("\n","")
         # texto = texto.replace(" ","")
         validandoError = False
+        texto = texto1
         # recorriendo el texto
         while len(texto) > 0:
             caracter = texto[0]
@@ -359,26 +360,28 @@ class AFD:
         print('-'*31)
         print("| {:<4} | {:<7} | {:<20} |".format('Fila', 'Columna', 'Lexema'))
         print('-'*31)
-        for token in self.tabla:
+        for token in self.tablaErrores:
             print("| {:<4} | {:<7} | {:<20} |".format(token.row, token.columna, token.lexema))
 
     def erroresValidados(self):
         escribiendoEstructura = "{\n"
         iterador = 1
-        agregando = ""
         for token in self.tablaErrores:
-            agregando = agregando + "\t{\n"
-            agregando = agregando + '\t\t"No.":' +str(iterador) + "\n"
-            agregando = agregando + '\t\t"Descripcion-Token":{\n'
-            agregando = agregando + '\t\t"Lexema": '+ str(token.lexema)+ '\n'
-            agregando = agregando + '\t\t"Tipo": Error\n'
-            agregando = agregando + '\t\t"Columna": '+ str(token.columna)+ '\n'
-            agregando = agregando + '\t\t"Fila": '+ str(token.row)+ '\n'
-            agregando = agregando + "\t\t}\n"
-            agregando = agregando + "\t},\n"
+            escribiendoEstructura = escribiendoEstructura + "\t{\n"
+            escribiendoEstructura = escribiendoEstructura + '\t\t"No.":' +str(iterador) + "\n"
+            escribiendoEstructura = escribiendoEstructura + '\t\t"Descripcion-Token":{\n'
+            escribiendoEstructura = escribiendoEstructura + '\t\t"Lexema": '+ str(token.lexema)+ '\n'
+            escribiendoEstructura = escribiendoEstructura + '\t\t"Tipo": Error\n'
+            escribiendoEstructura = escribiendoEstructura + '\t\t"Columna": '+ str(token.columna)+ '\n'
+            escribiendoEstructura = escribiendoEstructura + '\t\t"Fila": '+ str(token.row)+ '\n'
+            escribiendoEstructura = escribiendoEstructura + "\t\t}\n"
+            escribiendoEstructura = escribiendoEstructura + "\t},\n"
             iterador +=1
-
-            '''
+            #print(token.row, token.columna, token.lexema)
+        escribiendoEstructura = escribiendoEstructura +"}"
+        return escribiendoEstructura
+        
+    '''
             {
                 "No.":1
                 "Descripcion-Token":{
@@ -398,9 +401,6 @@ class AFD:
                 }
             }
             '''
-            print(token.row, token.columna, token.lexema)
-        escribiendoEstructura = escribiendoEstructura +agregando +"}"
-        return escribiendoEstructura
     def analizandoSintacticamente(self):
         #recorrer la tabla y ir validando con ifs anidados para ver los datos que están como frases o como numeros
         iterar = 0

@@ -7,6 +7,7 @@ from automataAFD import AFD
 from operar import Operaciones
 almacenar =""
 urlAlmacenar = ""
+enviandoAnalisis = AFD()
 #Metodos y Funciones para la sección de Archivo *********************************************************************************
 def abrir(event = None):
     global urlAlmacenar
@@ -45,7 +46,6 @@ def analizar(event = None):
     #https://docs.python.org/es/3/reference/lexical_analysis.html
     global almacenar
     if almacenar != "":
-        enviandoAnalisis = AFD()
         enviandoAnalisis.analizando(almacenar)
         enviandoAnalisis.imprimir_tokens()
 
@@ -71,10 +71,14 @@ def analizar(event = None):
 def errores(event = None):
     global almacenar
     if almacenar != "":
-        enviandoAnalisisErrores = AFD()
-        escribiendoE = enviandoAnalisisErrores.erroresValidados()
+        escribiendoE = enviandoAnalisis.erroresValidados()
         #la variable escribiendoE recibe el archivo escrito con los errores ahora solo mostrarlo en el Text() y escribirlo en un archivo json
-        pass
+        archivoErrores = open("ERRORES_201901103","W")
+        archivoErrores.write(escribiendoE)
+        archivoErrores.close()
+        textErores.insert("1.0", escribiendoE)
+        textErores.configure(state="disabled")
+
     else:
         showwarning(title="Advertencia", message="Por favor cargue un archivo")
 
@@ -126,7 +130,7 @@ if __name__ == '__main__':
     textLeer.place(x= 5, y =5, height= 350, width= 440)
 
     textErores = tk.Text()
-    textErores.configure(bg="#BFBF02", state="disabled")
+    textErores.configure(bg="#BFBF02") #, state="disabled"
     textErores.place(x= 455, y =5, height= 350, width= 440)
 
     label1 = tk.Label(menu, text="Archivo abierto", bg="#212F3C", fg="#FFFFFF",width= 20, font=("Arial", 13)).place(x= 125, y =370)
