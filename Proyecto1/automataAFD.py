@@ -378,8 +378,9 @@ class AFD:
             escribiendoEstructura = escribiendoEstructura + "\t},\n"
             iterador +=1
             #print(token.row, token.columna, token.lexema)
-        escribiendoEstructura = escribiendoEstructura +"}"
-        return escribiendoEstructura
+        total = escribiendoEstructura[:-2]  +"\n}"
+        #escribiendoEstructura = total +"\n}"
+        return total
         
     '''
             {

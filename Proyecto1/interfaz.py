@@ -13,17 +13,22 @@ def abrir(event = None):
     global urlAlmacenar
     urlArchivo = filedialog.askopenfilename(initialdir="./", title="Seleccione un Archivo", filetypes=(("Archivo json", "*.json"), ("all files", "*.*")))
     if urlArchivo != "":
+
         leer = open(urlArchivo, "rt")
         urlAlmacenar = urlArchivo
         global almacenar
         almacenar = leer.read()
-        textLeer.insert("1.0", almacenar)
         leer.close()
-        showinfo(title="Abierto", message="Archivo leído exitosamente")
+
+        textLeer.configure(state=tk.NORMAL)
+        textLeer.insert("1.0", almacenar)
+        
         menuArchivo.entryconfig(1,state = tk.NORMAL)
         menuArchivo.entryconfig(2,state = tk.NORMAL)
         menuArchivo.entryconfig(3,state = tk.NORMAL)
         menuArchivo.entryconfig(4,state = tk.NORMAL)
+        
+        showinfo(title="Abierto", message="Archivo leído exitosamente")
     else :
         #showerror(title="Error", message="El tamaño maximo de organismos es: 1000 \nPorfavor ingrese menos organismos")
         showwarning(title="Advertencia", message="No ingresó ningun archivo")
@@ -33,11 +38,12 @@ def guardar(event = None):
     saveArchivo.close()
 
 def guardarComo(event = None):
-    guardar_Como = filedialog.asksaveasfilename(initialdir="./", title="Guardar Como", filetypes=(("Archivo json", "*.json"), ("all files", "*.*")))
+    guardar_Como = filedialog.asksaveasfilename(initialdir="./", title="Guardar Como", filetypes=(("Archivo json", ".json"), ("all files", "*.*")))
     if guardar_Como != "":
-        saveComoArchivo = open(guardar_Como, "w")
+        saveComoArchivo = open(guardar_Como +".json", "w") #+".json"
         saveComoArchivo.write(textLeer.get("1.0","end"))
         saveComoArchivo.close()
+        
         showinfo(title="Guardado", message="Archivo guardado exitosamente")
     else :
         showwarning(title="Advertencia", message="¡Si no guarda el archivo se perderan los datos!")
@@ -71,14 +77,14 @@ def analizar(event = None):
 def errores(event = None):
     global almacenar
     if almacenar != "":
+        textErores.configure(state=tk.NORMAL)
         escribiendoE = enviandoAnalisis.erroresValidados()
-        #la variable escribiendoE recibe el archivo escrito con los errores ahora solo mostrarlo en el Text() y escribirlo en un archivo json
-        archivoErrores = open("ERRORES_201901103","W")
-        archivoErrores.write(escribiendoE)
-        archivoErrores.close()
         textErores.insert("1.0", escribiendoE)
         textErores.configure(state="disabled")
 
+        archivoErrores = open(".\Proyecto1\ERRORES_201901103.json","w")
+        archivoErrores.write(escribiendoE)
+        archivoErrores.close()
     else:
         showwarning(title="Advertencia", message="Por favor cargue un archivo")
 
@@ -93,7 +99,7 @@ def manualTecnico(event = None):
     webbrowser.open_new(pathTecnico)
 
 def temasAyuda(event = None):
-    showinfo(title="Información del desarrollador", message="Josué Daniel Rojché García\nCarnet: 201901103")
+    showinfo(title="Información del desarrollador", message="Josué Daniel Rojché García\nCarnet: 201901103\nLenguajes Formales y de Programación\nSección: A-")
 #\********************************************************************************************************************************
 #Main
 if __name__ == '__main__':
@@ -126,11 +132,11 @@ if __name__ == '__main__':
     barra_Menu.add_cascade(menu= menuAyuda, label= "Ayuda")
 
     textLeer = tk.Text()
-    textLeer.configure(bg="#C8C885")
+    textLeer.configure(bg="#C8C885", state="disabled")
     textLeer.place(x= 5, y =5, height= 350, width= 440)
 
     textErores = tk.Text()
-    textErores.configure(bg="#BFBF02") #, state="disabled"
+    textErores.configure(bg="#BFBF02", state="disabled") #, state="disabled"
     textErores.place(x= 455, y =5, height= 350, width= 440)
 
     label1 = tk.Label(menu, text="Archivo abierto", bg="#212F3C", fg="#FFFFFF",width= 20, font=("Arial", 13)).place(x= 125, y =370)
