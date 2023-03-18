@@ -19,7 +19,7 @@ class AFD:
         # Eliminando espacios y saltos de linea de la cadena
         # texto = texto.replace("\n","")
         # texto = texto.replace(" ","")
-
+        validandoError = False
         # recorriendo el texto
         while len(texto) > 0:
             caracter = texto[0]
@@ -41,9 +41,8 @@ class AFD:
                     self.estadoAnterior = 'q0'
                     self.estadoActual = 'q1'
                 else:
+                    validandoError = True
                     self.almacenarError(caracter)
-                    self.estadoAnterior = 'q0'
-                    self.estadoActual = 'q1'
             # valida cuando se encuentra en el estado q1
             if self.estadoActual == 'q1':
                 if caracter == '{':
@@ -54,12 +53,18 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q1'
                     self.estadoActual = 'q3'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # valida cuando se encuentra en q3 ***************************
             elif self.estadoActual == 'q3':
                 if caracter.lower() in self.letras:
                     tok += caracter
                     self.estadoAnterior = 'q3'
                     self.estadoActual = 'q4'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # valida cuando se encuentra en q4
             elif self.estadoActual == 'q4':
                 if caracter.lower() in self.letras:
@@ -72,21 +77,33 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q4'
                     self.estadoActual = 'q5'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             elif self.estadoActual == 'q5':
                 if caracter == ':':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q5'
                     self.estadoActual = 'q6'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             elif self.estadoActual == 'q6':
                 if caracter == '"':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q6'
                     self.estadoActual = 'q7'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             elif self.estadoActual == 'q7':
                 if caracter.lower() in self.letras:
                     tok += caracter
                     self.estadoAnterior = 'q7'
                     self.estadoActual = 'q8'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # valida cuando se encuentra en q8
             elif self.estadoActual == 'q8':
                 if caracter.lower() in self.letras:
@@ -99,17 +116,25 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q8'
                     self.estadoActual = 'q9'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # valida cuando se encuentra en q9
             elif self.estadoActual == 'q9':
                 if caracter == ',':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q9'
                     self.estadoActual = 'q1'
+                    validandoError = False
                 elif caracter == '}':
                     # estado de aceptación
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q9'
                     self.estadoActual = 'q10'
+                    validandoError = False
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # Aqui termina una parte  ***************************
             # Segunda parte
             # validar estado q2
@@ -118,12 +143,18 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q2'
                     self.estadoActual = 'q11'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validacion estado q11
             elif self.estadoActual == 'q11':
                 if caracter.lower() in self.letras:
                     tok += caracter
                     self.estadoAnterior = 'q11'
                     self.estadoActual = 'q12'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q12
             elif self.estadoActual == 'q12':
                 if caracter.lower() in self.letras:
@@ -136,12 +167,18 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q12'
                     self.estadoActual = 'q13'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q13
             elif self.estadoActual == 'q13':
                 if caracter == ':':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q13'
                     self.estadoActual = 'q14'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q14
             elif self.estadoActual == 'q14':
                 if caracter in self.numeros:
@@ -156,12 +193,18 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q14'
                     self.estadoActual = 'q2'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q15
             elif self.estadoActual == 'q15':
                 if caracter.lower() in self.letras:
                     tok += caracter
                     self.estadoAnterior = 'q15'
                     self.estadoActual = 'q16'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q16
             elif self.estadoActual == 'q16':
                 if caracter.lower() in self.letras:
@@ -174,12 +217,18 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q16'
                     self.estadoActual = 'q17'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q17
             elif self.estadoActual == 'q17':
                 if caracter == ',':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q17'
                     self.estadoActual = 'q2'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q18
             elif self.estadoActual == 'q18':
                 if caracter in self.numeros:
@@ -208,12 +257,18 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q18'
                     self.estadoActual = 'q22'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q19
             elif self.estadoActual == 'q19':
                 if caracter in self.numeros:
                     tok += caracter
                     self.estadoAnterior = 'q19'
                     self.estadoActual = 'q20'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q20
             elif self.estadoActual == 'q20':
                 if caracter in self.numeros:
@@ -238,9 +293,16 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q20'
                     self.estadoActual = 'q22'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q21
             elif self.estadoActual == 'q21':
-                if caracter == '}':
+                if caracter == ']':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'q21'
+                    self.estadoActual = 'q21'
+                elif caracter == '}':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q21'
                     self.estadoActual = 'q22'
@@ -248,20 +310,31 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q21'
                     self.estadoActual = 'q2'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q22
             elif self.estadoActual == 'q22':
                 if caracter == ',':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q22'
                     self.estadoActual = 'q1'
+                    validandoError = False
                     # estado de acpetación
                 elif caracter == '}':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q22'
                     self.estadoActual = 'q23'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # validando estado q24
             elif self.estadoActual == 'q24':
-                if caracter == ',':
+                if caracter == ']':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'q24'
+                    self.estadoActual = 'q24'
+                elif caracter == ',':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q24'
                     self.estadoActual = 'q2'
@@ -269,6 +342,10 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'q24'
                     self.estadoActual = 'q22'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+                
 
             self.columna += 1
             texto = texto[1:]
@@ -284,6 +361,98 @@ class AFD:
         print('-'*31)
         for token in self.tabla:
             print("| {:<4} | {:<7} | {:<20} |".format(token.row, token.columna, token.lexema))
+
+    def erroresValidados(self):
+        escribiendoEstructura = "{\n"
+        iterador = 1
+        agregando = ""
+        for token in self.tablaErrores:
+            agregando = agregando + "\t{\n"
+            agregando = agregando + '\t\t"No.":' +str(iterador) + "\n"
+            agregando = agregando + '\t\t"Descripcion-Token":{\n'
+            agregando = agregando + '\t\t"Lexema": '+ str(token.lexema)+ '\n'
+            agregando = agregando + '\t\t"Tipo": Error\n'
+            agregando = agregando + '\t\t"Columna": '+ str(token.columna)+ '\n'
+            agregando = agregando + '\t\t"Fila": '+ str(token.row)+ '\n'
+            agregando = agregando + "\t\t}\n"
+            agregando = agregando + "\t},\n"
+            iterador +=1
+
+            '''
+            {
+                "No.":1
+                "Descripcion-Token":{
+                "Lexema": ?
+                "Tipo": Error
+                "Columna": 5
+                "Fila": 6
+                }
+            },
+            {
+                "No.":2
+                "Descripcion-Token":{
+                "Lexema": !
+                "Tipo": Error
+                "Columna": 8
+                "Fila": 17
+                }
+            }
+            '''
+            print(token.row, token.columna, token.lexema)
+        escribiendoEstructura = escribiendoEstructura +agregando +"}"
+        return escribiendoEstructura
+    def analizandoSintacticamente(self):
+        #recorrer la tabla y ir validando con ifs anidados para ver los datos que están como frases o como numeros
+        iterar = 0
+        while iterar < len(self.tabla):
+            #valida si viene un  corchete
+            if self.tabla[iterar].lexema == "{":
+                print(self.tabla[iterar].lexema)
+                iterar += 1
+                #valida si el siguiente es una comilla
+                if self.tabla[iterar].lexema == '"':
+                    iterar +=1
+                    if self.tabla[iterar].lexema.lower() == 'operacion':
+                        asignacion_Operacion = ""
+                        iterar +=1
+                        #valida si el que finaliza es una comilla entonces se creó la variable operacion
+                        if self.tabla[iterar].lexema == '"':
+                            iterar +=1
+                            if self.tabla[iterar].lexema == ':':
+                                #aqui se valida si lo ve sigue son comillas para la asignacion de la variable
+                                iterar +=1
+                                if self.tabla[iterar].lexema == '"':
+                                    iterar +=1
+                                    asignacion_Operacion = self.tabla[iterar].lexema
+                                    iterar +=1
+                                    if self.tabla[iterar].lexema == '"':
+                                        iterar +=1
+                                        if self.tabla[iterar].lexema == ',':
+                                            iterar +=1
+                                            continue
+                    #valida si el dato que está almacenado es la asignación de valor
+                    elif self.tabla[iterar].lexema.lower() != 'operacion':
+                        valor1 = ""
+                        iterar += 1
+                        if self.tabla[iterar].lexema == '"':
+                            iterar +=1
+                            if self.tabla[iterar].lexema == ':':
+                                iterar +=1
+                                if self.tabla[iterar].lexema == '[':
+                                    pass
+                                elif self.tabla[iterar].lexema != '[':
+                                    iterar +=1
+                                    valor1 = self.tabla[iterar].lexema
+                                    iterar +=1
+                                    if self.tabla[iterar].lexema == ',':
+                                            iterar +=1
+                                            continue
+                                #Pensar mejor las siguientes validaciones ya que despues de la coma debería de pasar al valor 1 o el valor 2 
+
+
+
+                    if self.tabla[iterar].lexema == "}":
+                        continue
 
     def almacenarError(self, lexemaError):
         newToken1 = Token(self.fila, self.columna, lexemaError)

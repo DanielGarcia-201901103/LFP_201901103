@@ -7,7 +7,11 @@
     "Valor2":[
     "Operacion":"Potencia",
     "Valor1":10,
-    "Valor2":3,
+    "Valor2":[
+        "Operacion":"Suma",
+        "Valor1":10,
+        "Valor2":3
+        ]
     ]},
     {"Operacion":"Suma",
     "Valor1":[

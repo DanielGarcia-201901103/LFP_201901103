@@ -42,6 +42,7 @@ def guardarComo(event = None):
         showwarning(title="Advertencia", message="¡Si no guarda el archivo se perderan los datos!")
 
 def analizar(event = None):
+    #https://docs.python.org/es/3/reference/lexical_analysis.html
     global almacenar
     if almacenar != "":
         enviandoAnalisis = AFD()
@@ -49,15 +50,15 @@ def analizar(event = None):
         enviandoAnalisis.imprimir_tokens()
 
         tablaoperaciones = enviandoAnalisis.tabla
-        print(tablaoperaciones[2].row)
-        print(tablaoperaciones[3].lexema)
+        #print(tablaoperaciones[2].row)
+        #print(tablaoperaciones[3].lexema)
         #validar que cada vez que abra una llave omitiendo la primera llave     del archivo
         #y cuando termine esa llave sea una operacion
         #luego dentro de esa validacion validar si viene corchetes sea otra     operacion y esa operacion se debe realizar primero antes que la     anterior
         contador = 1
         while tablaoperaciones[contador].lexema != "}":
             if tablaoperaciones[contador].lexema.lower() == "operacion":
-                print("operacion")
+                #print("operacion")
                 pass
             contador +=1
 
@@ -70,6 +71,9 @@ def analizar(event = None):
 def errores(event = None):
     global almacenar
     if almacenar != "":
+        enviandoAnalisisErrores = AFD()
+        escribiendoE = enviandoAnalisisErrores.erroresValidados()
+        #la variable escribiendoE recibe el archivo escrito con los errores ahora solo mostrarlo en el Text() y escribirlo en un archivo json
         pass
     else:
         showwarning(title="Advertencia", message="Por favor cargue un archivo")
