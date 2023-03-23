@@ -4,7 +4,8 @@ from tkinter import CENTER, RIGHT, Y, Scrollbar, filedialog, Tk, ttk
 from tkinter.messagebox import showerror, showinfo, showwarning
 import webbrowser
 from automataAFD import AFD 
-from operar import Operaciones
+#import graphviz
+
 almacenar =""
 urlAlmacenar = ""
 enviandoAnalisis = AFD()
@@ -55,9 +56,15 @@ def analizar(event = None):
         try:
             enviandoAnalisis.analizando(almacenar)
             #enviandoAnalisis.imprimir_tokens()
-            enviandoAnalisis.analizandoSintacticamente()
+            
+            operacionesGra = enviandoAnalisis.analizandoSintacticamente()
+            #ESCRIBIENDO .DOT
+            archivoGrafica = open(".\Proyecto1\RESULTADOS_201901103.dot","w")
+            archivoGrafica.write(operacionesGra)
+            archivoGrafica.close()
+
         except Exception as e:
-            pass
+            print(e)
     else:
         showwarning(title="Advertencia", message="Por favor cargue un archivo")
 
