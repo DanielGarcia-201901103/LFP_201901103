@@ -52,25 +52,12 @@ def analizar(event = None):
     #https://docs.python.org/es/3/reference/lexical_analysis.html
     global almacenar
     if almacenar != "":
-        enviandoAnalisis.analizando(almacenar)
-        enviandoAnalisis.imprimir_tokens()
-
-        tablaoperaciones = enviandoAnalisis.tabla
-        #print(tablaoperaciones[2].row)
-        #print(tablaoperaciones[3].lexema)
-        #validar que cada vez que abra una llave omitiendo la primera llave     del archivo
-        #y cuando termine esa llave sea una operacion
-        #luego dentro de esa validacion validar si viene corchetes sea otra     operacion y esa operacion se debe realizar primero antes que la     anterior
-        contador = 1
-        while tablaoperaciones[contador].lexema != "}":
-            if tablaoperaciones[contador].lexema.lower() == "operacion":
-                #print("operacion")
-                pass
-            contador +=1
-
+        try:
+            enviandoAnalisis.analizando(almacenar)
+            #enviandoAnalisis.imprimir_tokens()
+            enviandoAnalisis.analizandoSintacticamente()
+        except Exception as e:
             pass
-        #La siguiente linea servirá para enviar los datos al objeto de  operaciones
-        #operarD = Operaciones(valor1,valor2,tipo)
     else:
         showwarning(title="Advertencia", message="Por favor cargue un archivo")
 

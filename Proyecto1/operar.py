@@ -1,12 +1,18 @@
 import math
 class Operaciones:
-    def __init__(self, valor1, valor2, tipo):
-        self.valor1 = valor1
+    def __init__(self):
+        '''self.valor1 = valor1
         self.valor2 = valor2
-        self.tipoOperacion = tipo
+        self.tipoOperacion = tipo'''
+        pass
     
     def operando(self, valor_1, valor_2, tipoOpera):
         resultado = 0
+        if valor_1 != None:
+            valor_1 = float(valor_1)
+        if valor_2 != None:
+            valor_2 = float(valor_2)
+
         if tipoOpera.lower() == 'suma':
             resultado = valor_1 + valor_2
             return resultado
@@ -72,6 +78,7 @@ class Operaciones:
             resultado = math.tan(convirtiendo2)
             return resultado
         elif tipoOpera.lower() == 'mod':
+            resultado = valor_1 % valor_2
             return resultado
         #MANEJAR LAS OPERACIONES EN BASE A LA TABLA DE TOKENS YA QUE SE DEBE VALIDAR LA JERARQUIA CON LA QUE INGRESAN LOS CALCULOS Y AL REALIZAR CADA CALCULO RETORNAR EL VALOR
         '''
@@ -79,9 +86,10 @@ class Operaciones:
         https://docs.python.org/3.11/library/math.html
         '''
 
-#calculando = Operaciones(1,5,"probando")
+#calculando = Operaciones()
 #funcionan todos los calculos
-#print(calculando.operando(90,0,"tangente"))
-#print(calculando.operando(45,0,"SENO"))
+#res = calculando.operando(90,0,"seno")
+#print(calculando.operando(90,0,"seno"))
+#print(calculando.operando(res,5.32,"suma"))
 #print(calculando.operando(45,0,"coSeno"))
             

@@ -1,9 +1,11 @@
 from token import Token
+from operar import Operaciones
 
 
 class AFD:
     def __init__(self):
-        self.letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-']
+        self.letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q',
+                       'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-']
         self.numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
         self.fila = 0
         self.columna = 0
@@ -13,6 +15,7 @@ class AFD:
         self.tabla = []
         self.tablaErrores = []
         self.auxiliarTexto = ""
+        self.iterar = 1
 
     def analizando(self, texto1):
         tok = ''
@@ -346,7 +349,6 @@ class AFD:
                 else:
                     validandoError = True
                     self.almacenarError(caracter)
-                
 
             self.columna += 1
             texto = texto[1:]
@@ -361,101 +363,273 @@ class AFD:
         print("| {:<4} | {:<7} | {:<20} |".format('Fila', 'Columna', 'Lexema'))
         print('-'*31)
         for token in self.tablaErrores:
-            print("| {:<4} | {:<7} | {:<20} |".format(token.row, token.columna, token.lexema))
+            print("| {:<4} | {:<7} | {:<20} |".format(
+                token.row, token.columna, token.lexema))
 
     def erroresValidados(self):
         escribiendoEstructura = "{\n"
         iterador = 1
         for token in self.tablaErrores:
             escribiendoEstructura = escribiendoEstructura + "\t{\n"
-            escribiendoEstructura = escribiendoEstructura + '\t\t"No.":' +str(iterador) + "\n"
-            escribiendoEstructura = escribiendoEstructura + '\t\t"Descripcion-Token":{\n'
-            escribiendoEstructura = escribiendoEstructura + '\t\t"Lexema": '+ str(token.lexema)+ '\n'
-            escribiendoEstructura = escribiendoEstructura + '\t\t"Tipo": Error\n'
-            escribiendoEstructura = escribiendoEstructura + '\t\t"Columna": '+ str(token.columna)+ '\n'
-            escribiendoEstructura = escribiendoEstructura + '\t\t"Fila": '+ str(token.row)+ '\n'
+            escribiendoEstructura = escribiendoEstructura + \
+                '\t\t"No.":' + str(iterador) + "\n"
+            escribiendoEstructura = escribiendoEstructura + \
+                '\t\t"Descripcion-Token":{\n'
+            escribiendoEstructura = escribiendoEstructura + \
+                '\t\t\t"Lexema": ' + str(token.lexema) + '\n'
+            escribiendoEstructura = escribiendoEstructura + '\t\t\t"Tipo": Error\n'
+            escribiendoEstructura = escribiendoEstructura + \
+                '\t\t\t"Columna": ' + str(token.columna) + '\n'
+            escribiendoEstructura = escribiendoEstructura + \
+                '\t\t\t"Fila": ' + str(token.row) + '\n'
             escribiendoEstructura = escribiendoEstructura + "\t\t}\n"
             escribiendoEstructura = escribiendoEstructura + "\t},\n"
-            iterador +=1
-            #print(token.row, token.columna, token.lexema)
-        total = escribiendoEstructura[:-2]  +"\n}"
-        #escribiendoEstructura = total +"\n}"
+            iterador += 1
+            # print(token.row, token.columna, token.lexema)
+        total = escribiendoEstructura[:-2] + "\n}"
+        # escribiendoEstructura = total +"\n}"
         return total
-        
+
     '''
-            {
-                "No.":1
-                "Descripcion-Token":{
-                "Lexema": ?
-                "Tipo": Error
-                "Columna": 5
-                "Fila": 6
-                }
-            },
-            {
-                "No.":2
-                "Descripcion-Token":{
-                "Lexema": !
-                "Tipo": Error
-                "Columna": 8
-                "Fila": 17
-                }
-            }
+    {"Operacion":"Resta",
+    "Valor1":4.5,
+    "Valor2":[
+    "Operacion":"Potencia",
+    "Valor1":10,
+    "Valor2":[
+        "Operacion":"Suma",
+        "Valor1":10,
+        "Valor2":3
+        ]
+    ]},
+
+    {"Operacion":"Suma",
+    "Valor1":[
+    "Operacion":"Seno",
+    "Valor1":90
+    ],
+    "Valor2":5.32},
+    "Texto":"Realizacion de Operaciones",
+    "Color-Fondo-Nodo":"Yellow",
+    "Color-Fuente-Nodo":"Red",
+    "Forma-Nodo":"Circulo"
             '''
+
     def analizandoSintacticamente(self):
-        #recorrer la tabla y ir validando con ifs anidados para ver los datos que están como frases o como numeros
-        iterar = 0
-        while iterar < len(self.tabla):
-            #valida si viene un  corchete
-            if self.tabla[iterar].lexema == "{":
-                print(self.tabla[iterar].lexema)
-                iterar += 1
-                #valida si el siguiente es una comilla
-                if self.tabla[iterar].lexema == '"':
-                    iterar +=1
-                    if self.tabla[iterar].lexema.lower() == 'operacion':
+        calculando = Operaciones()
+        # recorrer la tabla y ir validando con ifs anidados para ver los datos que están como frases o como numeros
+        self.iterar = 1
+        # valida si viene un  corchete
+        while self.iterar < len(self.tabla):
+            if self.tabla[self.iterar].lexema == "{":
+                print(self.tabla[self.iterar].lexema)
+                self.iterar += 1
+                # valida si el siguiente es una comilla
+                if self.tabla[self.iterar].lexema == '"':
+                    self.iterar += 1
+                    if self.tabla[self.iterar].lexema.lower() == 'operacion':
                         asignacion_Operacion = ""
-                        iterar +=1
-                        #valida si el que finaliza es una comilla entonces se creó la variable operacion
-                        if self.tabla[iterar].lexema == '"':
-                            iterar +=1
-                            if self.tabla[iterar].lexema == ':':
-                                #aqui se valida si lo ve sigue son comillas para la asignacion de la variable
-                                iterar +=1
-                                if self.tabla[iterar].lexema == '"':
-                                    iterar +=1
-                                    asignacion_Operacion = self.tabla[iterar].lexema
-                                    iterar +=1
-                                    if self.tabla[iterar].lexema == '"':
-                                        iterar +=1
-                                        if self.tabla[iterar].lexema == ',':
-                                            iterar +=1
-                                            continue
-                    #valida si el dato que está almacenado es la asignación de valor
-                    elif self.tabla[iterar].lexema.lower() != 'operacion':
-                        valor1 = ""
-                        iterar += 1
-                        if self.tabla[iterar].lexema == '"':
-                            iterar +=1
-                            if self.tabla[iterar].lexema == ':':
-                                iterar +=1
-                                if self.tabla[iterar].lexema == '[':
-                                    pass
-                                elif self.tabla[iterar].lexema != '[':
-                                    iterar +=1
-                                    valor1 = self.tabla[iterar].lexema
-                                    iterar +=1
-                                    if self.tabla[iterar].lexema == ',':
-                                            iterar +=1
-                                            continue
-                                #Pensar mejor las siguientes validaciones ya que despues de la coma debería de pasar al valor 1 o el valor 2 
+                        self.iterar += 1
+                        # valida si el que finaliza es una comilla entonces se creó la variable operacion
+                        if self.tabla[self.iterar].lexema == '"':
+                            self.iterar += 1
+                            if self.tabla[self.iterar].lexema == ':':
+                                # aqui se valida si lo ve sigue son comillas para la asignacion de la variable
+                                self.iterar += 1
+                                if self.tabla[self.iterar].lexema == '"':
+                                    self.iterar += 1
+                                    asignacion_Operacion = self.tabla[self.iterar].lexema
+                                    print(asignacion_Operacion)
+                                    self.iterar += 1
+                                    if self.tabla[self.iterar].lexema == '"':
+                                        self.iterar += 1
+                                        if self.tabla[self.iterar].lexema == ',':
+                                            self.iterar += 1
+                                            if self.tabla[self.iterar].lexema == '"':
+                                                self.iterar += 1
+                                                if self.tabla[self.iterar].lexema.lower() == 'valor1':
+                                                    valor1 = ""
+                                                    self.iterar += 1
+                                                    if self.tabla[self.iterar].lexema == '"':
+                                                        self.iterar += 1
+                                                        if self.tabla[self.iterar].lexema == ':':
+                                                            self.iterar += 1
+                                                            if self.tabla[self.iterar].lexema == '[':
+                                                                resultado_valor1 = self.operacionAnidada()
+                                                                print(resultado_valor1)
+                                                                if self.tabla[self.iterar].lexema == ']':
+                                                                    self.iterar += 1
+                                                                    if self.tabla[self.iterar].lexema == ',':
+                                                                        self.iterar += 1
+                                                                        if self.tabla[self.iterar].lexema == '"':
+                                                                            self.iterar += 1
+                                                                            if self.tabla[self.iterar].lexema.lower() == 'valor2':
+                                                                                valor2 = ""
+                                                                                self.iterar += 1
+                                                                                if self.tabla[self.iterar].lexema == '"':
+                                                                                    self.iterar += 1
+                                                                                    if self.tabla[self.iterar].lexema == ':':
+                                                                                        self.iterar += 1
+                                                                                        if self.tabla[self.iterar].lexema == '[':
+                                                                                            resultado_valor2 = self.operacionAnidada()
+                                                                                            print(resultado_valor2)
+                                                                                            resultadoCalculos = calculando.operando(resultado_valor1, resultado_valor2, asignacion_Operacion)
+                                                                                            print("Resultado: " + str(resultadoCalculos))
+                                                                                            if self.tabla[self.iterar].lexema == ']':
+                                                                                                self.iterar += 1
+                                                                                                if self.tabla[self.iterar].lexema == ']':
+                                                                                                    self.iterar += 1
+                                                                                                elif self.tabla[self.iterar].lexema == '}':
+                                                                                                    print(self.tabla[self.iterar].lexema)
+                                                                                                    self.iterar += 1
+                                                                                        else:
+                                                                                            valor2 = self.tabla[self.iterar].lexema
+                                                                                            print(valor2)
+                                                                                            self.iterar += 1
+                                                                                            resultadoCalculos = calculando.operando(resultado_valor1, valor2, asignacion_Operacion)
+                                                                                            print("Resultado: " + str(resultadoCalculos))
+                                                                                            if self.tabla[self.iterar].lexema == '}':
+                                                                                                print(self.tabla[self.iterar].lexema)
+                                                                                                self.iterar += 1
+                                                                    
+                                                            else:
+                                                                valor1 = self.tabla[self.iterar].lexema
+                                                                print(valor1)
+                                                                self.iterar += 1
+                                                                if self.tabla[self.iterar].lexema == ',':
+                                                                    self.iterar += 1
+                                                                    if self.tabla[self.iterar].lexema == '"':
+                                                                        self.iterar += 1
+                                                                        if self.tabla[self.iterar].lexema.lower() == 'valor2':
+                                                                            valor2 = ""
+                                                                            self.iterar += 1
+                                                                            if self.tabla[self.iterar].lexema == '"':
+                                                                                self.iterar += 1
+                                                                                if self.tabla[self.iterar].lexema == ':':
+                                                                                    self.iterar += 1
+                                                                                    if self.tabla[self.iterar].lexema == '[':
+                                                                                        resultado_valor2 = self.operacionAnidada()
+                                                                                        print(resultado_valor2)
+                                                                                        resultadoCalculos = calculando.operando(valor1, resultado_valor2, asignacion_Operacion)
+                                                                                        print("Resultado: " + str(resultadoCalculos))
+                                                                                        if self.tabla[self.iterar].lexema == ']':
+                                                                                            self.iterar += 1
+                                                                                            if self.tabla[self.iterar].lexema == '}':
+                                                                                                print(
+                                                                                                    self.tabla[self.iterar].lexema)
+                                                                                                self.iterar += 1
+                                                                                    else:
+                                                                                        valor2 = self.tabla[self.iterar].lexema
+                                                                                        print(valor2)
+                                                                                        resultadoCalculos = calculando.operando(valor1, valor2, asignacion_Operacion)
+                                                                                        print("Resultado: " + str(resultadoCalculos))
+                                                                                        self.iterar += 1
+                                                                                        if self.tabla[self.iterar].lexema == '}':
+                                                                                            print(self.tabla[self.iterar].lexema)
+                                                                                            self.iterar += 1
+            self.iterar += 1
+        # print(asignacion_Operacion)
 
-
-
-                    if self.tabla[iterar].lexema == "}":
-                        continue
+    def operacionAnidada(self):
+        calculando = Operaciones()
+        self.iterar +=1
+        #valida si el siguiente es una comilla
+        if self.tabla[self.iterar].lexema == '"':
+            self.iterar +=1
+            if self.tabla[self.iterar].lexema.lower() == 'operacion':
+                asignacion_Operacion = ""
+                self.iterar +=1
+                #valida si el que finaliza es una comilla entonces se creó la variable operacion
+                if self.tabla[self.iterar].lexema == '"':
+                    self.iterar +=1
+                    if self.tabla[self.iterar].lexema == ':':
+                        #aqui se valida si lo ve sigue son comillas para la asignacion de la variable
+                        self.iterar +=1
+                        if self.tabla[self.iterar].lexema == '"':
+                            self.iterar +=1
+                            asignacion_Operacion = self.tabla[self.iterar].lexema
+                            print(asignacion_Operacion)
+                            self.iterar +=1
+                            if self.tabla[self.iterar].lexema == '"':
+                                self.iterar +=1
+                                if self.tabla[self.iterar].lexema == ',':
+                                    self.iterar +=1
+                                    if self.tabla[self.iterar].lexema == '"':
+                                        self.iterar +=1
+                                        if self.tabla[self.iterar].lexema.lower() == 'valor1':
+                                            valor1 = ""
+                                            self.iterar += 1
+                                            if self.tabla[self.iterar].lexema == '"':
+                                                self.iterar +=1
+                                                if self.tabla[self.iterar].lexema == ':':
+                                                    self.iterar +=1
+                                                    if self.tabla[self.iterar].lexema == '[':
+                                                        resultado_valor1 = self.operacionAnidada()
+                                                        print(resultado_valor1)
+                                                        if self.tabla[self.iterar].lexema == ']':
+                                                            self.iterar += 1
+                                                            if self.tabla[self.iterar].lexema == ',':
+                                                                self.iterar += 1
+                                                                if self.tabla[self.iterar].lexema == '"':
+                                                                    self.iterar += 1
+                                                                    if self.tabla[self.iterar].lexema.lower() == 'valor2':
+                                                                        valor2 = ""
+                                                                        self.iterar += 1
+                                                                        if self.tabla[self.iterar].lexema == '"':
+                                                                            self.iterar += 1
+                                                                            if self.tabla[self.iterar].lexema == ':':
+                                                                                self.iterar += 1
+                                                                                if self.tabla[self.iterar].lexema == '[':
+                                                                                    resultado_valor2 = self.operacionAnidada()
+                                                                                    print(resultado_valor2)
+                                                                                    resultadoCalculos = calculando.operando(resultado_valor1, resultado_valor2, asignacion_Operacion)
+                                                                                    print("Resultado: " + str(resultadoCalculos))
+                                                                                    return resultadoCalculos
+                                                                                else:
+                                                                                    valor2 = self.tabla[self.iterar].lexema
+                                                                                    print(valor2)
+                                                                                    self.iterar += 1
+                                                                                    resultadoCalculos = calculando.operando(resultado_valor1, valor2, asignacion_Operacion)
+                                                                                    print("Resultado: " + str(resultadoCalculos))
+                                                                                    return resultadoCalculos
+                                                            else:
+                                                                resultadoCalculos = calculando.operando(resultado_valor1, None, asignacion_Operacion)
+                                                                print("Resultado: " + str(resultadoCalculos))
+                                                                return resultadoCalculos
+                                                    else:
+                                                        valor1 = self.tabla[self.iterar].lexema
+                                                        print(valor1)
+                                                        self.iterar +=1
+                                                        if self.tabla[self.iterar].lexema == ',':
+                                                            self.iterar +=1
+                                                            if self.tabla[self.iterar].lexema == '"':
+                                                                self.iterar +=1
+                                                                if self.tabla[self.iterar].lexema.lower() == 'valor2':
+                                                                    valor2 = ""
+                                                                    self.iterar += 1
+                                                                    if self.tabla[self.iterar].lexema == '"':
+                                                                        self.iterar +=1
+                                                                        if self.tabla[self.iterar].lexema == ':':
+                                                                            self.iterar +=1
+                                                                            if self.tabla[self.iterar].lexema == '[':
+                                                                                resultado_valor2 = self.operacionAnidada() 
+                                                                                print(resultado_valor2)
+                                                                                resultadoCalculos = calculando.operando(valor1, resultado_valor2, asignacion_Operacion)
+                                                                                print("Resultado: " + str(resultadoCalculos))
+                                                                                return resultadoCalculos
+                                                                            else:
+                                                                                valor2 = self.tabla[self.iterar].lexema
+                                                                                print(valor2)
+                                                                                resultadoCalculos = calculando.operando(valor1, valor2, asignacion_Operacion)
+                                                                                print("Resultado: " + str(resultadoCalculos))
+                                                                                self.iterar +=1
+                                                                                return resultadoCalculos
+                                                        else:
+                                                            resultadoCalculos = calculando.operando(valor1, None, asignacion_Operacion)
+                                                            print("Resultado: " + str(resultadoCalculos))
+                                                            return resultadoCalculos
 
     def almacenarError(self, lexemaError):
         newToken1 = Token(self.fila, self.columna, lexemaError)
         self.tablaErrores.append(newToken1)
-#https://www.ibidemgroup.com/edu/traduccion-automatica-python/    para traducir idiomas
+# https://www.ibidemgroup.com/edu/traduccion-automatica-python/    para traducir idiomas
