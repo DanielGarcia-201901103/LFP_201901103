@@ -6,45 +6,34 @@ digraph G {
             margin = 0.1
             node [style=filled,color=white, shape = circle];
             edge[arrowhead = vee];
-            d0  [label = "Suma
+                                                                                            d0  [label = "Suma
 9.82"];d1  [label = "4.5"];
-            d2  [label = "5.32"];
-            d0 -> d1;
-            d0 -> d2;
-            
-            node [style=filled,color=white, shape = circle];
-            edge[arrowhead = vee];
-            i0  [label = "Suma
+                                                                                            d2  [label = "5.32"];
+                                                                                            d0 -> d1;
+                                                                                            d0 -> d2;
+                                                                                            
+                                                                                            i0  [label = "Suma
 3.0"];i1  [label = "1"];
-            i2  [label = "2"];
-            i0 -> i1;
-            i0 -> i2;
-            
-            node [style=filled,color=white, shape = circle];
-            edge[arrowhead = vee];
-            h0  [label = "Potencia
+                                                                                            i2  [label = "2"];
+                                                                                            i0 -> i1;
+                                                                                            i0 -> i2;
+                                                                                            
+                                                                                            h0  [label = "Potencia
 1000.0"];h1  [label = "10"];
-            h0 -> h1;
-            h0 -> i0;
-
-            node [style=filled,color=white, shape = circle];
-            edge[arrowhead = vee];
-            c0  [label = "Resta
+                                                                                            h0 -> h1;
+                                                                                            h0 ->i0;
+                                                                                            c0  [label = "Resta
 -995.5"];c1  [label = "4.5"];
-            c0 -> c1;
-            c0 -> h0;
-            
-            node [style=filled,color=white, shape = circle];
-            edge[arrowhead = vee];
-            j0  [label = "Seno
+                                                                                            c0 -> c1;
+                                                                                            c0 ->h0;
+                                                                                            
+                                                                                            j0  [label = "Seno
 1.0"];j1  [label = "90"];
-            j0 -> j1;
-            
-            node [style=filled,color=white, shape = circle];
-            edge[arrowhead = vee];
-            b0  [label = "Suma
+                                                                                            j0 -> j1;
+                                                                                            
+                                                                                            b0  [label = "Suma
 6.32"];
-            b2  [label = "5.32"];
-            b0 -> j0;
-            b0 -> b2;
-    }
+                                                                                            b2  [label = "5.32"];
+                                                                                            b0 ->j0;
+                                                                                            b0 -> b2;
+                                                                                            }
