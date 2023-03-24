@@ -1,9 +1,6 @@
 import math
 class Operaciones:
     def __init__(self):
-        '''self.valor1 = valor1
-        self.valor2 = valor2
-        self.tipoOperacion = tipo'''
         pass
     
     def operando(self, valor_1, valor_2, tipoOpera):

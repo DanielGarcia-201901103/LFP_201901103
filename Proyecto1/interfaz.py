@@ -33,6 +33,7 @@ def abrir(event = None):
     else :
         #showerror(title="Error", message="El tamaño maximo de organismos es: 1000 \nPorfavor ingrese menos organismos")
         showwarning(title="Advertencia", message="No ingresó ningun archivo")
+
 def guardar(event = None):
     saveArchivo = open(urlAlmacenar, "w")
     saveArchivo.write(textLeer.get("1.0","end"))
@@ -66,7 +67,7 @@ def analizar(event = None):
             pathOperaciones = ".\Proyecto1\RESULTADOS_201901103.pdf"
             webbrowser.open_new(pathOperaciones)
         except Exception as e:
-            print(e)
+            pass
     else:
         showwarning(title="Advertencia", message="Por favor cargue un archivo")
 

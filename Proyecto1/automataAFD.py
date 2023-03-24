@@ -1,6 +1,5 @@
 from token import Token
 from operar import Operaciones
-#import graphviz
 
 class AFD:
     def __init__(self):
