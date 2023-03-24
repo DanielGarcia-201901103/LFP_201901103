@@ -1,4 +1,4 @@
-import sys
+import os
 import tkinter as tk
 from tkinter import CENTER, RIGHT, Y, Scrollbar, filedialog, Tk, ttk
 from tkinter.messagebox import showerror, showinfo, showwarning
@@ -62,7 +62,9 @@ def analizar(event = None):
             archivoGrafica = open(".\Proyecto1\RESULTADOS_201901103.dot","w")
             archivoGrafica.write(operacionesGra)
             archivoGrafica.close()
-
+            os.system("dot -Tpdf .\Proyecto1\RESULTADOS_201901103.dot -o  .\Proyecto1\RESULTADOS_201901103.pdf")
+            pathOperaciones = ".\Proyecto1\RESULTADOS_201901103.pdf"
+            webbrowser.open_new(pathOperaciones)
         except Exception as e:
             print(e)
     else:
@@ -79,17 +81,18 @@ def errores(event = None):
         archivoErrores = open(".\Proyecto1\ERRORES_201901103.json","w")
         archivoErrores.write(escribiendoE)
         archivoErrores.close()
+        
     else:
         showwarning(title="Advertencia", message="Por favor cargue un archivo")
 
 #\********************************************************************************************************************************
 #Metodos y funciones para la seccion de Ayuda ************************************************************************************
 def manualUsuario(event = None):
-    pathUsuario = "Proyecto1\Documentacion\Manual Usuario.pdf"
+    pathUsuario = ".\Proyecto1\Documentacion\Manual Usuario.pdf"
     webbrowser.open_new(pathUsuario)
 
 def manualTecnico(event = None):
-    pathTecnico = "Proyecto1\Documentacion\Manual Tecnico.pdf"
+    pathTecnico = ".\Proyecto1\Documentacion\Manual Tecnico.pdf"
     webbrowser.open_new(pathTecnico)
 
 def temasAyuda(event = None):

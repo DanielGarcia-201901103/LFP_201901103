@@ -1,0 +1,65 @@
+{
+	{
+		"No.":1
+		"Descripcion-Token":{
+			"Lexema": ?
+			"Tipo": Error
+			"Columna": 4
+			"Fila": 1
+		}
+	},
+	{
+		"No.":2
+		"Descripcion-Token":{
+			"Lexema": .
+			"Tipo": Error
+			"Columna": 16
+			"Fila": 2
+		}
+	},
+	{
+		"No.":3
+		"Descripcion-Token":{
+			"Lexema": %
+			"Tipo": Error
+			"Columna": 9
+			"Fila": 17
+		}
+	},
+	{
+		"No.":4
+		"Descripcion-Token":{
+			"Lexema": $
+			"Tipo": Error
+			"Columna": 30
+			"Fila": 18
+		}
+	},
+	{
+		"No.":5
+		"Descripcion-Token":{
+			"Lexema": *
+			"Tipo": Error
+			"Columna": 25
+			"Fila": 20
+		}
+	},
+	{
+		"No.":6
+		"Descripcion-Token":{
+			"Lexema": *
+			"Tipo": Error
+			"Columna": 26
+			"Fila": 20
+		}
+	},
+	{
+		"No.":7
+		"Descripcion-Token":{
+			"Lexema": *
+			"Tipo": Error
+			"Columna": 27
+			"Fila": 20
+		}
+	}
+}

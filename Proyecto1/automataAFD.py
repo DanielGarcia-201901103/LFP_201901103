@@ -390,36 +390,17 @@ class AFD:
         # escribiendoEstructura = total +"\n}"
         return total
 
-    '''
-    {"Operacion":"Suma",
-    "Valor1":[
-    "Operacion":"Seno",
-    "Valor1":90
-    ],
-    "Valor2":5.32},
-    "Texto":"Realizacion de Operaciones",
-    "Color-Fondo-Nodo":"Yellow",
-    "Color-Fuente-Nodo":"Red",
-    "Forma-Nodo":"Circulo"
-            '''
+    
 
     def analizandoSintacticamente(self):
-        self.escribiendoGrafica = '''digraph G {
-            rankdir=LR
-            size= 8.5
-            ranksep=1
-            bgcolor = lightgoldenrodyellow
-            margin = 0.1
-            node [style=filled,color=white, shape = circle];
-            edge[arrowhead = vee];'''
-
-        #grafo = graphviz.Digraph('graficaOperaciones',filename ='graficaOperaciones.dot')
-        #grafo.attr(rankdir = 'LR',size='8,5', ranksep="2", bgcolor = "lightgoldenrodyellow", margin = "0.1")
-        #grafo.attr('node', shape= 'circle',style="filled", color="black",fillcolor="lightsalmon")
-        #grafo.node(asignacion_Operacion,"lo que se muestra en el nodo")
-        #grafo.attr('node', shape= 'circle', style="filled", color="black",fillcolor="lightsalmon")
-        #grafo.edge(""+':e', "", arrowhead = 'vee')
-        #grafo.attr('node',style='', color='')
+        self.iniciandoEsGrafica = '''digraph G {
+        rankdir=LR
+        size= 8.5
+        ranksep=1
+        bgcolor = lightgoldenrodyellow
+        margin = 0.1
+        edge[arrowhead = vee];'''
+        self.escribiendoGrafica = ""
         calculando = Operaciones()
         # recorrer la tabla y ir validando con ifs anidados para ver los datos que están como frases o como numeros
         self.iterar = 1
@@ -482,10 +463,9 @@ class AFD:
                                                                                             print("Resultado: " + str(resultadoCalculos))
                                                                                             enlace2 = self.enlaceNodosSub
                                                                                             self.escribiendoGrafica = self.escribiendoGrafica +'''
-                                                                                            a0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-                                                                                            a0 ->'''+ enlace1 +''';
-                                                                                            a0 ->'''+ enlace2 +''';
-                                                                                            '''
+    a0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    a0 ->'''+ enlace1 +''';
+    a0 ->'''+ enlace2 +''';'''
                                                                                             if self.tabla[self.iterar].lexema == ']':
                                                                                                 self.iterar += 1
                                                                                                 if self.tabla[self.iterar].lexema == ']':
@@ -502,11 +482,10 @@ class AFD:
                                                                                             print("Resultado: " + str(resultadoCalculos))
 
                                                                                             self.escribiendoGrafica = self.escribiendoGrafica + '''
-                                                                                            b0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-                                                                                            b2  [label = "'''+str(valor2)+'''"];
-                                                                                            b0 ->'''+ enlace1 +''';
-                                                                                            b0 -> b2;
-                                                                                            '''
+    b0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    b2  [label = "'''+str(valor2)+'''"];
+    b0 ->'''+ enlace1 +''';
+    b0 -> b2;'''
                                                                                             if self.tabla[self.iterar].lexema == '}':
                                                                                                 print(self.tabla[self.iterar].lexema)
                                                                                                 self.iterar += 1
@@ -533,15 +512,14 @@ class AFD:
                                                                                         print("Resultado: " + str(resultadoCalculos))
                                                                                         enlace2 = self.enlaceNodosSub
                                                                                         self.escribiendoGrafica = self.escribiendoGrafica + '''
-                                                                                            c0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];c1  [label = "'''+str(valor1)+'''"];
-                                                                                            c0 -> c1;
-                                                                                            c0 ->'''+ enlace2 +''';
-                                                                                            '''
+    c0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    c1  [label = "'''+str(valor1)+'''"];
+    c0 -> c1;
+    c0 ->'''+ enlace2 +''';'''
                                                                                         if self.tabla[self.iterar].lexema == ']':
                                                                                             self.iterar += 1
                                                                                             if self.tabla[self.iterar].lexema == '}':
-                                                                                                print(
-                                                                                                    self.tabla[self.iterar].lexema)
+                                                                                                print(self.tabla[self.iterar].lexema)
                                                                                                 self.iterar += 1
                                                                                     else:
                                                                                         valor2 = self.tabla[self.iterar].lexema
@@ -550,21 +528,87 @@ class AFD:
                                                                                         print("Resultado: " + str(resultadoCalculos))
 
                                                                                         self.escribiendoGrafica = self.escribiendoGrafica + '''
-                                                                                            d0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];d1  [label = "'''+str(valor1)+'''"];
-                                                                                            d2  [label = "'''+str(valor2)+'''"];
-                                                                                            d0 -> d1;
-                                                                                            d0 -> d2;
-                                                                                            '''
+    d0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    d1  [label = "'''+str(valor1)+'''"];
+    d2  [label = "'''+str(valor2)+'''"];
+    d0 -> d1;
+    d0 -> d2;'''
                                                                                         self.iterar += 1
                                                                                         if self.tabla[self.iterar].lexema == '}':
                                                                                             print(self.tabla[self.iterar].lexema)
                                                                                             self.iterar += 1
-            
+            elif self.tabla[self.iterar].lexema == '"':
+                    self.iterar += 1
+                    if self.tabla[self.iterar].lexema.lower() == 'texto':
+                        asignacion_texto = ""
+                        self.iterar += 1
+                        # valida si el que finaliza es una comilla entonces se creó la variable operacion
+                        if self.tabla[self.iterar].lexema == '"':
+                            self.iterar += 1
+                            if self.tabla[self.iterar].lexema == ':':
+                                # aqui se valida si lo ve sigue son comillas para la asignacion de la variable
+                                self.iterar += 1
+                                if self.tabla[self.iterar].lexema == '"':
+                                    self.iterar += 1
+                                    asignacion_texto = self.tabla[self.iterar].lexema
+                                    print(asignacion_texto)
+                                    self.iterar += 1
+                                    if self.tabla[self.iterar].lexema == '"':
+                                        continue
+                    elif self.tabla[self.iterar].lexema.lower() == 'color-fondo-nodo':
+                        asignacion_ColorFondo = ""
+                        self.iterar += 1
+                        # valida si el que finaliza es una comilla entonces se creó la variable operacion
+                        if self.tabla[self.iterar].lexema == '"':
+                            self.iterar += 1
+                            if self.tabla[self.iterar].lexema == ':':
+                                # aqui se valida si lo ve sigue son comillas para la asignacion de la variable
+                                self.iterar += 1
+                                if self.tabla[self.iterar].lexema == '"':
+                                    self.iterar += 1
+                                    asignacion_ColorFondo = self.tabla[self.iterar].lexema
+                                    print(asignacion_ColorFondo)
+                                    self.iterar += 1
+                                    if self.tabla[self.iterar].lexema == '"':
+                                        continue
+                    elif self.tabla[self.iterar].lexema.lower() == 'color-fuente-nodo':
+                        asignacion_ColorFuente = ""
+                        self.iterar += 1
+                        # valida si el que finaliza es una comilla entonces se creó la variable operacion
+                        if self.tabla[self.iterar].lexema == '"':
+                            self.iterar += 1
+                            if self.tabla[self.iterar].lexema == ':':
+                                # aqui se valida si lo ve sigue son comillas para la asignacion de la variable
+                                self.iterar += 1
+                                if self.tabla[self.iterar].lexema == '"':
+                                    self.iterar += 1
+                                    asignacion_ColorFuente = self.tabla[self.iterar].lexema
+                                    print(asignacion_ColorFuente)
+                                    self.iterar += 1
+                                    if self.tabla[self.iterar].lexema == '"':
+                                        continue
+                    elif self.tabla[self.iterar].lexema.lower() == 'forma-nodo':
+                        asignacion_Forma = ""
+                        self.iterar += 1
+                        # valida si el que finaliza es una comilla entonces se creó la variable operacion
+                        if self.tabla[self.iterar].lexema == '"':
+                            self.iterar += 1
+                            if self.tabla[self.iterar].lexema == ':':
+                                # aqui se valida si lo ve sigue son comillas para la asignacion de la variable
+                                self.iterar += 1
+                                if self.tabla[self.iterar].lexema == '"':
+                                    self.iterar += 1
+                                    asignacion_Forma = self.tabla[self.iterar].lexema.lower() 
+                                    print(asignacion_Forma)
+                                    self.iterar += 1
+                                    if self.tabla[self.iterar].lexema == '"':
+                                        continue
             self.iterar += 1
-        #grafo.view(filename ="graficaOperaciones.dot" ,directory="./Proyecto1")
-        # print(asignacion_Operacion)
-        self.escribiendoGrafica = self.escribiendoGrafica + "}"
-        return self.escribiendoGrafica
+        self.iniciandoEsGrafica = self.iniciandoEsGrafica + 'node [style=filled,color='+asignacion_ColorFondo+', shape = '+asignacion_Forma+',fontcolor= '+asignacion_ColorFuente+'];\n\t\tlabel = "'+asignacion_texto+'";'
+        #self.escribiendoGrafica = self.escribiendoGrafica + "}"
+        self.iniciandoEsGrafica = self.iniciandoEsGrafica+self.escribiendoGrafica + "}"
+
+        return self.iniciandoEsGrafica
     def operacionAnidada(self):
         calculando = Operaciones()
         self.iterar +=1
@@ -622,10 +666,9 @@ class AFD:
                                                                                     print("Resultado: " + str(resultadoCalculos))
                                                                                     enlace2 = self.enlaceNodosSub
                                                                                     self.escribiendoGrafica = self.escribiendoGrafica + '''
-                                                                                            e0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-                                                                                            e0 ->'''+ enlace1 +''';
-                                                                                            e0 ->'''+ enlace2 +''';
-                                                                                            '''
+    e0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    e0 ->'''+ enlace1 +''';
+    e0 ->'''+ enlace2 +''';'''
 
                                                                                     self.enlaceNodosSub = "e0"
                                                                                     return resultadoCalculos
@@ -637,19 +680,18 @@ class AFD:
                                                                                     print("Resultado: " + str(resultadoCalculos))
                                                                                     
                                                                                     self.escribiendoGrafica = self.escribiendoGrafica + '''
-                                                                                            f0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];f2  [label = "'''+str(valor2)+'''"];
-                                                                                            f0 ->'''+ enlace1 +''';
-                                                                                            f0 -> f2;
-                                                                                            '''
+    f0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"]
+    f2  [label = "'''+str(valor2)+'''"];
+    f0 ->'''+ enlace1 +''';
+    f0 -> f2;'''
                                                                                     self.enlaceNodosSub = "f0"
                                                                                     return resultadoCalculos
                                                             else:
                                                                 resultadoCalculos = calculando.operando(resultado_valor1, None, asignacion_Operacion)
                                                                 print("Resultado: " + str(resultadoCalculos))
                                                                 self.escribiendoGrafica = self.escribiendoGrafica + '''
-                                                                                            g0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-                                                                                            g0 ->'''+ enlace1 +''';
-                                                                                            '''
+    g0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    g0 ->'''+ enlace1 +''';'''
                                                                 self.enlaceNodosSub = "g0"
                                                                 return resultadoCalculos
                                                     else:
@@ -674,9 +716,10 @@ class AFD:
                                                                                 print("Resultado: " + str(resultadoCalculos))
                                                                                 enlace2 = self.enlaceNodosSub
                                                                                 self.escribiendoGrafica = self.escribiendoGrafica + '''
-                                                                                            h0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];h1  [label = "'''+str(valor1)+'''"];
-                                                                                            h0 -> h1;
-                                                                                            h0 ->'''+ enlace2 +';'
+    h0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    h1  [label = "'''+str(valor1)+'''"];
+    h0 -> h1;
+    h0 ->'''+ enlace2 +';'
                                                                                 self.enlaceNodosSub = "h0"
                                                                                 return resultadoCalculos
                                                                             else:
@@ -685,11 +728,11 @@ class AFD:
                                                                                 resultadoCalculos = calculando.operando(valor1, valor2, asignacion_Operacion)
                                                                                 print("Resultado: " + str(resultadoCalculos))
                                                                                 self.escribiendoGrafica = self.escribiendoGrafica + '''
-                                                                                            i0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];i1  [label = "'''+str(valor1)+'''"];
-                                                                                            i2  [label = "'''+str(valor2)+'''"];
-                                                                                            i0 -> i1;
-                                                                                            i0 -> i2;
-                                                                                            '''
+    i0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"]
+    i1  [label = "'''+str(valor1)+'''"];
+    i2  [label = "'''+str(valor2)+'''"];
+    i0 -> i1;
+    i0 -> i2;'''
                                                                                 self.enlaceNodosSub = "i0"
                                                                                 self.iterar +=1
                                                                                 return resultadoCalculos
@@ -697,9 +740,9 @@ class AFD:
                                                             resultadoCalculos = calculando.operando(valor1, None, asignacion_Operacion)
                                                             print("Resultado: " + str(resultadoCalculos))
                                                             self.escribiendoGrafica = self.escribiendoGrafica + '''
-                                                                                            j0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];j1  [label = "'''+str(valor1)+'''"];
-                                                                                            j0 -> j1;
-                                                                                            '''
+    j0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    j1  [label = "'''+str(valor1)+'''"];
+    j0 -> j1;'''
                                                             self.enlaceNodosSub = "j0"
                                                             return resultadoCalculos
 
