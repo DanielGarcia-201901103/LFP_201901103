@@ -35,10 +35,13 @@ def abrir(event = None):
         showwarning(title="Advertencia", message="No ingresó ningun archivo")
 
 def guardar(event = None):
+    global almacenar
     saveArchivo = open(urlAlmacenar, "w")
     saveArchivo.write(textLeer.get("1.0","end"))
     saveArchivo.close()
-
+    
+    almacenar = str(textLeer.get("1.0","end"))
+    
 def guardarComo(event = None):
     guardar_Como = filedialog.asksaveasfilename(initialdir="./", title="Guardar Como", filetypes=(("Archivo json", ".json"), ("all files", "*.*")))
     if guardar_Como != "":
@@ -67,7 +70,8 @@ def analizar(event = None):
             pathOperaciones = ".\Proyecto1\RESULTADOS_201901103.pdf"
             webbrowser.open_new(pathOperaciones)
         except Exception as e:
-            pass
+            showerror(title="Error", message="Por favor corregir los errores\nluego guarde el archivo nuevamente")
+            
     else:
         showwarning(title="Advertencia", message="Por favor cargue un archivo")
 
@@ -82,18 +86,24 @@ def errores(event = None):
         archivoErrores = open(".\Proyecto1\ERRORES_201901103.json","w")
         archivoErrores.write(escribiendoE)
         archivoErrores.close()
-        
+
+        enviandoAnalisis.limpiarDatos()
     else:
         showwarning(title="Advertencia", message="Por favor cargue un archivo")
 
+def inicializar():
+    global almacenar
+    almacenar = ""
+    enviandoAnalisis.limpiarDatos()
+    textErores.delete("1.0","end")
 #\********************************************************************************************************************************
 #Metodos y funciones para la seccion de Ayuda ************************************************************************************
 def manualUsuario(event = None):
-    pathUsuario = ".\Proyecto1\Documentacion\Manual Usuario.pdf"
+    pathUsuario = "Proyecto1\Documentacion\Manual Usuario.pdf"
     webbrowser.open_new(pathUsuario)
 
 def manualTecnico(event = None):
-    pathTecnico = ".\Proyecto1\Documentacion\Manual Tecnico.pdf"
+    pathTecnico = "Proyecto1\Documentacion\Manual Tecnico.pdf"
     webbrowser.open_new(pathTecnico)
 
 def temasAyuda(event = None):
@@ -117,6 +127,8 @@ if __name__ == '__main__':
     menuArchivo.add_command(label="Guardar Como", command=guardarComo, state=tk.DISABLED)
     menuArchivo.add_command(label="Analizar", command= analizar, state=tk.DISABLED)
     menuArchivo.add_command(label="Errores", command= errores, state=tk.DISABLED)
+    menuArchivo.add_separator()
+    menuArchivo.add_command(label="Inicializar", command= inicializar)
     menuArchivo.add_separator()
     menuArchivo.add_command(label="Salir", command=menu.quit, activebackground="Red")
 

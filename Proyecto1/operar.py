@@ -36,29 +36,33 @@ class Operaciones:
             try:
                 if valor_1 >= 0: 
                     resultado = math.sqrt(valor_1)
+                    return resultado
                 else:
                     return "No acepta negativos"
             except Exception as e:
                 return e
-            else:
-                return resultado
         elif tipoOpera.lower() == 'inverso':
             try:
                 if valor_1 !=0:
                     if valor_1 > 1:
                         resultado = "1" + "/" + str(valor_1)
+                        return resultado
                     elif valor_1 < -1:
                         resultado = "-1" + "/" + str(valor_1 * -1)
+                        return resultado
                     elif valor_1 < 0 and valor_1 > -1:
                         resultado = 1/valor_1
+                        return resultado
                     elif valor_1 > 0 and valor_1 < 1:
                         resultado = 1/valor_1
+                        return resultado
+                    elif valor_1 == 1 or valor_1 == -1:
+                        resultado = valor_1
+                        return resultado
                 else:
                     return "Error no existe el inverso entre 0"
             except ZeroDivisionError:
                 return "Error"
-            else:
-                return resultado
         elif tipoOpera.lower() == 'seno':
             #convirtiendo el angulo a radianes
             convirtiendo = math.radians(valor_1)
@@ -88,5 +92,5 @@ class Operaciones:
 #res = calculando.operando(90,0,"seno")
 #print(calculando.operando(90,0,"seno"))
 #print(calculando.operando(res,5.32,"suma"))
-#print(calculando.operando(45,0,"coSeno"))
+#print(calculando.operando(2,None,"inverso"))
             

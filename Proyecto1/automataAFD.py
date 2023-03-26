@@ -361,7 +361,7 @@ class AFD:
         print('-'*31)
         print("| {:<4} | {:<7} | {:<20} |".format('Fila', 'Columna', 'Lexema'))
         print('-'*31)
-        for token in self.tablaErrores:
+        for token in self.tabla:
             print("| {:<4} | {:<7} | {:<20} |".format(
                 token.row, token.columna, token.lexema))
 
@@ -488,7 +488,15 @@ class AFD:
                                                                                             if self.tabla[self.iterar].lexema == '}':
                                                                                                 print(self.tabla[self.iterar].lexema)
                                                                                                 self.iterar += 1
-                                                                    
+                                                                    else :
+                                                                        
+                                                                        resultadoCalculos = calculando.operando(resultado_valor1, None,asignacion_Operacion)
+                                                                        print("Resultado: " + str(resultadoCalculos))
+                                                                        self.escribiendoGrafica = self.escribiendoGrafica +'''
+    z0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    z0 ->'''+ enlace1 +''';'''
+                                                                        print(self.tabla[self.iterar].lexema)
+                                                                        self.iterar += 1
                                                             else:
                                                                 valor1 = self.tabla[self.iterar].lexema
                                                                 print(valor1)
@@ -536,6 +544,15 @@ class AFD:
                                                                                         if self.tabla[self.iterar].lexema == '}':
                                                                                             print(self.tabla[self.iterar].lexema)
                                                                                             self.iterar += 1
+                                                                else:
+                                                                    resultadoCalculos = calculando.operando(valor1, None,asignacion_Operacion)
+                                                                    print("Resultado: " + str(resultadoCalculos))
+                                                                    self.escribiendoGrafica = self.escribiendoGrafica +'''
+    y0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    y1  [label = "'''+str(valor1)+'''"];
+    y0 -> y1;'''
+                                                                    print(self.tabla[self.iterar].lexema)
+                                                                    self.iterar += 1                       
             elif self.tabla[self.iterar].lexema == '"':
                     self.iterar += 1
                     if self.tabla[self.iterar].lexema.lower() == 'texto':
@@ -744,6 +761,17 @@ class AFD:
     j0 -> j1;'''
                                                             self.enlaceNodosSub = "j0"
                                                             return resultadoCalculos
+    def limpiarDatos(self):
+        self.fila = 0
+        self.columna = 0
+        self.estadoActual = ''
+        self.estadoAnterior = ''
+        self.tabla = []
+        self.tablaErrores = []
+        self.auxiliarTexto = ""
+        self.iterar = 1
+        self.escribiendoGrafica = ""
+        self.enlaceNodosSub = ""
 
     def almacenarError(self, lexemaError):
         newToken1 = Token(self.fila, self.columna, lexemaError)

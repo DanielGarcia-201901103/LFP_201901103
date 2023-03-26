@@ -15,11 +15,8 @@
     "Valor1":90
     ],
     "Valor2":5.32},
-    "Text%":"Realizacion de Operaciones",
-    "Color-Fondo-Nodo":"Yellow#",
+    "Text":"Realizacion de Operaciones",
+    "Color-Fondo-Nodo%":"Yellow",
     "Color-Fuente-Nodo":"Red&",
-    "Forma-Nodo":"Circulo)"
+    "Forma-Nodo":"Circle("
 }
-
-
-

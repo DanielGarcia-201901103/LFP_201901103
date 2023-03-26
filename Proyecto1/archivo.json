@@ -2,6 +2,14 @@
     {"Operacion":"Suma",
     "Valor1":4.5,
     "Valor2":5.32},
+    {"Operacion":"raiz",
+    "Valor1":[
+        "Operacion":"mod",
+        "Valor1":5,
+        "Valor2":3
+        ]},
+    {"Operacion":"inverso",
+    "Valor1":16},
     {"Operacion":"Resta",
     "Valor1":4.5,
     "Valor2":[
@@ -16,7 +24,11 @@
     {"Operacion":"Suma",
     "Valor1":[
     "Operacion":"Seno",
-    "Valor1":90
+    "Valor1":[
+        "Operacion":"Resta",
+        "Valor1":180,
+        "Valor2":90
+        ]
     ],
     "Valor2":5.32},
     "Texto":"Realizacion de Operaciones",
@@ -24,3 +36,4 @@
     "Color-Fuente-Nodo":"Red",
     "Forma-Nodo":"Circle"
 }
+
