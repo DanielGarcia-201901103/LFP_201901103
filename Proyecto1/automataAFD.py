@@ -1,6 +1,6 @@
 from token import Token
 from operar import Operaciones
-
+import random
 class AFD:
     def __init__(self):
         self.letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-']
@@ -16,6 +16,7 @@ class AFD:
         self.iterar = 1
         self.escribiendoGrafica = ""
         self.enlaceNodosSub = ""
+        self.aleatorios = random.sample(range(1,100),99)
     def analizando(self, texto1):
         tok = ''
         # Eliminando espacios y saltos de linea de la cadena
@@ -392,6 +393,7 @@ class AFD:
     
 
     def analizandoSintacticamente(self):
+        self.aleatorios.sort()
         self.iniciandoEsGrafica = '''digraph G {
         rankdir=LR
         size= 8.5
@@ -406,7 +408,6 @@ class AFD:
         # valida si viene un  corchete
         while self.iterar < len(self.tabla):
             if self.tabla[self.iterar].lexema == "{":
-                print(self.tabla[self.iterar].lexema)
                 self.iterar += 1
                 # valida si el siguiente es una comilla
                 if self.tabla[self.iterar].lexema == '"':
@@ -423,7 +424,6 @@ class AFD:
                                 if self.tabla[self.iterar].lexema == '"':
                                     self.iterar += 1
                                     asignacion_Operacion = self.tabla[self.iterar].lexema
-                                    print(asignacion_Operacion)
                                     self.iterar += 1
                                     if self.tabla[self.iterar].lexema == '"':
                                         self.iterar += 1
@@ -441,7 +441,6 @@ class AFD:
                                                             if self.tabla[self.iterar].lexema == '[':
                                                                 resultado_valor1 = self.operacionAnidada()
                                                                 enlace1 = self.enlaceNodosSub
-                                                                print(resultado_valor1)
                                                                 if self.tabla[self.iterar].lexema == ']':
                                                                     self.iterar += 1
                                                                     if self.tabla[self.iterar].lexema == ',':
@@ -457,49 +456,42 @@ class AFD:
                                                                                         self.iterar += 1
                                                                                         if self.tabla[self.iterar].lexema == '[':
                                                                                             resultado_valor2 = self.operacionAnidada()
-                                                                                            print(resultado_valor2)
                                                                                             resultadoCalculos = calculando.operando(resultado_valor1, resultado_valor2, asignacion_Operacion)
-                                                                                            print("Resultado: " + str(resultadoCalculos))
                                                                                             enlace2 = self.enlaceNodosSub
                                                                                             self.escribiendoGrafica = self.escribiendoGrafica +'''
-    a0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    a0 ->'''+ enlace1 +''';
-    a0 ->'''+ enlace2 +''';'''
+    a'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    a'''+str(self.aleatorios[0])+'''->'''+ enlace1 +''';
+    a'''+str(self.aleatorios[0])+'''->'''+ enlace2 +''';'''
+                                                                                            #aleatorios = aleatorios[1:]
+                                                                                            self.aleatorios.pop(0)
                                                                                             if self.tabla[self.iterar].lexema == ']':
                                                                                                 self.iterar += 1
                                                                                                 if self.tabla[self.iterar].lexema == ']':
                                                                                                     self.iterar += 1
                                                                                                 elif self.tabla[self.iterar].lexema == '}':
-                                                                                                    print(self.tabla[self.iterar].lexema)
                                                                                                     self.iterar += 1
                                                                                         else:
                                                                                             valor2 = self.tabla[self.iterar].lexema
-                                                                                            print(valor2)
                                                                                             self.iterar += 1
                                                                                             resultadoCalculos = calculando.operando(resultado_valor1, valor2, asignacion_Operacion)
-
-                                                                                            print("Resultado: " + str(resultadoCalculos))
-
                                                                                             self.escribiendoGrafica = self.escribiendoGrafica + '''
-    b0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    b2  [label = "'''+str(valor2)+'''"];
-    b0 ->'''+ enlace1 +''';
-    b0 -> b2;'''
+    b'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    b'''+str(self.aleatorios[1])+'''  [label = "'''+str(valor2)+'''"];
+    b'''+str(self.aleatorios[0])+''' ->'''+ enlace1 +''';
+    b'''+str(self.aleatorios[0])+''' -> b'''+str(self.aleatorios[1])+''';'''
+                                                                                            self.aleatorios.pop(1)
+                                                                                            self.aleatorios.pop(0)
                                                                                             if self.tabla[self.iterar].lexema == '}':
-                                                                                                print(self.tabla[self.iterar].lexema)
                                                                                                 self.iterar += 1
                                                                     else :
-                                                                        
                                                                         resultadoCalculos = calculando.operando(resultado_valor1, None,asignacion_Operacion)
-                                                                        print("Resultado: " + str(resultadoCalculos))
                                                                         self.escribiendoGrafica = self.escribiendoGrafica +'''
-    z0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    z0 ->'''+ enlace1 +''';'''
-                                                                        print(self.tabla[self.iterar].lexema)
+    z'''+str(self.aleatorios[0])+''' [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    z'''+str(self.aleatorios[0])+''' -> '''+ enlace1 +''';'''
+                                                                        self.aleatorios.pop(0)
                                                                         self.iterar += 1
                                                             else:
                                                                 valor1 = self.tabla[self.iterar].lexema
-                                                                print(valor1)
                                                                 self.iterar += 1
                                                                 if self.tabla[self.iterar].lexema == ',':
                                                                     self.iterar += 1
@@ -514,44 +506,42 @@ class AFD:
                                                                                     self.iterar += 1
                                                                                     if self.tabla[self.iterar].lexema == '[':
                                                                                         resultado_valor2 = self.operacionAnidada()
-                                                                                        print(resultado_valor2)
                                                                                         resultadoCalculos = calculando.operando(valor1, resultado_valor2, asignacion_Operacion)
-                                                                                        print("Resultado: " + str(resultadoCalculos))
                                                                                         enlace2 = self.enlaceNodosSub
                                                                                         self.escribiendoGrafica = self.escribiendoGrafica + '''
-    c0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    c1  [label = "'''+str(valor1)+'''"];
-    c0 -> c1;
-    c0 ->'''+ enlace2 +''';'''
+    c'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    c'''+str(self.aleatorios[1])+''' [label = "'''+str(valor1)+'''"];
+    c'''+str(self.aleatorios[0])+'''-> c'''+str(self.aleatorios[1])+''';
+    c'''+str(self.aleatorios[0])+'''-> '''+ enlace2 +''';'''
+                                                                                        self.aleatorios.pop(1)
+                                                                                        self.aleatorios.pop(0)
                                                                                         if self.tabla[self.iterar].lexema == ']':
                                                                                             self.iterar += 1
                                                                                             if self.tabla[self.iterar].lexema == '}':
-                                                                                                print(self.tabla[self.iterar].lexema)
                                                                                                 self.iterar += 1
                                                                                     else:
                                                                                         valor2 = self.tabla[self.iterar].lexema
-                                                                                        print(valor2)
                                                                                         resultadoCalculos = calculando.operando(valor1, valor2, asignacion_Operacion)
-                                                                                        print("Resultado: " + str(resultadoCalculos))
-
                                                                                         self.escribiendoGrafica = self.escribiendoGrafica + '''
-    d0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    d1  [label = "'''+str(valor1)+'''"];
-    d2  [label = "'''+str(valor2)+'''"];
-    d0 -> d1;
-    d0 -> d2;'''
+    d'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    d'''+str(self.aleatorios[1])+''' [label = "'''+str(valor1)+'''"];
+    d'''+str(self.aleatorios[2])+'''  [label = "'''+str(valor2)+'''"];
+    d'''+str(self.aleatorios[0])+''' -> d'''+str(self.aleatorios[1])+''';
+    d'''+str(self.aleatorios[0])+''' -> d'''+str(self.aleatorios[2])+''';'''
+                                                                                        self.aleatorios.pop(2)
+                                                                                        self.aleatorios.pop(1)
+                                                                                        self.aleatorios.pop(0)
                                                                                         self.iterar += 1
                                                                                         if self.tabla[self.iterar].lexema == '}':
-                                                                                            print(self.tabla[self.iterar].lexema)
                                                                                             self.iterar += 1
                                                                 else:
                                                                     resultadoCalculos = calculando.operando(valor1, None,asignacion_Operacion)
-                                                                    print("Resultado: " + str(resultadoCalculos))
                                                                     self.escribiendoGrafica = self.escribiendoGrafica +'''
-    y0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    y1  [label = "'''+str(valor1)+'''"];
-    y0 -> y1;'''
-                                                                    print(self.tabla[self.iterar].lexema)
+    y'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    y'''+str(self.aleatorios[1])+'''  [label = "'''+str(valor1)+'''"];
+    y'''+str(self.aleatorios[0])+''' -> y'''+str(self.aleatorios[1])+''';'''
+                                                                    self.aleatorios.pop(1)
+                                                                    self.aleatorios.pop(0)
                                                                     self.iterar += 1                       
             elif self.tabla[self.iterar].lexema == '"':
                     self.iterar += 1
@@ -567,7 +557,6 @@ class AFD:
                                 if self.tabla[self.iterar].lexema == '"':
                                     self.iterar += 1
                                     asignacion_texto = self.tabla[self.iterar].lexema
-                                    print(asignacion_texto)
                                     self.iterar += 1
                                     if self.tabla[self.iterar].lexema == '"':
                                         continue
@@ -583,7 +572,6 @@ class AFD:
                                 if self.tabla[self.iterar].lexema == '"':
                                     self.iterar += 1
                                     asignacion_ColorFondo = self.tabla[self.iterar].lexema
-                                    print(asignacion_ColorFondo)
                                     self.iterar += 1
                                     if self.tabla[self.iterar].lexema == '"':
                                         continue
@@ -599,7 +587,6 @@ class AFD:
                                 if self.tabla[self.iterar].lexema == '"':
                                     self.iterar += 1
                                     asignacion_ColorFuente = self.tabla[self.iterar].lexema
-                                    print(asignacion_ColorFuente)
                                     self.iterar += 1
                                     if self.tabla[self.iterar].lexema == '"':
                                         continue
@@ -614,8 +601,7 @@ class AFD:
                                 self.iterar += 1
                                 if self.tabla[self.iterar].lexema == '"':
                                     self.iterar += 1
-                                    asignacion_Forma = self.tabla[self.iterar].lexema.lower() 
-                                    print(asignacion_Forma)
+                                    asignacion_Forma = self.tabla[self.iterar].lexema.lower()
                                     self.iterar += 1
                                     if self.tabla[self.iterar].lexema == '"':
                                         continue
@@ -643,7 +629,6 @@ class AFD:
                         if self.tabla[self.iterar].lexema == '"':
                             self.iterar +=1
                             asignacion_Operacion = self.tabla[self.iterar].lexema
-                            print(asignacion_Operacion)
                             self.iterar +=1
                             if self.tabla[self.iterar].lexema == '"':
                                 self.iterar +=1
@@ -661,7 +646,6 @@ class AFD:
                                                     if self.tabla[self.iterar].lexema == '[':
                                                         resultado_valor1 = self.operacionAnidada()
                                                         enlace1 = self.enlaceNodosSub
-                                                        print(resultado_valor1)
                                                         if self.tabla[self.iterar].lexema == ']':
                                                             self.iterar += 1
                                                             if self.tabla[self.iterar].lexema == ',':
@@ -677,42 +661,40 @@ class AFD:
                                                                                 self.iterar += 1
                                                                                 if self.tabla[self.iterar].lexema == '[':
                                                                                     resultado_valor2 = self.operacionAnidada()
-                                                                                    print(resultado_valor2)
                                                                                     resultadoCalculos = calculando.operando(resultado_valor1, resultado_valor2, asignacion_Operacion)
-                                                                                    print("Resultado: " + str(resultadoCalculos))
                                                                                     enlace2 = self.enlaceNodosSub
                                                                                     self.escribiendoGrafica = self.escribiendoGrafica + '''
-    e0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    e0 ->'''+ enlace1 +''';
-    e0 ->'''+ enlace2 +''';'''
+    e'''+str(self.aleatorios[0])+'''   [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    e'''+str(self.aleatorios[0])+'''  ->'''+ enlace1 +''';
+    e'''+str(self.aleatorios[0])+'''  ->'''+ enlace2 +''';'''
 
-                                                                                    self.enlaceNodosSub = "e0"
+                                                                                    self.enlaceNodosSub = 'e'+str(self.aleatorios[0])
+                                                                                    self.aleatorios.pop(0)
                                                                                     return resultadoCalculos
                                                                                 else:
                                                                                     valor2 = self.tabla[self.iterar].lexema
-                                                                                    print(valor2)
                                                                                     self.iterar += 1
                                                                                     resultadoCalculos = calculando.operando(resultado_valor1, valor2, asignacion_Operacion)
-                                                                                    print("Resultado: " + str(resultadoCalculos))
                                                                                     
                                                                                     self.escribiendoGrafica = self.escribiendoGrafica + '''
-    f0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"]
-    f2  [label = "'''+str(valor2)+'''"];
-    f0 ->'''+ enlace1 +''';
-    f0 -> f2;'''
-                                                                                    self.enlaceNodosSub = "f0"
+    f'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"]
+    f'''+str(self.aleatorios[1])+'''  [label = "'''+str(valor2)+'''"];
+    f'''+str(self.aleatorios[0])+''' ->'''+ enlace1 +''';
+    f'''+str(self.aleatorios[0])+''' -> f'''+str(self.aleatorios[1])+''';'''
+                                                                                    self.enlaceNodosSub = 'f'+str(self.aleatorios[0])
+                                                                                    self.aleatorios.pop(1)
+                                                                                    self.aleatorios.pop(0)
                                                                                     return resultadoCalculos
                                                             else:
                                                                 resultadoCalculos = calculando.operando(resultado_valor1, None, asignacion_Operacion)
-                                                                print("Resultado: " + str(resultadoCalculos))
                                                                 self.escribiendoGrafica = self.escribiendoGrafica + '''
-    g0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    g0 ->'''+ enlace1 +''';'''
-                                                                self.enlaceNodosSub = "g0"
+    g'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    g'''+str(self.aleatorios[0])+''' ->'''+ enlace1 +''';'''
+                                                                self.enlaceNodosSub = 'g'+str(self.aleatorios[0])
+                                                                self.aleatorios.pop(0)
                                                                 return resultadoCalculos
                                                     else:
                                                         valor1 = self.tabla[self.iterar].lexema
-                                                        print(valor1)
                                                         self.iterar +=1
                                                         if self.tabla[self.iterar].lexema == ',':
                                                             self.iterar +=1
@@ -727,39 +709,41 @@ class AFD:
                                                                             self.iterar +=1
                                                                             if self.tabla[self.iterar].lexema == '[':
                                                                                 resultado_valor2 = self.operacionAnidada() 
-                                                                                print(resultado_valor2)
                                                                                 resultadoCalculos = calculando.operando(valor1, resultado_valor2, asignacion_Operacion)
-                                                                                print("Resultado: " + str(resultadoCalculos))
                                                                                 enlace2 = self.enlaceNodosSub
                                                                                 self.escribiendoGrafica = self.escribiendoGrafica + '''
-    h0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    h1  [label = "'''+str(valor1)+'''"];
-    h0 -> h1;
-    h0 ->'''+ enlace2 +';'
-                                                                                self.enlaceNodosSub = "h0"
+    h'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    h'''+str(self.aleatorios[1])+'''  [label = "'''+str(valor1)+'''"];
+    h'''+str(self.aleatorios[0])+''' -> h'''+str(self.aleatorios[1])+''';
+    h'''+str(self.aleatorios[0])+''' ->'''+ enlace2 +';'
+                                                                                self.enlaceNodosSub = "h"+str(self.aleatorios[0])
+                                                                                self.aleatorios.pop(1)
+                                                                                self.aleatorios.pop(0)
                                                                                 return resultadoCalculos
                                                                             else:
                                                                                 valor2 = self.tabla[self.iterar].lexema
-                                                                                print(valor2)
                                                                                 resultadoCalculos = calculando.operando(valor1, valor2, asignacion_Operacion)
-                                                                                print("Resultado: " + str(resultadoCalculos))
                                                                                 self.escribiendoGrafica = self.escribiendoGrafica + '''
-    i0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"]
-    i1  [label = "'''+str(valor1)+'''"];
-    i2  [label = "'''+str(valor2)+'''"];
-    i0 -> i1;
-    i0 -> i2;'''
-                                                                                self.enlaceNodosSub = "i0"
+    i'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"]
+    i'''+str(self.aleatorios[1])+'''  [label = "'''+str(valor1)+'''"];
+    i'''+str(self.aleatorios[2])+'''  [label = "'''+str(valor2)+'''"];
+    i'''+str(self.aleatorios[0])+''' -> i'''+str(self.aleatorios[1])+''';
+    i'''+str(self.aleatorios[0])+''' -> i'''+str(self.aleatorios[2])+''';'''
+                                                                                self.enlaceNodosSub = "i"+str(self.aleatorios[0])
+                                                                                self.aleatorios.pop(2)
+                                                                                self.aleatorios.pop(1)
+                                                                                self.aleatorios.pop(0)
                                                                                 self.iterar +=1
                                                                                 return resultadoCalculos
                                                         else:
                                                             resultadoCalculos = calculando.operando(valor1, None, asignacion_Operacion)
-                                                            print("Resultado: " + str(resultadoCalculos))
                                                             self.escribiendoGrafica = self.escribiendoGrafica + '''
-    j0  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
-    j1  [label = "'''+str(valor1)+'''"];
-    j0 -> j1;'''
-                                                            self.enlaceNodosSub = "j0"
+    j'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
+    j'''+str(self.aleatorios[1])+'''  [label = "'''+str(valor1)+'''"];
+    j'''+str(self.aleatorios[0])+''' -> j'''+str(self.aleatorios[1])+''';'''
+                                                            self.enlaceNodosSub = "j0"+str(self.aleatorios[0])
+                                                            self.aleatorios.pop(1)
+                                                            self.aleatorios.pop(0)
                                                             return resultadoCalculos
     def limpiarDatos(self):
         self.fila = 0
