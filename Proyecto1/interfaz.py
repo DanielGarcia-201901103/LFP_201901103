@@ -70,11 +70,11 @@ def analizar(event = None):
             
             operacionesGra = enviandoAnalisis.analizandoSintacticamente()
             #ESCRIBIENDO .DOT
-            archivoGrafica = open(".\Proyecto1\RESULTADOS_201901103.dot","w")
+            archivoGrafica = open(".\RESULTADOS_201901103.dot","w")
             archivoGrafica.write(operacionesGra)
             archivoGrafica.close()
-            os.system("dot -Tpdf .\Proyecto1\RESULTADOS_201901103.dot -o  .\Proyecto1\RESULTADOS_201901103.pdf")
-            pathOperaciones = ".\Proyecto1\RESULTADOS_201901103.pdf"
+            os.system("dot -Tpdf .\RESULTADOS_201901103.dot -o  .\RESULTADOS_201901103.pdf")
+            pathOperaciones = ".\RESULTADOS_201901103.pdf"
             webbrowser.open_new(pathOperaciones)
         except Exception as e:
             showerror(title="Error", message="Por favor corregir los errores\nluego guarde el archivo nuevamente")
@@ -91,7 +91,7 @@ def errores(event = None):
             textErores.insert("1.0", escribiendoE)
             textErores.configure(state="disabled")
 
-            archivoErrores = open(".\Proyecto1\ERRORES_201901103.json","w")
+            archivoErrores = open(".\ERRORES_201901103.json","w")
             archivoErrores.write(escribiendoE)
             archivoErrores.close()
 
@@ -115,14 +115,14 @@ def inicializar():
 #Metodos y funciones para la seccion de Ayuda ************************************************************************************
 def manualUsuario(event = None):
     try:
-        pathUsuario = "Proyecto1\Documentacion\Manual Usuario.pdf"
+        pathUsuario = ".\Proyecto1\Documentacion\Manual Usuario.pdf"
         webbrowser.open_new(pathUsuario)
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
 def manualTecnico(event = None):
     try:
-        pathTecnico = "Proyecto1\Documentacion\Manual Tecnico.pdf"
+        pathTecnico = ".\Proyecto1\Documentacion\Manual Tecnico.pdf"
         webbrowser.open_new(pathTecnico)
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
