@@ -5,7 +5,11 @@
     {"Operacion":"raiz",
     "Valor1":[
         "Operacion":"mod",
-        "Valor1":5,
+        "Valor1":[
+            "Operacion":"multiplicacion",
+            "Valor1":11,
+            "Valor2":2
+            ],
         "Valor2":3
         ]},
     {"Operacion":"inverso",
@@ -25,9 +29,9 @@
     "Valor1":[
     "Operacion":"Seno",
     "Valor1":[
-        "Operacion":"Resta",
-        "Valor1":180,
-        "Valor2":90
+        "Operacion":"Suma",
+        "Valor1":45,
+        "Valor2":45
         ]
     ],
     "Valor2":5.32},

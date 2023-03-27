@@ -16,7 +16,8 @@ class AFD:
         self.iterar = 1
         self.escribiendoGrafica = ""
         self.enlaceNodosSub = ""
-        self.aleatorios = random.sample(range(1,100),99)
+        self.aleatorios = []
+        
     def analizando(self, texto1):
         tok = ''
         # Eliminando espacios y saltos de linea de la cadena
@@ -393,6 +394,7 @@ class AFD:
     
 
     def analizandoSintacticamente(self):
+        self.aleatorios = random.sample(range(1,100),99)
         self.aleatorios.sort()
         self.iniciandoEsGrafica = '''digraph G {
         rankdir=LR
@@ -741,7 +743,7 @@ class AFD:
     j'''+str(self.aleatorios[0])+'''  [label = "'''+asignacion_Operacion+'''\n'''+str(resultadoCalculos)+'''"];
     j'''+str(self.aleatorios[1])+'''  [label = "'''+str(valor1)+'''"];
     j'''+str(self.aleatorios[0])+''' -> j'''+str(self.aleatorios[1])+''';'''
-                                                            self.enlaceNodosSub = "j0"+str(self.aleatorios[0])
+                                                            self.enlaceNodosSub = "j"+str(self.aleatorios[0])
                                                             self.aleatorios.pop(1)
                                                             self.aleatorios.pop(0)
                                                             return resultadoCalculos
@@ -756,6 +758,7 @@ class AFD:
         self.iterar = 1
         self.escribiendoGrafica = ""
         self.enlaceNodosSub = ""
+        self.aleatorios = []
 
     def almacenarError(self, lexemaError):
         newToken1 = Token(self.fila, self.columna, lexemaError)
