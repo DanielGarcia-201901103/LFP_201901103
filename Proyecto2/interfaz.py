@@ -12,30 +12,35 @@ def imprimir():
 
 # MENU ARCHIVO ***********************************************************************************
 def nuevo():
+    global urlAlmacenar
     try:
-        imprimir()
+        if urlAlmacenar == "":
+            textLeer.delete("1.0","end")
+            textLeer.insert("1.0", "---Area de edición de codigo.")
+        else:
+            showwarning(title="Advertencia", message="No ha guardado los cambios.\n Si desea guardar Presione Sí, de lo contrario presione No.")
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
 def abrir():
     try:
         global urlAlmacenar
-        urlArchivo = filedialog.askopenfilename(initialdir="./", title="Seleccione un Archivo", filetypes=(("Archivo json", "*.json"), ("all files", "*.*")))
+        urlArchivo = filedialog.askopenfilename(initialdir="./", title="Seleccione un Archivo", filetypes=(("Archivo Texto", "*.txt"), ("all files", "*.*")))
         if urlArchivo != "":
 
-            leer = open(urlArchivo, "rt")
+            leer = open(urlArchivo, "r", encoding='utf8')
             urlAlmacenar = urlArchivo
             global almacenar
             almacenar = leer.read()
             leer.close()
 
-            textLeer.configure(state=tk.NORMAL)
+            #textLeer.configure(state=tk.NORMAL)
             textLeer.insert("1.0", almacenar)
             
         else :
             showwarning(title="Advertencia", message="No ingresó ningun archivo")
     except Exception as e:
-            showerror(title="Error", message="Ocurrió un error")
+            showerror(title="Error", message="Ocurrió un error"+ str(e))
 
 def guardar():
     try:
@@ -91,7 +96,7 @@ def inicializar():
         global urlAlmacenar
         urlAlmacenar = ""
         textLeer.delete("1.0","end")
-        textLeer.configure(state="disabled")
+        #textLeer.configure(state="disabled")
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
@@ -135,9 +140,9 @@ if __name__ == '__main__':
         barra_Menu.add_cascade(menu= menuErrores, label= "Errores")
 
         textLeer = tk.Text()
-        textLeer.configure(bg="#C8C885", state="disabled")
+        textLeer.configure(bg="#C8C885")
         textLeer.place(x= 5, y =5, height= 600, width= 690)
-
+        textLeer.insert("1.0", "---Area de edición de codigo.")
         label1 = tk.Label(menu, text="Archivo abierto", bg="#212F3C", fg="#FFFFFF",width= 20, font=("Arial", 13)).place(x= 250, y =615)
 
         menu.config(menu=barra_Menu)
