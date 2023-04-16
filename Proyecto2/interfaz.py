@@ -1,7 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import CENTER, RIGHT, Y, Scrollbar, filedialog, Tk, ttk
-from tkinter.messagebox import showerror, showinfo, showwarning
+from tkinter.messagebox import showerror, showinfo, showwarning ,askquestion
 import webbrowser
 
 almacenar =""
@@ -18,7 +18,13 @@ def nuevo():
             textLeer.delete("1.0","end")
             textLeer.insert("1.0", "---Area de edición de codigo.")
         else:
-            showwarning(title="Advertencia", message="No ha guardado los cambios.\n Si desea guardar Presione Sí, de lo contrario presione No.")
+            res = askquestion(title="Advertencia", message="¿Está seguro que desea salir sin guardar?\nSi desea guardar presione No, de lo contrario presione Sí.")
+
+            if res != "yes":
+                guardarComo()
+            else:
+                textLeer.delete("1.0","end")
+                textLeer.insert("1.0", "---Area de edición de codigo.")
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
@@ -55,9 +61,9 @@ def guardar():
 
 def guardarComo():
     try:
-        guardar_Como = filedialog.asksaveasfilename(initialdir="./", title="Guardar Como", filetypes=(("Archivo json", ".json"), ("all files", "*.*")))
+        guardar_Como = filedialog.asksaveasfilename(initialdir="./", title="Guardar Como", filetypes=(("Archivo texto", ".txt"), ("all files", "*.*")))
         if guardar_Como != "":
-            saveComoArchivo = open(guardar_Como +".json", "w") #+".json"
+            saveComoArchivo = open(guardar_Como +".txt", "w") #+".json"
             saveComoArchivo.write(textLeer.get("1.0","end"))
             saveComoArchivo.close()
             
