@@ -15,16 +15,18 @@ def nuevo():
     global urlAlmacenar
     try:
         if urlAlmacenar == "":
-            textLeer.delete("1.0","end")
-            textLeer.insert("1.0", "---Area de edición de codigo.")
+            inicializar()
+            #textLeer.delete("1.0","end")
+            #textLeer.insert("1.0", "---Area de edición de codigo.")
         else:
             res = askquestion(title="Advertencia", message="¿Está seguro que desea salir sin guardar?\nSi desea guardar presione No, de lo contrario presione Sí.")
 
             if res != "yes":
                 guardarComo()
             else:
-                textLeer.delete("1.0","end")
-                textLeer.insert("1.0", "---Area de edición de codigo.")
+                inicializar()
+                #textLeer.delete("1.0","end")
+                #textLeer.insert("1.0", "---Area de edición de codigo.")
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
@@ -102,6 +104,7 @@ def inicializar():
         global urlAlmacenar
         urlAlmacenar = ""
         textLeer.delete("1.0","end")
+        textLeer.insert("1.0", "---Area de edición de codigo.")
         #textLeer.configure(state="disabled")
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
