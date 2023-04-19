@@ -178,3 +178,19 @@ try:
     menu.mainloop()
 except Exception as e:
         showerror(title="Error", message="Ocurrió un error"+str(e))
+
+
+#https://www.youtube.com/watch?v=wfogZfIS03U
+#https://www.youtube.com/watch?v=s3pC93LgP18
+#https://github.com/falconmasters/expresiones-regulares/blob/master/Expresiones_Regulares.txt
+
+
+# EXPRESION REGULAR PARA COMENTARIO DE UNA LINEA    (---)(.+)*
+
+# EXPRESION REGULAR PARA COMENTARIO VARIAS LINEAS (\/\*(\s*|.*?)*\*\/)|(\/\/.*)
+# realizada  nuevamente                            \/\*(.+\n.+|.)*\*\/
+# ultima verificacion                              \/\*(.*\n.+|.)*|\n\s\*\/
+
+# encontrando todos los comentarios, los multilineas y lineas (\/\*(.*\n.+|.)*|\n\s\*\/)|(---)(.+)*
+
+# EXPRESION PARA FUNCIONES EN UNA LINEA Y SIN PARAMETROS (\w+)\s(\w+)\s=\s(nueva)\s(\w+)\(\);
