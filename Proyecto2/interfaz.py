@@ -194,3 +194,8 @@ except Exception as e:
 # encontrando todos los comentarios, los multilineas y lineas (\/\*(.*\n.+|.)*|\n\s\*\/)|(---)(.+)*
 
 # EXPRESION PARA FUNCIONES EN UNA LINEA Y SIN PARAMETROS (\w+)\s(\w+)\s=\s(nueva)\s(\w+)\(\);
+# EXPRESION PARA FUNCIONES EN UNA LINEA CON UN PARAMETRO O SIN PARAMETROS (\w+)\s(\w+)\s=\s(nueva)\s(\w+)\(("\w+")*\);
+
+#Pruebas*************************** \"\w+\"\,\n\"\n(\{\n\s?\"\w+\"\s\:\s\"\w+\s\w+\"\n\})|\,(\{\n\s?\"\w+\"\s\:\s\"\w+\s\w+\"\n\})*|(\{\n\s?(\$set)\:\s(\{\"\w+\"\s\:\s\"\w+\s\w+\"\})\n\s?\})*\n\s?\"\)\;
+
+#\"\w+\"\,\n\"\n(\{\n\s?\"\w+\"\s\:\s\"\w+\s\w+\"\n\s?\})|\,(\{\n\s?\"\w+\"\s\:\s\"\w+\s\w+\"\n\})*|(\{\n\s?(\$set)\:\s(\{\"\w+\"\s\:\s\"\w+\s\w+\"\})\n\s?\})*\n\s?\"\)\;
