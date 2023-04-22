@@ -459,6 +459,10 @@ class AFD:
             texto = texto[1:]
         return self.estadoActual in self.estadoFinal
     
+    def analizadorSintactico(self):
+        
+        pass
+
     def almacenarToken(self, lexema):
         newToken = Token(self.fila, self.columna, lexema)
         self.tabla.append(newToken)
@@ -471,7 +475,10 @@ class AFD:
         for token in self.tabla:
             print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
             correlativo +=1
-            
+    
+    def obtenerTablaTokens(self):
+        return self.tabla
+    
     def limpiarDatos(self):
         self.fila = 0
         self.columna = 0
@@ -488,3 +495,12 @@ class AFD:
     def almacenarError(self, lexemaError):
         newToken1 = Token(self.fila, self.columna, lexemaError)
         self.tablaErrores.append(newToken1)
+
+    def imprimir_Errores(self):
+        print('-'*31)
+        print("| {:<12} | {:<4} | {:<7} | {:<20} |".format('Correlativo','Fila', 'Columna', 'Lexema'))
+        print('-'*31)
+        correlativo = 1
+        for token in self.tablaErrores:
+            print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
+            correlativo +=1

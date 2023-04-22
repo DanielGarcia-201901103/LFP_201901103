@@ -83,20 +83,73 @@ def guardarComo():
 def generarSentenciasMDB():
     try:
         analisisLexico.analizando(almacenar)
+        #validar si existen errores en la tabla de errores de token y de sintactico
+        #Si no existen errores generar las sentencias mongoDB
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
 # MENU TOKENS ***********************************************************************************
 def verTokens():
     try:
-        analisisLexico.imprimir_tokens()
+        auxiliarTablaTokens = analisisLexico.obtenerTablaTokens()
+
+
+        ventana_Token = tk.Toplevel()
+        ventana_Token.title("Tabla TOKENS")
+        ventana_Token.geometry("650x600")
+        ventana_Token.configure(bg="yellow")
+        ventana_Token.resizable(False, False)
+
+        style = ttk.Style()
+        style.theme_use("default")
+        style.configure("Treeview", background="silver", foreground="black", rowheight=30, fieldbackground="silver")
+        style.map("Treeview", background=[("selected", "green")])
+
+        scroll_bar = Scrollbar(ventana_Token)
+        scroll_bar.pack(side=RIGHT, fill=Y)
+
+        tablaDinamica = ttk.Treeview(ventana_Token, yscrollcommand=scroll_bar.set, columns=("col1", "col2", "col3"),height= 500)
+        scroll_bar.config(command=tablaDinamica.yview)
+        tablaDinamica.column("#0", width=80)
+        tablaDinamica.column("col1", width=80, anchor=CENTER)
+        tablaDinamica.column("col2", width=80, anchor=CENTER)
+        tablaDinamica.column("col3", width=300, anchor=CENTER)
+
+        tablaDinamica.heading("#0", text="Correlativo", anchor=CENTER)
+        tablaDinamica.heading("col1", text="Fila", anchor=CENTER)
+        tablaDinamica.heading("col2", text="Columna", anchor=CENTER)
+        tablaDinamica.heading("col3", text="Lexema", anchor=CENTER)
+    # agregando estilo a las filas
+        tablaDinamica.tag_configure("oddrow", background="white")
+        tablaDinamica.tag_configure("evenrow", background="lightblue")
+    # AGREGANDO LISTA DE OBJETOS A LA TABLA DE ACUERDO AL TAMAÑO DE LA LISTA.
+        iterador = 1
+
+        for j in auxiliarTablaTokens:
+            t_fila = j.fila
+            t_columna = j.columna
+            t_lexema = j.lexema
+
+            # MEJOR SE VA A MANEJAR CON WHILE PARA RECORRER LA LISTA OBJETOS.
+            if iterador % 2 == 0:
+                tablaDinamica.insert("", tk.END, text=str(iterador), values=(t_fila, t_columna, t_lexema), tags=("evenrow",))
+            else:
+                tablaDinamica.insert("", tk.END, text=str(iterador), values=(t_fila, t_columna, t_lexema), tags=("oddrow",))
+
+            iterador += 1
+        tablaDinamica.pack(pady=20)
+
+
+        ventana_Token.mainloop()
+
+
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error"+ str(e))
 
 # MENU ERRORES ***********************************************************************************
 def verErrores():
     try:
-        imprimir()
+        analisisLexico.imprimir_Errores()
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
