@@ -2,7 +2,8 @@ from token import Token
 
 class AFD:
     def __init__(self):
-        self.letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','?','"','{','}','[',']',',','.',':',';']
+        self.letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','?','"','{','}','[',']','.',':',';','$']
+        self.identificacion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','_','A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         self.tipoFuncion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         self.fila = 0
         self.columna = 0
@@ -60,6 +61,12 @@ class AFD:
                     self.estadoAnterior = 'A'
                     self.estadoActual = 'A'
                     continue
+                elif caracter == '\t':
+                    self.columna += 8
+                    texto = texto[1:]
+                    self.estadoAnterior = 'A'
+                    self.estadoActual = 'A'
+                    continue
                 else:
                     validandoError = True
                     self.almacenarError(caracter)
@@ -105,14 +112,17 @@ class AFD:
                 else:
                     validandoError = True
                     self.almacenarError(caracter)
-            # valida cuando hay comentarios de una Linea
+            # valida cuando hay comentarios de varias lineas
             elif self.estadoActual == 'C':
                 if caracter == '*':
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'C'
                     self.estadoActual = 'F'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             elif self.estadoActual == 'F':
-                if caracter in self.letras:
+                if caracter.lower() in self.letras:
                     tok += caracter
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'F'
@@ -121,7 +131,8 @@ class AFD:
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'I'
                 elif caracter == ' ':
-                    self.almacenarToken(tok)
+                    if tok != ' ' or tok != '':
+                        self.almacenarToken(tok)
                     tok = ''
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'F'
@@ -129,12 +140,22 @@ class AFD:
                     texto = texto[1:]
                     continue
                 elif caracter == '\n':
-                    self.almacenarToken(tok)
+                    if tok != '\n' or tok  != '':
+                        self.almacenarToken(tok)
                     tok = ''
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'F'
                     self.fila += 1
                     self.columna = 0
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\t':
+                    if tok != '\t' or tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'F'
+                    self.estadoActual = 'F'
+                    self.columna += 8
                     texto = texto[1:]
                     continue
                 else:
@@ -148,24 +169,142 @@ class AFD:
                 else:
                     validandoError = True
                     self.almacenarError(caracter)
-
-
-
-
-
-
+            elif self.estadoActual == 'L':
+                if caracter == '\n':
+                    if tok != '\n' or tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'F'
+                    self.estadoActual = 'A'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
             # valida cuando hay funciones
             elif self.estadoActual == 'B':
                 if caracter in self.tipoFuncion:
                     tok += caracter
                     self.estadoAnterior = 'B'
                     self.estadoActual = 'B'
-                elif caracter == '"':
+                elif caracter == ' ':
+                    self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'B'
+                    self.estadoActual = 'E'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+            elif self.estadoActual == 'E':
+                if caracter in self.identificacion:
+                    tok += caracter
+                    self.estadoAnterior = 'E'
+                    self.estadoActual = 'E'
+                elif caracter == '=':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'E'
+                    self.estadoActual = 'H'
+                elif caracter == ' ':
+                    self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'E'
+                    self.estadoActual = 'E'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+            elif self.estadoActual == 'H':
+                if caracter in self.tipoFuncion:
+                    tok += caracter
+                    self.estadoAnterior = 'H'
+                    self.estadoActual = 'H'
+                elif caracter == ' ':
+                    self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'H'
+                    self.estadoActual = 'K'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+            elif self.estadoActual == 'K':
+                if caracter in self.tipoFuncion:
+                    tok += caracter
+                    self.estadoAnterior = 'k'
+                    self.estadoActual = 'k'
+                elif caracter == ' ':
+                    self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'k'
+                    self.estadoActual = 'M'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+            elif self.estadoActual == 'M':
+                if caracter in self.tipoFuncion:
+                    tok += caracter
+                    self.estadoAnterior = 'M'
+                    self.estadoActual = 'M'
+                elif caracter == '(':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'E'
+                    self.estadoActual = 'N'
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+            elif self.estadoActual == 'N':
+                if caracter in self.letras:
+                    tok += caracter
+                    self.estadoAnterior = 'N'
+                    self.estadoActual = 'N'
+                elif caracter == ')':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'N'
+                    self.estadoActual = 'Ñ'
+                elif caracter == ',':
                     self.almacenarToken(tok)
                     tok = ''
                     self.almacenarToken(caracter)
-                    self.estadoAnterior = 'q4'
-                    self.estadoActual = 'q5'
+                    self.estadoAnterior = 'N'
+                    self.estadoActual = 'N'
+                elif caracter == ' ':
+                    self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'N'
+                    self.estadoActual = 'N'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\n':
+                    self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'N'
+                    self.estadoActual = 'N'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+            # ARREGLAR EL ESTADO N YA QUE DEBE AGREGAR COMO TOKEN CADA PARTE DE LOS PARAMETROS DE LA FUNCION PARA QUE FUNCIONE CORRECTAMENTE
+            elif self.estadoActual == 'Ñ':
+                if caracter == ';':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'Ñ'
+                    self.estadoActual = 'L'
                 else:
                     validandoError = True
                     self.almacenarError(caracter)
@@ -180,11 +319,12 @@ class AFD:
 
     def imprimir_tokens(self):
         print('-'*31)
-        print("| {:<4} | {:<7} | {:<20} |".format('Fila', 'Columna', 'Lexema'))
+        print("| {:<12} | {:<4} | {:<7} | {:<20} |".format('Correlativo','Fila', 'Columna', 'Lexema'))
         print('-'*31)
+        correlativo = 1
         for token in self.tabla:
-            print("| {:<4} | {:<7} | {:<20} |".format(
-                token.row, token.columna, token.lexema))
+            print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
+            correlativo +=1
             
     def limpiarDatos(self):
         self.fila = 0

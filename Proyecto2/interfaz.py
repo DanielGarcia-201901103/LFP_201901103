@@ -3,11 +3,12 @@ import tkinter as tk
 from tkinter import CENTER, INSERT, RIGHT, Y, Scrollbar, StringVar, filedialog, Tk, ttk
 from tkinter.messagebox import showerror, showinfo, showwarning ,askquestion
 import webbrowser
-
+from automataFD import AFD 
 from argparse import ONE_OR_MORE
 
 almacenar =""
 urlAlmacenar = ""
+analisisLexico= AFD()
 
 def imprimir():
     print("Estoy Aquí")
@@ -45,6 +46,7 @@ def abrir(event = None):
             leer.close()
 
             #textLeer.configure(state=tk.NORMAL)
+            textLeer.delete("1.0","end")
             textLeer.insert("1.0", almacenar)
             
         else :
@@ -80,16 +82,16 @@ def guardarComo():
 # MENU ANALISIS ***********************************************************************************
 def generarSentenciasMDB():
     try:
-        imprimir()
+        analisisLexico.analizando(almacenar)
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
 # MENU TOKENS ***********************************************************************************
 def verTokens():
     try:
-        imprimir()
+        analisisLexico.imprimir_tokens()
     except Exception as e:
-            showerror(title="Error", message="Ocurrió un error")
+            showerror(title="Error", message="Ocurrió un error"+ str(e))
 
 # MENU ERRORES ***********************************************************************************
 def verErrores():
