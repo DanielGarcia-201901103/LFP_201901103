@@ -2,8 +2,10 @@ from token import Token
 
 class AFD:
     def __init__(self):
-        self.letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','?','"','{','}','[',']','.',':',';','$']
+        self.letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','{','}','[',']','.']
         self.identificacion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','_','A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        self.nueva = ['n','u','e','v']
+        self.letrasJson = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','{','}','"','.',',','$',':']
         self.tipoFuncion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         self.fila = 1
         self.columna = 0
@@ -235,16 +237,19 @@ class AFD:
                     validandoError = True
                     self.almacenarError(caracter)
             elif self.estadoActual == 'H':
-                if caracter.lower() in self.letras:
+                if caracter.lower() in self.nueva:
                     tok += caracter
                     self.estadoAnterior = 'H'
                     self.estadoActual = 'H'
-                elif caracter == ' ':
-                    if tok  != '':
-                        self.almacenarToken(tok)
+                elif caracter.lower() == 'a':
+                    tok += caracter
+                    self.almacenarToken(tok)
                     tok = ''
                     self.estadoAnterior = 'H'
                     self.estadoActual = 'K'
+                elif caracter == ' ':
+                    self.estadoAnterior = 'H'
+                    self.estadoActual = 'H'
                     self.columna += 1
                     texto = texto[1:]
                     continue
@@ -256,26 +261,42 @@ class AFD:
                     tok += caracter
                     self.estadoAnterior = 'K'
                     self.estadoActual = 'K'
+                elif caracter == '(':
+                    self.almacenarToken(tok)
+                    tok = ''
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'K'
+                    self.estadoActual = 'M'
                 elif caracter == ' ':
                     if tok  != '':
                         self.almacenarToken(tok)
                     tok = ''
                     self.estadoAnterior = 'K'
-                    self.estadoActual = 'M'
+                    self.estadoActual = 'K'
                     self.columna += 1
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\n':
+                    if tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'K'
+                    self.estadoActual = 'K'
+                    self.fila += 1
+                    self.columna = 0
                     texto = texto[1:]
                     continue
                 else:
                     validandoError = True
                     self.almacenarError(caracter)
             elif self.estadoActual == 'M':
-                if caracter in self.tipoFuncion:
-                    tok += caracter
-                    self.estadoAnterior = 'M'
-                    self.estadoActual = 'M'
-                elif caracter == '(':
+                if caracter == ')':
                     self.almacenarToken(caracter)
-                    self.estadoAnterior = 'E'
+                    self.estadoAnterior = 'M'
+                    self.estadoActual = 'Ñ'
+                elif caracter == '“':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'M'
                     self.estadoActual = 'N'
                 else:
                     validandoError = True
@@ -285,16 +306,12 @@ class AFD:
                     tok += caracter
                     self.estadoAnterior = 'N'
                     self.estadoActual = 'N'
-                elif caracter == ')':
-                    self.almacenarToken(caracter)
-                    self.estadoAnterior = 'N'
-                    self.estadoActual = 'Ñ'
-                elif caracter == ',':
+                elif caracter == '”':
                     self.almacenarToken(tok)
                     tok = ''
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'N'
-                    self.estadoActual = 'N'
+                    self.estadoActual = 'O'
                 elif caracter == ' ':
                     if tok  != '':
                         self.almacenarToken(tok)
@@ -323,9 +340,120 @@ class AFD:
                     self.almacenarToken(caracter)
                     self.estadoAnterior = 'Ñ'
                     self.estadoActual = 'L'
+                elif caracter == ' ':
+                    if tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'Ñ'
+                    self.estadoActual = 'Ñ'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\n':
+                    if tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'Ñ'
+                    self.estadoActual = 'Ñ'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
                 else:
                     validandoError = True
                     self.almacenarError(caracter)
+            elif self.estadoActual == 'O':
+                if caracter == ')':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'O'
+                    self.estadoActual = 'Ñ'
+                elif caracter == ',':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'O'
+                    self.estadoActual = 'P'
+                elif caracter == ' ':
+                    if tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'O'
+                    self.estadoActual = 'O'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\n':
+                    if tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'O'
+                    self.estadoActual = 'O'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+            elif self.estadoActual == 'P':
+                if caracter == '“':
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'P'
+                    self.estadoActual = 'Q'
+                elif caracter == ' ':
+                    if tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'P'
+                    self.estadoActual = 'P'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\n':
+                    if tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'P'
+                    self.estadoActual = 'P'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+            elif self.estadoActual == 'Q':
+                if caracter.lower() in self.letrasJson:
+                    tok += caracter
+                    self.estadoAnterior = 'Q'
+                    self.estadoActual = 'Q'
+                elif caracter == '”':
+                    self.almacenarToken(tok)
+                    tok = ''
+                    self.almacenarToken(caracter)
+                    self.estadoAnterior = 'Q'
+                    self.estadoActual = 'O'
+                elif caracter == ' ':
+                    if tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'Q'
+                    self.estadoActual = 'Q'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\n':
+                    if tok  != '':
+                        self.almacenarToken(tok)
+                    tok = ''
+                    self.estadoAnterior = 'Q'
+                    self.estadoActual = 'Q'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
+                else:
+                    validandoError = True
+                    self.almacenarError(caracter)
+
 
             self.columna += 1
             texto = texto[1:]
