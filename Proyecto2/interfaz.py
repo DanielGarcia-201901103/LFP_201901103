@@ -83,6 +83,8 @@ def guardarComo():
 def generarSentenciasMDB():
     try:
         analisisLexico.analizando(almacenar)
+        analisisLexico.analizadorSintactico()
+        analisisLexico.imprimir_tokensSintacticos()
         #validar si existen errores en la tabla de errores de token y de sintactico
         #Si no existen errores generar las sentencias mongoDB
     except Exception as e:

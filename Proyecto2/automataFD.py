@@ -496,29 +496,48 @@ class AFD:
                     self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
                     estadoAnt = 'E'
                     estadoAct = 'F'
-
+    #Metodos para almacenar Sintacticos
     def almacenarSintactico(self,fila, columna, dato):
         newSin = Token(fila, columna, dato)
         self.tablaSintactico.append(newSin)
 
+    def almacenarErrorSintactico(self,fila, columna, dato):
+        newESin = Token(fila, columna, dato)
+        self.tablaErroresSintacticos.append(newESin)
+
+    #Metodos para almacenar token lexicos
     def almacenarToken(self, lexema):
         newToken = Token(self.fila, self.columna, lexema)
         self.tabla.append(newToken)
 
-    def imprimir_tokens(self):
-        print('-'*31)
-        print("| {:<12} | {:<4} | {:<7} | {:<20} |".format('Correlativo','Fila', 'Columna', 'Lexema'))
-        print('-'*31)
-        correlativo = 1
-        for token in self.tabla:
-            print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
-            correlativo +=1
-    
+    def almacenarError(self, lexemaError):
+        newToken1 = Token(self.fila, self.columna, lexemaError)
+        self.tablaErrores.append(newToken1)
+
     def obtenerTablaTokens(self):
         return self.tabla
     
     def obtenerTablaErrores(self):
         return self.tablaErrores
+    
+    #Metodos de impresion para sintactico
+    def imprimir_tokensSintacticos(self):
+        print('-'*31)
+        print("| {:<12} | {:<4} | {:<7} | {:<20} |".format('Correlativo','Fila', 'Columna', 'Lexema'))
+        print('-'*31)
+        correlativo = 1
+        for token in self.tablaSintactico:
+            print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
+            correlativo +=1
+
+    def imprimir_ErroresSintacticos(self):
+        print('-'*31)
+        print("| {:<12} | {:<4} | {:<7} | {:<20} |".format('Correlativo','Fila', 'Columna', 'Lexema'))
+        print('-'*31)
+        correlativo = 1
+        for token in self.tablaErroresSintacticos:
+            print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
+            correlativo +=1
     
     def limpiarDatos(self):
         self.fila = 0
@@ -530,15 +549,3 @@ class AFD:
         self.auxiliarTexto = ""
         self.iterar = 1
     
-    def almacenarError(self, lexemaError):
-        newToken1 = Token(self.fila, self.columna, lexemaError)
-        self.tablaErrores.append(newToken1)
-
-    def imprimir_Errores(self):
-        print('-'*31)
-        print("| {:<12} | {:<4} | {:<7} | {:<20} |".format('Correlativo','Fila', 'Columna', 'Lexema'))
-        print('-'*31)
-        correlativo = 1
-        for token in self.tablaErrores:
-            print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
-            correlativo +=1
