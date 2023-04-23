@@ -2,11 +2,12 @@ from token import Token
 
 class AFD:
     def __init__(self):
-        self.letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','{','}','[',']','.']
-        self.identificacion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','_','A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        self.letrasComentarios = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','{','}','[',']','.']
+        self.identificacion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','_']
         self.nueva = ['n','u','e','v']
         self.letrasJson = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','{','}','"','.',',','$',':']
-        self.tipoFuncion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        self.tipoFuncion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        self.reservadasFunciones =['CrearBD','EliminarBD','CrearColeccion','EliminarColeccion','InsertarUnico','ActualizarUnico','EliminarUnico','BuscarTodo','BuscarUnico']
         self.fila = 1
         self.columna = 0
         self.estadoActual = 'A'
@@ -14,6 +15,8 @@ class AFD:
         self.estadoFinal = ['L', 'J']
         self.tabla = []
         self.tablaErrores = []
+        self.tablaSintactico = []
+        self.tablaErroresSintacticos = []
         self.auxiliarTexto = ""
         self.iterar = 1
 
@@ -38,7 +41,7 @@ class AFD:
             '''
             # validaciones de acuerdo al caracter que se está leyendo
             if self.estadoActual == 'A':
-                if caracter in self.tipoFuncion:
+                if caracter.lower() in self.tipoFuncion:
                     tok += caracter
                     self.estadoAnterior = 'A'
                     self.estadoActual = 'B'
@@ -90,7 +93,7 @@ class AFD:
                     validandoError = True
                     self.almacenarError(caracter) 
             elif self.estadoActual == 'J':
-                if caracter.lower() in self.letras:
+                if caracter.lower() in self.letrasComentarios:
                     tok += caracter
                     self.estadoAnterior = 'J'
                     self.estadoActual = 'J'
@@ -136,7 +139,7 @@ class AFD:
                     validandoError = True
                     self.almacenarError(caracter)
             elif self.estadoActual == 'F':
-                if caracter.lower() in self.letras:
+                if caracter.lower() in self.letrasComentarios:
                     tok += caracter
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'F'
@@ -188,7 +191,7 @@ class AFD:
                     if tok  != '':
                         self.almacenarToken(tok)
                     tok = ''
-                    self.estadoAnterior = 'F'
+                    self.estadoAnterior = 'L'
                     self.estadoActual = 'A'
                     self.fila += 1
                     self.columna = 0
@@ -199,7 +202,7 @@ class AFD:
                     self.almacenarError(caracter)
             # valida cuando hay funciones
             elif self.estadoActual == 'B':
-                if caracter in self.tipoFuncion:
+                if caracter.lower() in self.tipoFuncion:
                     tok += caracter
                     self.estadoAnterior = 'B'
                     self.estadoActual = 'B'
@@ -257,7 +260,7 @@ class AFD:
                     validandoError = True
                     self.almacenarError(caracter)
             elif self.estadoActual == 'K':
-                if caracter in self.tipoFuncion:
+                if caracter.lower() in self.tipoFuncion:
                     tok += caracter
                     self.estadoAnterior = 'K'
                     self.estadoActual = 'K'
@@ -302,7 +305,7 @@ class AFD:
                     validandoError = True
                     self.almacenarError(caracter)
             elif self.estadoActual == 'N':
-                if caracter in self.letras:
+                if caracter.lower() in self.identificacion:
                     tok += caracter
                     self.estadoAnterior = 'N'
                     self.estadoActual = 'N'
@@ -460,8 +463,43 @@ class AFD:
         return self.estadoActual in self.estadoFinal
     
     def analizadorSintactico(self):
-        
-        pass
+        estadoAct = 'S'
+        estadoAnt = ''
+        for buscar in self.tabla:
+            if estadoAct == 'S':
+                if buscar.lexema in self.reservadasFunciones:
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'S'
+                    estadoAct = 'A'
+            elif estadoAct == 'A':
+                if buscar.lexema != '':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'A'
+                    estadoAct = 'B'
+            elif estadoAct == 'B':
+                if buscar.lexema == '=':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'B'
+                    estadoAct = 'C'
+            elif estadoAct == 'C':
+                if buscar.lexema.lower() == 'nueva':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'C'
+                    estadoAct = 'D'
+            elif estadoAct == 'D':
+                if buscar.lexema in self.reservadasFunciones:
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'D'
+                    estadoAct = 'E'
+            elif estadoAct == 'E':
+                if buscar.lexema == '(':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'E'
+                    estadoAct = 'F'
+
+    def almacenarSintactico(self,fila, columna, dato):
+        newSin = Token(fila, columna, dato)
+        self.tablaSintactico.append(newSin)
 
     def almacenarToken(self, lexema):
         newToken = Token(self.fila, self.columna, lexema)
