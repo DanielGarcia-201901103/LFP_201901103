@@ -517,6 +517,9 @@ class AFD:
     def obtenerTablaTokens(self):
         return self.tabla
     
+    def obtenerTablaErrores(self):
+        return self.tablaErrores
+    
     def limpiarDatos(self):
         self.fila = 0
         self.columna = 0
@@ -526,9 +529,6 @@ class AFD:
         self.tablaErrores = []
         self.auxiliarTexto = ""
         self.iterar = 1
-        self.escribiendoGrafica = ""
-        self.enlaceNodosSub = ""
-        self.aleatorios = []
     
     def almacenarError(self, lexemaError):
         newToken1 = Token(self.fila, self.columna, lexemaError)

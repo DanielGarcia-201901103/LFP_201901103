@@ -149,7 +149,57 @@ def verTokens():
 # MENU ERRORES ***********************************************************************************
 def verErrores():
     try:
-        analisisLexico.imprimir_Errores()
+        auxiliarTablaErrores = analisisLexico.obtenerTablaErrores()
+        ventana_Errores = tk.Toplevel()
+        ventana_Errores.title("Tabla TOKENS")
+        ventana_Errores.geometry("650x600")
+        ventana_Errores.configure(bg="yellow")
+        ventana_Errores.resizable(False, False)
+
+        style = ttk.Style()
+        style.theme_use("default")
+        style.configure("Treeview", background="silver", foreground="black", rowheight=30, fieldbackground="silver")
+        style.map("Treeview", background=[("selected", "green")])
+
+        scroll_bar = Scrollbar(ventana_Errores)
+        scroll_bar.pack(side=RIGHT, fill=Y)
+
+        tablaDinamica = ttk.Treeview(ventana_Errores, yscrollcommand=scroll_bar.set, columns=("col1", "col2", "col3"),height= 500)
+        scroll_bar.config(command=tablaDinamica.yview)
+        tablaDinamica.column("#0", width=80)
+        tablaDinamica.column("col1", width=80, anchor=CENTER)
+        tablaDinamica.column("col2", width=80, anchor=CENTER)
+        tablaDinamica.column("col3", width=300, anchor=CENTER)
+
+        tablaDinamica.heading("#0", text="Tipo de Error", anchor=CENTER)
+        tablaDinamica.heading("col1", text="Fila", anchor=CENTER)
+        tablaDinamica.heading("col2", text="Columna", anchor=CENTER)
+        tablaDinamica.heading("col3", text="Lexema o Token", anchor=CENTER)
+    # agregando estilo a las filas
+        tablaDinamica.tag_configure("oddrow", background="white")
+        tablaDinamica.tag_configure("evenrow", background="lightblue")
+    # AGREGANDO LISTA DE OBJETOS A LA TABLA DE ACUERDO AL TAMAÑO DE LA LISTA.
+        iterador = 1
+
+        for j in auxiliarTablaErrores:
+            t_fila = j.fila
+            t_columna = j.columna
+            t_lexema = j.lexema
+
+            # MEJOR SE VA A MANEJAR CON WHILE PARA RECORRER LA LISTA OBJETOS.
+            if iterador % 2 == 0:
+                tablaDinamica.insert("", tk.END, text='Lexico', values=(t_fila, t_columna, t_lexema), tags=("evenrow",))
+            else:
+                tablaDinamica.insert("", tk.END, text='Lexico', values=(t_fila, t_columna, t_lexema), tags=("oddrow",))
+
+            iterador += 1
+
+        #Agregar la lectura de errores sintacticos con otro for
+
+
+        tablaDinamica.pack(pady=20)
+
+        ventana_Errores.mainloop()
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
