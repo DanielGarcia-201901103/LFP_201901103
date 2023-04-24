@@ -57,11 +57,12 @@ def abrir(event = None):
 def guardar():
     try:
         global almacenar
-        saveArchivo = open(urlAlmacenar, "w")
+        saveArchivo = open(urlAlmacenar, "w", encoding='utf8')
         saveArchivo.write(textLeer.get("1.0","end"))
         saveArchivo.close()
         
         almacenar = str(textLeer.get("1.0","end"))
+        analisisLexico.limpiarDatos()
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error")
 
@@ -69,7 +70,7 @@ def guardarComo():
     try:
         guardar_Como = filedialog.asksaveasfilename(initialdir="./", title="Guardar Como", filetypes=(("Archivo texto", ".txt"), ("all files", "*.*")))
         if guardar_Como != "":
-            saveComoArchivo = open(guardar_Como +".txt", "w") #+".json"
+            saveComoArchivo = open(guardar_Como +".txt", "w", encoding='utf8') 
             saveComoArchivo.write(textLeer.get("1.0","end"))
             saveComoArchivo.close()
             
@@ -151,7 +152,7 @@ def verErrores():
         auxiliarTablaErrores = analisisLexico.obtenerTablaErrores()
         ventana_Errores = tk.Toplevel()
         ventana_Errores.title("Tabla TOKENS")
-        ventana_Errores.geometry("650x600")
+        ventana_Errores.geometry("900x600")
         ventana_Errores.configure(bg="yellow")
         ventana_Errores.resizable(False, False)
 
@@ -163,17 +164,19 @@ def verErrores():
         scroll_bar = Scrollbar(ventana_Errores)
         scroll_bar.pack(side=RIGHT, fill=Y)
 
-        tablaDinamica = ttk.Treeview(ventana_Errores, yscrollcommand=scroll_bar.set, columns=("col1", "col2", "col3"),height= 500)
+        tablaDinamica = ttk.Treeview(ventana_Errores, yscrollcommand=scroll_bar.set, columns=("col1", "col2", "col3", "col4"),height= 500)
         scroll_bar.config(command=tablaDinamica.yview)
         tablaDinamica.column("#0", width=80)
         tablaDinamica.column("col1", width=80, anchor=CENTER)
         tablaDinamica.column("col2", width=80, anchor=CENTER)
         tablaDinamica.column("col3", width=300, anchor=CENTER)
+        tablaDinamica.column("col4", width=300, anchor=CENTER)
 
         tablaDinamica.heading("#0", text="Tipo de Error", anchor=CENTER)
         tablaDinamica.heading("col1", text="Fila", anchor=CENTER)
         tablaDinamica.heading("col2", text="Columna", anchor=CENTER)
         tablaDinamica.heading("col3", text="Lexema o Token", anchor=CENTER)
+        tablaDinamica.heading("col4", text="Descripción", anchor=CENTER)
     # agregando estilo a las filas
         tablaDinamica.tag_configure("oddrow", background="white")
         tablaDinamica.tag_configure("evenrow", background="lightblue")
@@ -184,12 +187,13 @@ def verErrores():
             t_fila = j.fila
             t_columna = j.columna
             t_lexema = j.lexema
+            t_des = j.tok
 
             # MEJOR SE VA A MANEJAR CON WHILE PARA RECORRER LA LISTA OBJETOS.
             if iterador % 2 == 0:
-                tablaDinamica.insert("", tk.END, text='Lexico', values=(t_fila, t_columna, t_lexema), tags=("evenrow",))
+                tablaDinamica.insert("", tk.END, text='Lexico', values=(t_fila, t_columna, t_lexema, t_des), tags=("evenrow",))
             else:
-                tablaDinamica.insert("", tk.END, text='Lexico', values=(t_fila, t_columna, t_lexema), tags=("oddrow",))
+                tablaDinamica.insert("", tk.END, text='Lexico', values=(t_fila, t_columna, t_lexema, t_des), tags=("oddrow",))
 
             iterador += 1
 

@@ -17,8 +17,6 @@ class AFD:
         self.tablaErrores = []
         self.tablaSintactico = []
         self.tablaErroresSintacticos = []
-        self.auxiliarTexto = ""
-        self.iterar = 1
 
     def analizando(self, texto1):
         tok = ''
@@ -83,7 +81,7 @@ class AFD:
                     self.estadoActual = 'G'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'invalido falta -')
             elif self.estadoActual == 'G':
                 if caracter == '-':
                     self.almacenarToken(caracter,'guion')
@@ -91,7 +89,7 @@ class AFD:
                     self.estadoActual = 'J'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido') 
+                    self.almacenarError(caracter,'invalido falta -') 
             elif self.estadoActual == 'J':
                 if caracter.lower() in self.letrasComentarios:
                     tok += caracter
@@ -128,7 +126,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'comentario invalido')
             # valida cuando hay comentarios de varias lineas
             elif self.estadoActual == 'C':
                 if caracter == '*':
@@ -137,7 +135,7 @@ class AFD:
                     self.estadoActual = 'F'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'invalido falta *')
             elif self.estadoActual == 'F':
                 if caracter.lower() in self.letrasComentarios:
                     tok += caracter
@@ -177,7 +175,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'caracter invalido ó falta *')
             elif self.estadoActual == 'I':
                 if caracter == '/':
                     self.almacenarToken(caracter,'barra')
@@ -185,7 +183,7 @@ class AFD:
                     self.estadoActual = 'L'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'invalido falta /')
             elif self.estadoActual == 'L':
                 if caracter == '\n':
                     if tok  != '':
@@ -199,7 +197,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'comentario invalido')
             # valida cuando hay funciones
             elif self.estadoActual == 'B':
                 if caracter.lower() in self.tipoFuncion:
@@ -217,7 +215,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'funcion invalida')
             elif self.estadoActual == 'E':
                 if caracter.lower() in self.identificacion:
                     tok += caracter
@@ -238,7 +236,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'variable invalida ó falta =')
             elif self.estadoActual == 'H':
                 if caracter.lower() in self.nueva:
                     tok += caracter
@@ -258,7 +256,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'invalido reservada (nueva)')
             elif self.estadoActual == 'K':
                 if caracter.lower() in self.tipoFuncion:
                     tok += caracter
@@ -291,7 +289,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'funcion invalida o falta (')
             elif self.estadoActual == 'M':
                 if caracter == ')':
                     self.almacenarToken(caracter,'parentesis')
@@ -303,7 +301,7 @@ class AFD:
                     self.estadoActual = 'N'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'falta ) ó “')
             elif self.estadoActual == 'N':
                 if caracter.lower() in self.identificacion:
                     tok += caracter
@@ -336,7 +334,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'falta ” ó identificador invalido')
             # ARREGLAR LOS ESTADOS DE LAS FUNCIONES YA QUE FALLA DESPUES DE LA PALABRA nueva 
             elif self.estadoActual == 'Ñ':
                 if caracter == ';':
@@ -364,7 +362,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'falta ; ó caracter invalido')
             elif self.estadoActual == 'O':
                 if caracter == ')':
                     self.almacenarToken(caracter,'parentesis')
@@ -395,7 +393,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'falta ) ó , ó caracter invalido')
             elif self.estadoActual == 'P':
                 if caracter == '“':
                     self.almacenarToken(caracter,'comilla')
@@ -422,7 +420,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
+                    self.almacenarError(caracter,'falta “ ó caracter invalido')
             elif self.estadoActual == 'Q':
                 if caracter.lower() in self.letrasJson:
                     tok += caracter
@@ -455,9 +453,8 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter,'invalido')
-
-
+                    self.almacenarError(caracter,'falta ” ó caracter json invalido')
+            
             self.columna += 1
             texto = texto[1:]
         return self.estadoActual in self.estadoFinal
@@ -604,12 +601,12 @@ class AFD:
             correlativo +=1
     
     def limpiarDatos(self):
-        self.fila = 0
+        self.fila = 1
         self.columna = 0
-        self.estadoActual = ''
+        self.estadoActual = 'A'
         self.estadoAnterior = ''
         self.tabla = []
         self.tablaErrores = []
-        self.auxiliarTexto = ""
-        self.iterar = 1
+        self.tablaSintactico = []
+        self.tablaErroresSintacticos = []
     
