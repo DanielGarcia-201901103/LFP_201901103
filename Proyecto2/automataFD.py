@@ -496,6 +496,37 @@ class AFD:
                     self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
                     estadoAnt = 'E'
                     estadoAct = 'F'
+            elif estadoAct == 'F':
+                if buscar.lexema == ')':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'F'
+                    estadoAct = 'W'
+                elif buscar.lexema == '“':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'F'
+                    estadoAct = 'H'  
+                elif buscar.lexema == '”':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'F'
+                    estadoAct = 'F'  
+                elif buscar.lexema == ',':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'F'
+                    estadoAct = 'F'  
+            elif estadoAct == 'H':
+                if buscar.lexema == '”':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'H'
+                    estadoAct = 'F'
+                elif buscar.lexema != '”':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'H'
+                    estadoAct = 'H'
+            elif estadoAct == 'W':
+                if buscar.lexema == ';':
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    estadoAnt = 'W'
+                    estadoAct = 'S'
     #Metodos para almacenar Sintacticos
     def almacenarSintactico(self,fila, columna, dato):
         newSin = Token(fila, columna, dato)
