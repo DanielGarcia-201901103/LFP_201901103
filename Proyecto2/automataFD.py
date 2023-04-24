@@ -46,11 +46,11 @@ class AFD:
                     self.estadoAnterior = 'A'
                     self.estadoActual = 'B'
                 elif caracter == '/':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,"barra")
                     self.estadoAnterior = 'A'
                     self.estadoActual = 'C'
                 elif caracter == '-':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,"guion")
                     self.estadoAnterior = 'A'
                     self.estadoActual = 'D'
                 elif caracter == '\n':
@@ -74,24 +74,24 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             # valida cuando hay comentarios de una Linea
             elif self.estadoActual == 'D':
                 if caracter == '-':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'guion')
                     self.estadoAnterior = 'D'
                     self.estadoActual = 'G'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'G':
                 if caracter == '-':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'guion')
                     self.estadoAnterior = 'G'
                     self.estadoActual = 'J'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter) 
+                    self.almacenarError(caracter,'invalido') 
             elif self.estadoActual == 'J':
                 if caracter.lower() in self.letrasComentarios:
                     tok += caracter
@@ -99,7 +99,7 @@ class AFD:
                     self.estadoActual = 'J'
                 elif caracter == ' ':
                     if tok != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'comentario')
                     tok = ''
                     self.estadoAnterior = 'J'
                     self.estadoActual = 'J'
@@ -108,7 +108,7 @@ class AFD:
                     continue
                 elif caracter == '\n':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'comentario')
                     tok = ''
                     self.estadoAnterior = 'J'
                     self.estadoActual = 'A'
@@ -118,7 +118,7 @@ class AFD:
                     continue
                 elif caracter == '\t':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'comentario')
                     tok = ''
                     self.estadoAnterior = 'J'
                     self.estadoActual = 'J'
@@ -128,28 +128,28 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             # valida cuando hay comentarios de varias lineas
             elif self.estadoActual == 'C':
                 if caracter == '*':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'asterisco')
                     self.estadoAnterior = 'C'
                     self.estadoActual = 'F'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'F':
                 if caracter.lower() in self.letrasComentarios:
                     tok += caracter
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'F'
                 elif caracter == '*':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'asterisco')
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'I'
                 elif caracter == ' ':
                     if tok != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'comentario')
                     tok = ''
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'F'
@@ -158,7 +158,7 @@ class AFD:
                     continue
                 elif caracter == '\n':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'comentario')
                     tok = ''
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'F'
@@ -168,7 +168,7 @@ class AFD:
                     continue
                 elif caracter == '\t':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok, 'comentario')
                     tok = ''
                     self.estadoAnterior = 'F'
                     self.estadoActual = 'F'
@@ -177,19 +177,19 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'I':
                 if caracter == '/':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'barra')
                     self.estadoAnterior = 'I'
                     self.estadoActual = 'L'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'L':
                 if caracter == '\n':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'comentario')
                     tok = ''
                     self.estadoAnterior = 'L'
                     self.estadoActual = 'A'
@@ -199,7 +199,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             # valida cuando hay funciones
             elif self.estadoActual == 'B':
                 if caracter.lower() in self.tipoFuncion:
@@ -208,7 +208,7 @@ class AFD:
                     self.estadoActual = 'B'
                 elif caracter == ' ':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'funcion')
                     tok = ''
                     self.estadoAnterior = 'B'
                     self.estadoActual = 'E'
@@ -217,19 +217,19 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'E':
                 if caracter.lower() in self.identificacion:
                     tok += caracter
                     self.estadoAnterior = 'E'
                     self.estadoActual = 'E'
                 elif caracter == '=':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'igual')
                     self.estadoAnterior = 'E'
                     self.estadoActual = 'H'
                 elif caracter == ' ':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'variable')
                     tok = ''
                     self.estadoAnterior = 'E'
                     self.estadoActual = 'E'
@@ -238,7 +238,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'H':
                 if caracter.lower() in self.nueva:
                     tok += caracter
@@ -246,7 +246,7 @@ class AFD:
                     self.estadoActual = 'H'
                 elif caracter.lower() == 'a':
                     tok += caracter
-                    self.almacenarToken(tok)
+                    self.almacenarToken(tok,'reservada')
                     tok = ''
                     self.estadoAnterior = 'H'
                     self.estadoActual = 'K'
@@ -258,21 +258,21 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'K':
                 if caracter.lower() in self.tipoFuncion:
                     tok += caracter
                     self.estadoAnterior = 'K'
                     self.estadoActual = 'K'
                 elif caracter == '(':
-                    self.almacenarToken(tok)
+                    self.almacenarToken(tok,'funcion')
                     tok = ''
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'parentesis')
                     self.estadoAnterior = 'K'
                     self.estadoActual = 'M'
                 elif caracter == ' ':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'funcion')
                     tok = ''
                     self.estadoAnterior = 'K'
                     self.estadoActual = 'K'
@@ -281,7 +281,7 @@ class AFD:
                     continue
                 elif caracter == '\n':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'funcion')
                     tok = ''
                     self.estadoAnterior = 'K'
                     self.estadoActual = 'K'
@@ -291,33 +291,33 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'M':
                 if caracter == ')':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'parentesis')
                     self.estadoAnterior = 'M'
                     self.estadoActual = 'Ñ'
                 elif caracter == '“':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'comilla')
                     self.estadoAnterior = 'M'
                     self.estadoActual = 'N'
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'N':
                 if caracter.lower() in self.identificacion:
                     tok += caracter
                     self.estadoAnterior = 'N'
                     self.estadoActual = 'N'
                 elif caracter == '”':
-                    self.almacenarToken(tok)
+                    self.almacenarToken(tok,'identificador')
                     tok = ''
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'comilla')
                     self.estadoAnterior = 'N'
                     self.estadoActual = 'O'
                 elif caracter == ' ':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'identificador')
                     tok = ''
                     self.estadoAnterior = 'N'
                     self.estadoActual = 'N'
@@ -326,7 +326,7 @@ class AFD:
                     continue
                 elif caracter == '\n':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'identificador')
                     tok = ''
                     self.estadoAnterior = 'N'
                     self.estadoActual = 'N'
@@ -336,16 +336,16 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             # ARREGLAR LOS ESTADOS DE LAS FUNCIONES YA QUE FALLA DESPUES DE LA PALABRA nueva 
             elif self.estadoActual == 'Ñ':
                 if caracter == ';':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'punto y coma')
                     self.estadoAnterior = 'Ñ'
                     self.estadoActual = 'L'
                 elif caracter == ' ':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'valor')
                     tok = ''
                     self.estadoAnterior = 'Ñ'
                     self.estadoActual = 'Ñ'
@@ -354,7 +354,7 @@ class AFD:
                     continue
                 elif caracter == '\n':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'valor')
                     tok = ''
                     self.estadoAnterior = 'Ñ'
                     self.estadoActual = 'Ñ'
@@ -364,19 +364,19 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'O':
                 if caracter == ')':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'parentesis')
                     self.estadoAnterior = 'O'
                     self.estadoActual = 'Ñ'
                 elif caracter == ',':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'coma')
                     self.estadoAnterior = 'O'
                     self.estadoActual = 'P'
                 elif caracter == ' ':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'valor')
                     tok = ''
                     self.estadoAnterior = 'O'
                     self.estadoActual = 'O'
@@ -385,7 +385,7 @@ class AFD:
                     continue
                 elif caracter == '\n':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'valor')
                     tok = ''
                     self.estadoAnterior = 'O'
                     self.estadoActual = 'O'
@@ -395,15 +395,15 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'P':
                 if caracter == '“':
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'comilla')
                     self.estadoAnterior = 'P'
                     self.estadoActual = 'Q'
                 elif caracter == ' ':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'valor')
                     tok = ''
                     self.estadoAnterior = 'P'
                     self.estadoActual = 'P'
@@ -412,7 +412,7 @@ class AFD:
                     continue
                 elif caracter == '\n':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'valor')
                     tok = ''
                     self.estadoAnterior = 'P'
                     self.estadoActual = 'P'
@@ -422,21 +422,21 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
             elif self.estadoActual == 'Q':
                 if caracter.lower() in self.letrasJson:
                     tok += caracter
                     self.estadoAnterior = 'Q'
                     self.estadoActual = 'Q'
                 elif caracter == '”':
-                    self.almacenarToken(tok)
+                    self.almacenarToken(tok,'json')
                     tok = ''
-                    self.almacenarToken(caracter)
+                    self.almacenarToken(caracter,'comilla')
                     self.estadoAnterior = 'Q'
                     self.estadoActual = 'O'
                 elif caracter == ' ':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'json')
                     tok = ''
                     self.estadoAnterior = 'Q'
                     self.estadoActual = 'Q'
@@ -445,7 +445,7 @@ class AFD:
                     continue
                 elif caracter == '\n':
                     if tok  != '':
-                        self.almacenarToken(tok)
+                        self.almacenarToken(tok,'json')
                     tok = ''
                     self.estadoAnterior = 'Q'
                     self.estadoActual = 'Q'
@@ -455,7 +455,7 @@ class AFD:
                     continue
                 else:
                     validandoError = True
-                    self.almacenarError(caracter)
+                    self.almacenarError(caracter,'invalido')
 
 
             self.columna += 1
@@ -468,81 +468,114 @@ class AFD:
         for buscar in self.tabla:
             if estadoAct == 'S':
                 if buscar.lexema in self.reservadasFunciones:
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'funcion')
                     estadoAnt = 'S'
                     estadoAct = 'A'
+                else:
+                    self.almacenarErrorSintactico(buscar.fila, buscar.columna, buscar.lexema,'invalido')
             elif estadoAct == 'A':
                 if buscar.lexema != '':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'variable')
                     estadoAnt = 'A'
                     estadoAct = 'B'
+                else:
+                    self.almacenarErrorSintactico(buscar.fila, buscar.columna, buscar.lexema,'invalido')
             elif estadoAct == 'B':
                 if buscar.lexema == '=':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'igual')
                     estadoAnt = 'B'
                     estadoAct = 'C'
+                else:
+                    self.almacenarErrorSintactico(buscar.fila, buscar.columna, buscar.lexema,'invalido')
             elif estadoAct == 'C':
                 if buscar.lexema.lower() == 'nueva':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'reservada')
                     estadoAnt = 'C'
                     estadoAct = 'D'
+                else:
+                    self.almacenarErrorSintactico(buscar.fila, buscar.columna, buscar.lexema,'invalido')
             elif estadoAct == 'D':
                 if buscar.lexema in self.reservadasFunciones:
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'funcion')
                     estadoAnt = 'D'
                     estadoAct = 'E'
+                else:
+                    self.almacenarErrorSintactico(buscar.fila, buscar.columna, buscar.lexema,'invalido')
             elif estadoAct == 'E':
                 if buscar.lexema == '(':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'parentesis')
                     estadoAnt = 'E'
                     estadoAct = 'F'
+                else:
+                    self.almacenarErrorSintactico(buscar.fila, buscar.columna, buscar.lexema,'invalido')
             elif estadoAct == 'F':
                 if buscar.lexema == ')':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'parentesis')
                     estadoAnt = 'F'
                     estadoAct = 'W'
                 elif buscar.lexema == '“':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'comilla')
                     estadoAnt = 'F'
                     estadoAct = 'H'  
                 elif buscar.lexema == '”':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'comilla')
                     estadoAnt = 'F'
                     estadoAct = 'F'  
                 elif buscar.lexema == ',':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'coma')
                     estadoAnt = 'F'
-                    estadoAct = 'F'  
+                    estadoAct = 'F' 
+                else:
+                    self.almacenarErrorSintactico(buscar.fila, buscar.columna, buscar.lexema,'invalido')
             elif estadoAct == 'H':
                 if buscar.lexema == '”':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'comilla')
                     estadoAnt = 'H'
                     estadoAct = 'F'
                 elif buscar.lexema != '”':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'json')
                     estadoAnt = 'H'
                     estadoAct = 'H'
+                else:
+                    self.almacenarErrorSintactico(buscar.fila, buscar.columna, buscar.lexema,'invalido')
             elif estadoAct == 'W':
                 if buscar.lexema == ';':
-                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema)
+                    self.almacenarSintactico(buscar.fila, buscar.columna, buscar.lexema,'punto y coma')
                     estadoAnt = 'W'
                     estadoAct = 'S'
+                else:
+                    self.almacenarErrorSintactico(buscar.fila, buscar.columna, buscar.lexema,'invalido')
+        
+    def escribiendoArchivo(self):
+        sentencias = ''
+        it = 0
+        while it < len(self.tablaSintactico):
+            if self.tablaSintactico[it].lexema == 'CrearBD':
+                sentencias += "use(‘nombreBaseDatos’);"
+            if self.tablaSintactico[it].lexema== 'EliminarBD':
+                sentencias += '\n'
+                sentencias += 'db.dropDatabase();'
+            if self.tablaSintactico[it].lexema == 'CrearColeccion':
+                sentencias += '\n'
+                sentencias += 'db.createCollection(‘nombreColeccion’);'
+            it +=1
+
     #Metodos para almacenar Sintacticos
-    def almacenarSintactico(self,fila, columna, dato):
-        newSin = Token(fila, columna, dato)
+    def almacenarSintactico(self,fila, columna, dato, t):
+        newSin = Token(fila, columna, dato, t)
         self.tablaSintactico.append(newSin)
 
-    def almacenarErrorSintactico(self,fila, columna, dato):
-        newESin = Token(fila, columna, dato)
+    def almacenarErrorSintactico(self,fila, columna, dato, t):
+        newESin = Token(fila, columna, dato, t)
         self.tablaErroresSintacticos.append(newESin)
 
     #Metodos para almacenar token lexicos
-    def almacenarToken(self, lexema):
-        newToken = Token(self.fila, self.columna, lexema)
+    def almacenarToken(self, lexema,t):
+        newToken = Token(self.fila, self.columna, lexema,t)
         self.tabla.append(newToken)
 
-    def almacenarError(self, lexemaError):
-        newToken1 = Token(self.fila, self.columna, lexemaError)
+    def almacenarError(self, lexemaError,t):
+        newToken1 = Token(self.fila, self.columna, lexemaError,t)
         self.tablaErrores.append(newToken1)
 
     def obtenerTablaTokens(self):
