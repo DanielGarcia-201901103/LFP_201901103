@@ -97,7 +97,6 @@ def verTokens():
     try:
         auxiliarTablaTokens = analisisLexico.obtenerTablaTokens()
 
-
         ventana_Token = tk.Toplevel()
         ventana_Token.title("Tabla TOKENS")
         ventana_Token.geometry("650x600")
@@ -140,9 +139,7 @@ def verTokens():
             iterador += 1
         tablaDinamica.pack(pady=20)
 
-
         ventana_Token.mainloop()
-
 
     except Exception as e:
             showerror(title="Error", message="Ocurrió un error"+ str(e))

@@ -214,6 +214,25 @@ class AFD:
                     self.columna += 1
                     texto = texto[1:]
                     continue
+                elif caracter == '\t':
+                    if tok  != '':
+                        self.almacenarToken(tok,'funcion')
+                    tok = ''
+                    self.estadoAnterior = 'B'
+                    self.estadoActual = 'E'
+                    self.columna += 4
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\n':
+                    if tok  != '':
+                        self.almacenarToken(tok,'funcion')
+                    tok = ''
+                    self.estadoAnterior = 'B'
+                    self.estadoActual = 'E'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
                 else:
                     validandoError = True
                     self.almacenarError(caracter,'funcion invalida')
@@ -235,6 +254,25 @@ class AFD:
                     self.columna += 1
                     texto = texto[1:]
                     continue
+                elif caracter == '\n':
+                    if tok  != '':
+                        self.almacenarToken(tok,'variable')
+                    tok = ''
+                    self.estadoAnterior = 'E'
+                    self.estadoActual = 'E'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\t':
+                    if tok  != '':
+                        self.almacenarToken(tok,'variable')
+                    tok = ''
+                    self.estadoAnterior = 'E'
+                    self.estadoActual = 'E'
+                    self.columna += 4
+                    texto = texto[1:]
+                    continue
                 else:
                     validandoError = True
                     self.almacenarError(caracter,'variable invalida ó falta =')
@@ -253,6 +291,19 @@ class AFD:
                     self.estadoAnterior = 'H'
                     self.estadoActual = 'H'
                     self.columna += 1
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\t':
+                    self.estadoAnterior = 'H'
+                    self.estadoActual = 'H'
+                    self.columna += 4
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\n':
+                    self.estadoAnterior = 'H'
+                    self.estadoActual = 'H'
+                    self.fila += 1
+                    self.columna = 0
                     texto = texto[1:]
                     continue
                 else:
@@ -300,6 +351,35 @@ class AFD:
                     self.almacenarToken(caracter,'comilla')
                     self.estadoAnterior = 'M'
                     self.estadoActual = 'N'
+                elif caracter == ' ':
+                    if tok  != '':
+                        self.almacenarToken(tok,'valor')
+                    tok = ''
+                    self.estadoAnterior = 'M'
+                    self.estadoActual = 'M'
+                    self.columna += 1
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\n':
+                    if tok  != '':
+                        self.almacenarToken(tok,'valor')
+                    tok = ''
+                    self.estadoAnterior = 'M'
+                    self.estadoActual = 'M'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\t':
+                    if tok  != '':
+                        self.almacenarToken(tok,'valor')
+                    tok = ''
+                    self.estadoAnterior = 'M'
+                    self.estadoActual = 'M'
+                    
+                    self.columna += 4
+                    texto = texto[1:]
+                    continue
                 else:
                     validandoError = True
                     self.almacenarError(caracter,'falta ) ó “')
@@ -333,6 +413,16 @@ class AFD:
                     self.columna = 0
                     texto = texto[1:]
                     continue
+                elif caracter == '\t':
+                    if tok  != '':
+                        self.almacenarToken(tok,'identificador')
+                    tok = ''
+                    self.estadoAnterior = 'N'
+                    self.estadoActual = 'N'
+                    
+                    self.columna += 4
+                    texto = texto[1:]
+                    continue
                 else:
                     validandoError = True
                     self.almacenarError(caracter,'falta ” ó identificador invalido')
@@ -359,6 +449,16 @@ class AFD:
                     self.estadoActual = 'Ñ'
                     self.fila += 1
                     self.columna = 0
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\t':
+                    if tok  != '':
+                        self.almacenarToken(tok,'valor')
+                    tok = ''
+                    self.estadoAnterior = 'Ñ'
+                    self.estadoActual = 'Ñ'
+                    
+                    self.columna += 4
                     texto = texto[1:]
                     continue
                 else:
@@ -392,6 +492,16 @@ class AFD:
                     self.columna = 0
                     texto = texto[1:]
                     continue
+                elif caracter == '\t':
+                    if tok  != '':
+                        self.almacenarToken(tok,'valor')
+                    tok = ''
+                    self.estadoAnterior = 'O'
+                    self.estadoActual = 'O'
+                    
+                    self.columna += 4
+                    texto = texto[1:]
+                    continue
                 else:
                     validandoError = True
                     self.almacenarError(caracter,'falta ) ó , ó caracter invalido')
@@ -417,6 +527,16 @@ class AFD:
                     self.estadoActual = 'P'
                     self.fila += 1
                     self.columna = 0
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\t':
+                    if tok  != '':
+                        self.almacenarToken(tok,'valor')
+                    tok = ''
+                    self.estadoAnterior = 'P'
+                    self.estadoActual = 'P'
+                    
+                    self.columna += 4
                     texto = texto[1:]
                     continue
                 else:
@@ -452,6 +572,15 @@ class AFD:
                     self.columna = 0
                     texto = texto[1:]
                     continue
+                elif caracter == '\t':
+                    if tok  != '':
+                        self.almacenarToken(tok,'json')
+                    tok = ''
+                    self.estadoAnterior = 'Q'
+                    self.estadoActual = 'Q'
+                    self.columna += 4
+                    texto = texto[1:]
+                    continue
                 else:
                     validandoError = True
                     self.almacenarError(caracter,'falta ” ó caracter json invalido')
@@ -471,6 +600,17 @@ class AFD:
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'funcion')
                     estadoAnt = 'S'
                     estadoAct = 'A'
+                elif self.tabla[it].lexema == '/':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'comentario')
+                    estadoAnt = 'A'
+                    estadoAct = 'M'
+                elif self.tabla[it].lexema == '-':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'comentario')
+                    estadoAnt = 'A'
+                    estadoAct = 'P'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'S'
+                    estadoAct = 'S'
                 else:
                     self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'A':
@@ -478,6 +618,9 @@ class AFD:
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'variable')
                     estadoAnt = 'A'
                     estadoAct = 'B'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'A'
+                    estadoAct = 'A'
                 else:
                     self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'B':
@@ -485,6 +628,9 @@ class AFD:
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'igual')
                     estadoAnt = 'B'
                     estadoAct = 'C'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'B'
+                    estadoAct = 'B'
                 else:
                     self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'C':
@@ -492,6 +638,9 @@ class AFD:
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'reservada')
                     estadoAnt = 'C'
                     estadoAct = 'D'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'C'
+                    estadoAct = 'C'
                 else:
                     self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'D':
@@ -499,6 +648,9 @@ class AFD:
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'funcion')
                     estadoAnt = 'D'
                     estadoAct = 'E'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'D'
+                    estadoAct = 'D'
                 else:
                     self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'E':
@@ -506,6 +658,9 @@ class AFD:
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'parentesis')
                     estadoAnt = 'E'
                     estadoAct = 'F'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'E'
+                    estadoAct = 'E'
                 else:
                     self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'F':
@@ -525,6 +680,9 @@ class AFD:
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'coma')
                     estadoAnt = 'F'
                     estadoAct = 'F' 
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'F'
+                    estadoAct = 'F'
                 else:
                     self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'H':
@@ -536,19 +694,73 @@ class AFD:
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'json')
                     estadoAnt = 'H'
                     estadoAct = 'H'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'H'
+                    estadoAct = 'H'
                 else:
-                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'comilla o json invalido')
             elif estadoAct == 'W':
                 if self.tabla[it].lexema == ';':
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'punto y coma')
                     estadoAnt = 'W'
                     estadoAct = 'S'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'W'
+                    estadoAct = 'W'
                 else:
                     self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
+            elif estadoAct == 'M':
+                if self.tabla[it].lexema == '*':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'asterisco')
+                    estadoAnt = 'M'
+                    estadoAct = 'N'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'M'
+                    estadoAct = 'M'
+                else:
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'* invalido')
+            elif estadoAct == 'N':
+                if self.tabla[it].lexema != '':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'comentario')
+                    estadoAnt = 'N'
+                    estadoAct = 'N'
+                elif self.tabla[it].lexema == '*':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'asterisco')
+                    estadoAnt = 'N'
+                    estadoAct = 'U'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'N'
+                    estadoAct = 'N'
+                else:
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'* ó caracter invalido')
+            elif estadoAct == 'U':
+                if self.tabla[it].lexema == '/':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'barra /')
+                    estadoAnt = 'U'
+                    estadoAct = 'S'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'U'
+                    estadoAct = 'U'
+                else:
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'/ invalido')
+            elif estadoAct == 'P':
+                if self.tabla[it].lexema == '-':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'guion -')
+                    estadoAnt = 'P'
+                    estadoAct = 'P'
+                elif self.tabla[it].lexema != '':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'caracter')
+                    estadoAnt = 'P'
+                    estadoAct = 'A'
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                    estadoAnt = 'P'
+                    estadoAct = 'P'
+                else:
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'- ó caracter invalido')
             it +=1
-
+        
     def escribiendoArchivo(self):
-        sentencias = ''
+        
         it = 0
         while it < len(self.tablaSintactico):
             if self.tablaSintactico[it].lexema == 'CrearBD':
@@ -592,6 +804,15 @@ class AFD:
         print('-'*31)
         correlativo = 1
         for token in self.tablaSintactico:
+            print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
+            correlativo +=1
+
+    def imprimir_tokensSintacticosC(self):
+        print('-'*31)
+        print("| {:<12} | {:<4} | {:<7} | {:<20} |".format('Correlativo','Fila', 'Columna', 'Lexema'))
+        print('-'*31)
+        correlativo = 1
+        for token in self.tablaSintacticoComentario:
             print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
             correlativo +=1
 
