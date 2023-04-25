@@ -467,87 +467,86 @@ class AFD:
         it = 0
         while it < len(self.tabla):
             if estadoAct == 'S':
-                if self.tablaSintactico[it].lexema in self.reservadasFunciones:
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'funcion')
+                if self.tabla[it].lexema in self.reservadasFunciones:
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'funcion')
                     estadoAnt = 'S'
                     estadoAct = 'A'
-
                 else:
-                    self.almacenarErrorSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'A':
-                if self.tablaSintactico[it].lexema != '':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'variable')
+                if self.tabla[it].lexema != '':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'variable')
                     estadoAnt = 'A'
                     estadoAct = 'B'
                 else:
-                    self.almacenarErrorSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'B':
-                if self.tablaSintactico[it].lexema == '=':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'igual')
+                if self.tabla[it].lexema == '=':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'igual')
                     estadoAnt = 'B'
                     estadoAct = 'C'
                 else:
-                    self.almacenarErrorSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'C':
-                if self.tablaSintactico[it].lexema.lower() == 'nueva':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'reservada')
+                if self.tabla[it].lexema.lower() == 'nueva':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'reservada')
                     estadoAnt = 'C'
                     estadoAct = 'D'
                 else:
-                    self.almacenarErrorSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'D':
-                if self.tablaSintactico[it].lexema in self.reservadasFunciones:
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'funcion')
+                if self.tabla[it].lexema in self.reservadasFunciones:
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'funcion')
                     estadoAnt = 'D'
                     estadoAct = 'E'
                 else:
-                    self.almacenarErrorSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'E':
-                if self.tablaSintactico[it].lexema == '(':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'parentesis')
+                if self.tabla[it].lexema == '(':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'parentesis')
                     estadoAnt = 'E'
                     estadoAct = 'F'
                 else:
-                    self.almacenarErrorSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'F':
-                if self.tablaSintactico[it].lexema == ')':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'parentesis')
+                if self.tabla[it].lexema == ')':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'parentesis')
                     estadoAnt = 'F'
                     estadoAct = 'W'
-                elif self.tablaSintactico[it].lexema == '“':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'comilla')
+                elif self.tabla[it].lexema == '“':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'comilla')
                     estadoAnt = 'F'
                     estadoAct = 'H'  
-                elif self.tablaSintactico[it].lexema == '”':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'comilla')
+                elif self.tabla[it].lexema == '”':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'comilla')
                     estadoAnt = 'F'
                     estadoAct = 'F'  
-                elif self.tablaSintactico[it].lexema == ',':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'coma')
+                elif self.tabla[it].lexema == ',':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'coma')
                     estadoAnt = 'F'
                     estadoAct = 'F' 
                 else:
-                    self.almacenarErrorSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'H':
-                if self.tablaSintactico[it].lexema == '”':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'comilla')
+                if self.tabla[it].lexema == '”':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'comilla')
                     estadoAnt = 'H'
                     estadoAct = 'F'
-                elif self.tablaSintactico[it].lexema != '”':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'json')
+                elif self.tabla[it].lexema != '”':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'json')
                     estadoAnt = 'H'
                     estadoAct = 'H'
                 else:
-                    self.almacenarErrorSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             elif estadoAct == 'W':
-                if self.tablaSintactico[it].lexema == ';':
-                    self.almacenarSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'punto y coma')
+                if self.tabla[it].lexema == ';':
+                    self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'punto y coma')
                     estadoAnt = 'W'
                     estadoAct = 'S'
                 else:
-                    self.almacenarErrorSintactico(self.tablaSintactico[it].fila, self.tablaSintactico[it].columna, self.tablaSintactico[it].lexema,'invalido')
-            
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'invalido')
             it +=1
+
     def escribiendoArchivo(self):
         sentencias = ''
         it = 0

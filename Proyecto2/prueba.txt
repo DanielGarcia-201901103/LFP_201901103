@@ -6,7 +6,7 @@
 
 
 --- CREAR BASE DE DATOS
-temp1 CrearBD =  nueva CrearBD();
+CrearBD temp1 =  nueva CrearBD();
 
 --- ELIMINAR BASE DE DATOS
 EliminarBD temp1 = nueva EliminarBD();
@@ -78,6 +78,8 @@ BuscarTodo todo = nueva BuscarTodo (“literaturas”);
 
 --- BUSCAR UN DATO POR COLECCION
 BuscarUnico todo = nueva BuscarUnico (“literaturas”);
+
+
 
 
 
