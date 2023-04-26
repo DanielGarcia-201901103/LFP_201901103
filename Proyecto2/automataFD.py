@@ -763,7 +763,8 @@ class AFD:
         estadoAnt = ''
         self.sentencias = ''
         compararFuncion = ''
-        sentenciaEliminar = ''
+        nameColeccion = ''
+        archivoJson = ''
         it = 0
         while it < len(self.tablaSintactico):
             if estadoAct == 'S':
@@ -794,21 +795,9 @@ class AFD:
                     estadoAct = 'C'
             elif estadoAct == 'D':
                 if self.tablaSintactico[it].lexema in self.reservadasFunciones:
-                    
+                    compararFuncion = self.tablaSintactico[it].lexema
                     estadoAnt = 'D'
                     estadoAct = 'E'
-                    if self.tablaSintactico[it].lexema  == compararFuncion:
-                        if self.tablaSintactico[it].lexema == 'CrearBD':
-                            self.sentencias += "\nuse(‘nombreBaseDatos’);"
-                        elif self.tablaSintactico[it].lexema == 'EliminarBD':
-                            self.sentencias += '\n'
-                            self.sentencias += 'db.dropDatabase();'
-                        elif self.tablaSintactico[it].lexema == 'CrearColeccion':
-                            self.sentencias += '\n'
-                            self.sentencias += 'db.createCollection(‘'
-                        elif self.tablaSintactico[it].lexema == 'EliminarColeccion':
-                            self.sentencias += '\n'
-                            sentenciaEliminar += 'db.'
                 elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
                     estadoAnt = 'D'
                     estadoAct = 'D'
@@ -821,39 +810,86 @@ class AFD:
                     estadoAct = 'E'
             elif estadoAct == 'F':
                 if self.tablaSintactico[it].lexema == ')':
-                    self.sentencias += ');\n'
                     estadoAnt = 'F'
                     estadoAct = 'W'
                 elif self.tablaSintactico[it].lexema == '“':
                     estadoAnt = 'F'
                     estadoAct = 'H'  
                 elif self.tablaSintactico[it].lexema == '”':
-                    self.sentencias += '’'
+                    #self.sentencias += '’'
                     estadoAnt = 'F'
                     estadoAct = 'F'  
                 elif self.tablaSintactico[it].lexema == ',':
                     estadoAnt = 'F'
-                    estadoAct = 'F' 
+                    estadoAct = 'I' 
                 elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
                     estadoAnt = 'F'
                     estadoAct = 'F'
             elif estadoAct == 'H':
                 if self.tablaSintactico[it].lexema == '”':
-                    self.sentencias += '’'
+                    #self.sentencias += '’'
                     estadoAnt = 'H'
                     estadoAct = 'F'
                 elif self.tablaSintactico[it].lexema != '”':
-                    
-                    self.sentencias += str(self.tablaSintactico[it].lexema)
+                    nameColeccion = str(self.tablaSintactico[it].lexema)
                     estadoAnt = 'H'
                     estadoAct = 'H'
                 elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
                     estadoAnt = 'H'
                     estadoAct = 'H'
+            elif estadoAct == 'I':
+                if self.tablaSintactico[it].lexema == ')':
+                    estadoAnt = 'I'
+                    estadoAct = 'W'
+                elif self.tablaSintactico[it].lexema == '“':
+                    estadoAnt = 'I'
+                    estadoAct = 'J'  
+                elif self.tablaSintactico[it].lexema == '”':
+                    #self.sentencias += '’'
+                    estadoAnt = 'I'
+                    estadoAct = 'I'
+                elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
+                    estadoAnt = 'I'
+                    estadoAct = 'I'  
+            elif estadoAct == 'J':
+                if self.tablaSintactico[it].lexema == '”':
+                    #self.sentencias += '’'
+                    estadoAnt = 'J'
+                    estadoAct = 'I'
+                elif self.tablaSintactico[it].lexema != '”':
+                    archivoJson += str(self.tablaSintactico[it].lexema)
+                    estadoAnt = 'J'
+                    estadoAct = 'J'
+                elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
+                    estadoAnt = 'J'
+                    estadoAct = 'J'
+
+
             elif estadoAct == 'W':
                 if self.tablaSintactico[it].lexema == ';':
                     estadoAnt = 'W'
                     estadoAct = 'S'
+                    if compararFuncion.strip() == 'CrearBD':
+                        self.sentencias += 'use(‘nombreBaseDatos’);'
+                    elif compararFuncion.strip() == 'EliminarBD':
+                        self.sentencias += 'db.dropDatabase();'
+                    elif compararFuncion.strip() == 'CrearColeccion':
+                        self.sentencias += 'db.createCollection(‘'+nameColeccion+'’);'
+                    elif compararFuncion.strip() == 'EliminarColeccion':
+                        self.sentencias += 'db.'+ nameColeccion+ '.drop();'
+                    elif compararFuncion.strip() == 'InsertarUnico':
+                        self.sentencias += 'db.'+ nameColeccion+ '.insertOne(“'+archivoJson+'”);'
+                    elif compararFuncion.strip() == 'ActualizarUnico':
+                        self.sentencias += 'db.'+ nameColeccion+ '.updateOne(“'+archivoJson+'”);'
+                    elif compararFuncion.strip() == 'EliminarUnico':
+                        self.sentencias += 'db.'+ nameColeccion+ '.deleteOne(“'+archivoJson+'”);'
+                    elif compararFuncion.strip() == 'BuscarTodo':
+                        self.sentencias += 'db.'+ nameColeccion+ '.find();'
+                    elif compararFuncion.strip() == 'BuscarUnico':
+                        self.sentencias += 'db.'+ nameColeccion+ '.findOne();'
+                    self.sentencias += '\n\n'
+                    archivoJson = ''
+                    nameColeccion = ''
             
             it +=1
         print(self.sentencias)
