@@ -159,6 +159,7 @@ def verTokens():
 def verErrores():
     try:
         auxiliarTablaErrores = analisisLexico.obtenerTablaErrores()
+        auxiliarTErroresSintacticos = analisisLexico.obtenerTablaSintacticoErrores()
         ventana_Errores = tk.Toplevel()
         ventana_Errores.title("Tabla TOKENS")
         ventana_Errores.geometry("900x600")
@@ -207,7 +208,21 @@ def verErrores():
             iterador += 1
 
         #Agregar la lectura de errores sintacticos con otro for
+        iterador1 = 1
 
+        for k in auxiliarTErroresSintacticos:
+            t_fila1 = k.fila
+            t_columna1 = k.columna
+            t_lexema1 = k.lexema
+            t_des1 = k.tok
+
+            # MEJOR SE VA A MANEJAR CON WHILE PARA RECORRER LA LISTA OBJETOS.
+            if iterador1 % 2 == 0:
+                tablaDinamica.insert("", tk.END, text='Sintactico', values=(t_fila1, t_columna1, t_lexema1, t_des1), tags=("evenrow",))
+            else:
+                tablaDinamica.insert("", tk.END, text='Sintactico', values=(t_fila1, t_columna1, t_lexema1, t_des1), tags=("oddrow",))
+
+            iterador1 += 1
 
         tablaDinamica.pack(pady=20)
 

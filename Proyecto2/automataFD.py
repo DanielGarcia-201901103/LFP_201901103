@@ -5,7 +5,7 @@ class AFD:
         self.letrasComentarios = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','{','}','[',']','.']
         self.identificacion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','_']
         self.nueva = ['n','u','e','v']
-        self.letrasJson = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-','{','}','"','.',',','$',':']
+        self.letrasJson = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '{', '}', '"', '.', ',', '$', ':'] #'\n',' ', '\t'
         self.tipoFuncion = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         self.reservadasFunciones =['CrearBD','EliminarBD','CrearColeccion','EliminarColeccion','InsertarUnico','ActualizarUnico','EliminarUnico','BuscarTodo','BuscarUnico']
         self.fila = 1
@@ -321,7 +321,7 @@ class AFD:
                     self.estadoAnterior = 'K'
                     self.estadoActual = 'M'
                 elif caracter == ' ':
-                    if tok  != '':
+                    if tok  != '' and tok != ' ':
                         self.almacenarToken(tok,'funcion')
                     tok = ''
                     self.estadoAnterior = 'K'
@@ -330,7 +330,17 @@ class AFD:
                     texto = texto[1:]
                     continue
                 elif caracter == '\n':
-                    if tok  != '':
+                    if tok  != '' and tok != '\n':
+                        self.almacenarToken(tok,'funcion')
+                    tok = ''
+                    self.estadoAnterior = 'K'
+                    self.estadoActual = 'K'
+                    self.fila += 1
+                    self.columna = 0
+                    texto = texto[1:]
+                    continue
+                elif caracter == '\t':
+                    if tok  != '' and tok  != '\t':
                         self.almacenarToken(tok,'funcion')
                     tok = ''
                     self.estadoAnterior = 'K'
@@ -474,7 +484,7 @@ class AFD:
                     self.estadoAnterior = 'O'
                     self.estadoActual = 'P'
                 elif caracter == ' ':
-                    if tok  != '':
+                    if tok  != '' and tok != ' ':
                         self.almacenarToken(tok,'valor')
                     tok = ''
                     self.estadoAnterior = 'O'
@@ -483,7 +493,7 @@ class AFD:
                     texto = texto[1:]
                     continue
                 elif caracter == '\n':
-                    if tok  != '':
+                    if tok  != '' and tok != '\n':
                         self.almacenarToken(tok,'valor')
                     tok = ''
                     self.estadoAnterior = 'O'
@@ -493,7 +503,7 @@ class AFD:
                     texto = texto[1:]
                     continue
                 elif caracter == '\t':
-                    if tok  != '':
+                    if tok  != '' and tok != '\t':
                         self.almacenarToken(tok,'valor')
                     tok = ''
                     self.estadoAnterior = 'O'
@@ -554,7 +564,7 @@ class AFD:
                     self.estadoAnterior = 'Q'
                     self.estadoActual = 'O'
                 elif caracter == ' ':
-                    if tok  != '':
+                    if tok  != '' and tok != ' ':
                         self.almacenarToken(tok,'json')
                     tok = ''
                     self.estadoAnterior = 'Q'
@@ -563,7 +573,7 @@ class AFD:
                     texto = texto[1:]
                     continue
                 elif caracter == '\n':
-                    if tok  != '':
+                    if tok  != '' and tok != '\n':
                         self.almacenarToken(tok,'json')
                     tok = ''
                     self.estadoAnterior = 'Q'
@@ -573,7 +583,7 @@ class AFD:
                     texto = texto[1:]
                     continue
                 elif caracter == '\t':
-                    if tok  != '':
+                    if tok  != '' and tok != '\t':
                         self.almacenarToken(tok,'json')
                     tok = ''
                     self.estadoAnterior = 'Q'
@@ -607,7 +617,7 @@ class AFD:
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'comentario')
                     estadoAnt = 'A'
                     estadoAct = 'P'
-                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ' or self.tabla[it].lexema == '\t':
                     estadoAnt = 'S'
                     estadoAct = 'S'
                 else:
@@ -719,15 +729,15 @@ class AFD:
                 else:
                     self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'* invalido')
             elif estadoAct == 'N':
-                if self.tabla[it].lexema != '':
+                if self.tabla[it].lexema.strip() != '':
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'comentario')
                     estadoAnt = 'N'
                     estadoAct = 'N'
-                elif self.tabla[it].lexema == '*':
+                elif self.tabla[it].lexema.strip() == '*':
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'asterisco')
                     estadoAnt = 'N'
                     estadoAct = 'U'
-                elif self.tabla[it].lexema == '\n' or self.tabla[it].lexema == ' ':
+                elif self.tabla[it].lexema.strip() == '\n' or self.tabla[it].lexema == ' ' or self.tabla[it].lexema == '\t':
                     estadoAnt = 'N'
                     estadoAct = 'N'
                 else:
@@ -943,6 +953,17 @@ class AFD:
             print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
             correlativo +=1
     
+    def eliminandoEspaciosGuardadosErrores(self):
+        buscarVacio = 0
+        while buscarVacio < len(self.tablaErroresSintacticos):
+            if self.tablaErroresSintacticos[buscarVacio].lexema == ' ':
+                self.tablaErroresSintacticos.pop(buscarVacio)
+            elif self.tablaErroresSintacticos[buscarVacio].lexema == '\n':
+                self.tablaErroresSintacticos.pop(buscarVacio)
+            elif self.tablaErroresSintacticos[buscarVacio].lexema == '\t':
+                self.tablaErroresSintacticos.pop(buscarVacio)
+            buscarVacio +=1
+
     #Metodos para validar listas vacias
     def vacioTablaErrorLexico(self):
         if len(self.tablaErrores) == 0:
