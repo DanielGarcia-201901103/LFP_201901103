@@ -592,7 +592,6 @@ class AFD:
     def analizadorSintactico(self):
         estadoAct = 'S'
         estadoAnt = ''
-        self.sentencias = ''
         it = 0
         while it < len(self.tabla):
             if estadoAct == 'S':
@@ -760,18 +759,104 @@ class AFD:
             it +=1
         
     def escribiendoArchivo(self):
-        
+        estadoAct = 'S'
+        estadoAnt = ''
+        self.sentencias = ''
+        compararFuncion = ''
+        sentenciaEliminar = ''
         it = 0
         while it < len(self.tablaSintactico):
-            if self.tablaSintactico[it].lexema == 'CrearBD':
-                sentencias += "use(‘nombreBaseDatos’);"
-            if self.tablaSintactico[it].lexema== 'EliminarBD':
-                sentencias += '\n'
-                sentencias += 'db.dropDatabase();'
-            if self.tablaSintactico[it].lexema == 'CrearColeccion':
-                sentencias += '\n'
-                sentencias += 'db.createCollection(‘nombreColeccion’);'
+            if estadoAct == 'S':
+                if self.tablaSintactico[it].lexema in self.reservadasFunciones:
+                    compararFuncion = self.tablaSintactico[it].lexema
+                    estadoAnt = 'S'
+                    estadoAct = 'A'
+            elif estadoAct == 'A':
+                if self.tablaSintactico[it].lexema != '':
+                    estadoAnt = 'A'
+                    estadoAct = 'B'
+                elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
+                    estadoAnt = 'A'
+                    estadoAct = 'A'
+            elif estadoAct == 'B':
+                if self.tablaSintactico[it].lexema == '=':
+                    estadoAnt = 'B'
+                    estadoAct = 'C'
+                elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
+                    estadoAnt = 'B'
+                    estadoAct = 'B'
+            elif estadoAct == 'C':
+                if self.tablaSintactico[it].lexema.lower() == 'nueva':
+                    estadoAnt = 'C'
+                    estadoAct = 'D'
+                elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
+                    estadoAnt = 'C'
+                    estadoAct = 'C'
+            elif estadoAct == 'D':
+                if self.tablaSintactico[it].lexema in self.reservadasFunciones:
+                    
+                    estadoAnt = 'D'
+                    estadoAct = 'E'
+                    if self.tablaSintactico[it].lexema  == compararFuncion:
+                        if self.tablaSintactico[it].lexema == 'CrearBD':
+                            self.sentencias += "\nuse(‘nombreBaseDatos’);"
+                        elif self.tablaSintactico[it].lexema == 'EliminarBD':
+                            self.sentencias += '\n'
+                            self.sentencias += 'db.dropDatabase();'
+                        elif self.tablaSintactico[it].lexema == 'CrearColeccion':
+                            self.sentencias += '\n'
+                            self.sentencias += 'db.createCollection(‘'
+                        elif self.tablaSintactico[it].lexema == 'EliminarColeccion':
+                            self.sentencias += '\n'
+                            sentenciaEliminar += 'db.'
+                elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
+                    estadoAnt = 'D'
+                    estadoAct = 'D'
+            elif estadoAct == 'E':
+                if self.tablaSintactico[it].lexema == '(':
+                    estadoAnt = 'E'
+                    estadoAct = 'F'
+                elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
+                    estadoAnt = 'E'
+                    estadoAct = 'E'
+            elif estadoAct == 'F':
+                if self.tablaSintactico[it].lexema == ')':
+                    self.sentencias += ');\n'
+                    estadoAnt = 'F'
+                    estadoAct = 'W'
+                elif self.tablaSintactico[it].lexema == '“':
+                    estadoAnt = 'F'
+                    estadoAct = 'H'  
+                elif self.tablaSintactico[it].lexema == '”':
+                    self.sentencias += '’'
+                    estadoAnt = 'F'
+                    estadoAct = 'F'  
+                elif self.tablaSintactico[it].lexema == ',':
+                    estadoAnt = 'F'
+                    estadoAct = 'F' 
+                elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
+                    estadoAnt = 'F'
+                    estadoAct = 'F'
+            elif estadoAct == 'H':
+                if self.tablaSintactico[it].lexema == '”':
+                    self.sentencias += '’'
+                    estadoAnt = 'H'
+                    estadoAct = 'F'
+                elif self.tablaSintactico[it].lexema != '”':
+                    
+                    self.sentencias += str(self.tablaSintactico[it].lexema)
+                    estadoAnt = 'H'
+                    estadoAct = 'H'
+                elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
+                    estadoAnt = 'H'
+                    estadoAct = 'H'
+            elif estadoAct == 'W':
+                if self.tablaSintactico[it].lexema == ';':
+                    estadoAnt = 'W'
+                    estadoAct = 'S'
+            
             it +=1
+        print(self.sentencias)
 
     #Metodos para almacenar Sintacticos
     def almacenarSintactico(self,fila, columna, dato, t):

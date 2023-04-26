@@ -87,6 +87,8 @@ def generarSentenciasMDB():
         analisisLexico.analizadorSintactico()
         analisisLexico.imprimir_tokensSintacticos()
         analisisLexico.imprimir_ErroresSintacticos()
+
+        analisisLexico.escribiendoArchivo()
         #validar si existen errores en la tabla de errores de token y de sintactico
         #Si no existen errores generar las sentencias mongoDB
     except Exception as e:
