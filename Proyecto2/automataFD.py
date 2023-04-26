@@ -863,8 +863,6 @@ class AFD:
                 elif self.tablaSintactico[it].lexema == '\n' or self.tablaSintactico[it].lexema == ' ':
                     estadoAnt = 'J'
                     estadoAct = 'J'
-
-
             elif estadoAct == 'W':
                 if self.tablaSintactico[it].lexema == ';':
                     estadoAnt = 'W'
@@ -892,7 +890,8 @@ class AFD:
                     nameColeccion = ''
             
             it +=1
-        print(self.sentencias)
+        archivoMongoDB = str(self.sentencias)
+        return archivoMongoDB
 
     #Metodos para almacenar Sintacticos
     def almacenarSintactico(self,fila, columna, dato, t):
@@ -912,11 +911,18 @@ class AFD:
         newToken1 = Token(self.fila, self.columna, lexemaError,t)
         self.tablaErrores.append(newToken1)
 
+    #Metodos para obtener las tablas
     def obtenerTablaTokens(self):
         return self.tabla
     
     def obtenerTablaErrores(self):
         return self.tablaErrores
+    
+    def obtenerTablaSintactico(self):
+        return self.tablaSintactico
+    
+    def obtenerTablaSintacticoErrores(self):
+        return self.tablaErroresSintacticos
     
     #Metodos de impresion para sintactico
     def imprimir_tokensSintacticos(self):
@@ -925,15 +931,6 @@ class AFD:
         print('-'*31)
         correlativo = 1
         for token in self.tablaSintactico:
-            print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
-            correlativo +=1
-
-    def imprimir_tokensSintacticosC(self):
-        print('-'*31)
-        print("| {:<12} | {:<4} | {:<7} | {:<20} |".format('Correlativo','Fila', 'Columna', 'Lexema'))
-        print('-'*31)
-        correlativo = 1
-        for token in self.tablaSintacticoComentario:
             print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
             correlativo +=1
 
@@ -946,6 +943,21 @@ class AFD:
             print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
             correlativo +=1
     
+    #Metodos para validar listas vacias
+    def vacioTablaErrorLexico(self):
+        if len(self.tablaErrores) == 0:
+            #Si está vacio retorna True
+            return True
+        else:
+            return False
+
+    def vacioTablaErrorSintactico(self):
+        if len(self.tablaErroresSintacticos) == 0:
+            #Si está vacio retorna True
+            return True
+        else:
+            return False
+        
     def limpiarDatos(self):
         self.fila = 1
         self.columna = 0
@@ -955,4 +967,4 @@ class AFD:
         self.tablaErrores = []
         self.tablaSintactico = []
         self.tablaErroresSintacticos = []
-    
+        self.sentencias = ''

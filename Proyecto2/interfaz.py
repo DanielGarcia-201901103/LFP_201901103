@@ -10,9 +10,6 @@ almacenar =""
 urlAlmacenar = ""
 analisisLexico= AFD()
 
-def imprimir():
-    print("Estoy Aquí")
-
 # MENU ARCHIVO ***********************************************************************************
 def nuevo():
     global urlAlmacenar
@@ -85,10 +82,22 @@ def generarSentenciasMDB():
     try:
         analisisLexico.analizando(almacenar)
         analisisLexico.analizadorSintactico()
-        analisisLexico.imprimir_tokensSintacticos()
-        analisisLexico.imprimir_ErroresSintacticos()
+        #analisisLexico.imprimir_tokensSintacticos()
+        #analisisLexico.imprimir_ErroresSintacticos()
 
-        analisisLexico.escribiendoArchivo()
+        # Si es True es porque la lista está vacía
+        booleanoLexico = analisisLexico.vacioTablaErrorLexico()
+        booleanoSintactico = analisisLexico.vacioTablaErrorSintactico()
+        if ((booleanoLexico == True) and (booleanoSintactico == True)):
+            textoEscribir = analisisLexico.escribiendoArchivo()
+
+            saveArchivo = open(urlAlmacenar, "w", encoding='utf8')
+            saveArchivo.write(textoEscribir)
+            saveArchivo.close()
+
+
+        else:
+            showwarning(title="Advertencia", message="Por favor corregir los errores.\nVer tabla de errores")
         #validar si existen errores en la tabla de errores de token y de sintactico
         #Si no existen errores generar las sentencias mongoDB
     except Exception as e:
@@ -213,6 +222,7 @@ def inicializar():
         almacenar = ""
         global urlAlmacenar
         urlAlmacenar = ""
+        analisisLexico.limpiarDatos()
         textLeer.delete("1.0","end")
         textLeer.insert("1.0", "---Area de edición de codigo.")
         #textLeer.configure(state="disabled")
