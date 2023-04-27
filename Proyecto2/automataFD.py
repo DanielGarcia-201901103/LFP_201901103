@@ -27,17 +27,6 @@ class AFD:
         # recorriendo el texto
         while len(texto) > 0:
             caracter = texto[0]
-            '''
-            if caracter == '\n':
-                self.fila += 1
-                self.columna = 0
-                texto = texto[1:]
-                continue
-            elif caracter == ' ':
-                self.columna += 1
-                texto = texto[1:]
-                continue
-            '''
             # validaciones de acuerdo al caracter que se está leyendo
             if self.estadoActual == 'A':
                 if caracter.lower() in self.tipoFuncion:
@@ -952,17 +941,6 @@ class AFD:
         for token in self.tablaErroresSintacticos:
             print("| {:<12} | {:<4} | {:<7} | {:<20} |".format(str(correlativo),token.fila, token.columna, token.lexema))
             correlativo +=1
-    
-    def eliminandoEspaciosGuardadosErrores(self):
-        buscarVacio = 0
-        while buscarVacio < len(self.tablaErroresSintacticos):
-            if self.tablaErroresSintacticos[buscarVacio].lexema == ' ':
-                self.tablaErroresSintacticos.pop(buscarVacio)
-            elif self.tablaErroresSintacticos[buscarVacio].lexema == '\n':
-                self.tablaErroresSintacticos.pop(buscarVacio)
-            elif self.tablaErroresSintacticos[buscarVacio].lexema == '\t':
-                self.tablaErroresSintacticos.pop(buscarVacio)
-            buscarVacio +=1
 
     #Metodos para validar listas vacias
     def vacioTablaErrorLexico(self):
