@@ -741,7 +741,7 @@ class AFD:
                     estadoAnt = 'N'
                     estadoAct = 'N'
                 else:
-                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'* ó caracter invalido')
+                    self.almacenarErrorSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'caracter invalido')
             elif estadoAct == 'U':
                 if self.tabla[it].lexema == '/':
                     self.almacenarSintactico(self.tabla[it].fila, self.tabla[it].columna, self.tabla[it].lexema,'barra /')

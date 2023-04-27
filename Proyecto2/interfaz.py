@@ -161,7 +161,7 @@ def verErrores():
         auxiliarTablaErrores = analisisLexico.obtenerTablaErrores()
         auxiliarTErroresSintacticos = analisisLexico.obtenerTablaSintacticoErrores()
         ventana_Errores = tk.Toplevel()
-        ventana_Errores.title("Tabla TOKENS")
+        ventana_Errores.title("Tabla Errores")
         ventana_Errores.geometry("900x600")
         ventana_Errores.configure(bg="yellow")
         ventana_Errores.resizable(False, False)

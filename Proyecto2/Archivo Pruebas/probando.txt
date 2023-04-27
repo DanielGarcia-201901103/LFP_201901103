@@ -1,26 +1,80 @@
-use(‘nombreBaseDatos’);
 
-db.dropDatabase();
+/* 
+	ARCHIVO DE PRUEBAS 
+	CON COMENTARIOS
+*/
 
-use(‘nombreBaseDatos’);
 
-db.createCollection(‘literaturas’);
+--- CREAR BASE DE DATOS
+CrearBD temp1 =  nueva CrearBD();
 
-db.createCollection(‘colectemp’);
+--- ELIMINAR BASE DE DATOS
+EliminarBD temp1 = nueva EliminarBD();
 
-db.colectemp.drop();
+/* 
+	BASE DE DATOS DE  LITERATURAS
+*/
 
-db.literaturas.insertOne(“{"nombre":"ObraLiteraria","autor":"JorgeLuis"}”);
+--- CREAR BASE DE DATOS
+CrearBD temp = nueva CrearBD();
 
-db.literaturas.insertOne(“{"nombre":"ElPrincipito","autor":"AntoinedeSaint"}”);
+--- CREAR COLECCION DE LITERATURAS
+CrearColeccion colec = nueva CrearColeccion(“literaturas”);
 
-db.literaturas.insertOne(“{"nombre":"Moldavita.UnVisitanteAmigable","autor":"NormaMuñozLedo"}”);
+--- CREAR COLECCION TEMPORAL
+CrearColeccion colec = nueva CrearColeccion(“colectemp”);
 
-db.literaturas.updateOne(“{"nombre":"ObraLiteraria"},{$set:{"autor":"MarioVargas"}}”);
+--- ELIMINAR COLECCION TEMPORAL
+EliminarColeccion eliminacolec = nueva EliminarColeccion(“colectemp”);
 
-db.literaturas.deleteOne(“{"nombre":"ObraLiteraria"}”);
+/* 
+	INSERTAR DATOS
+*/
+InsertarUnico insert1 = nueva InsertarUnico(“literaturas” ,
+“
+{
+ "nombre" : "Obra Literaria",
+ "autor" : "Jorge Luis"
+ }
+”);
 
-db.literaturas.find();
+InsertarUnico insert2 = nueva InsertarUnico(“literaturas” ,
+“
+{
+ "nombre" : "El Principito",
+ "autor" : "Antoine de Saint"
+ }
+”);
 
-db.literaturas.findOne();
+InsertarUnico insert3 = nueva InsertarUnico(“literaturas” ,
+“
+{
+ "nombre" : "Moldavita. Un Visitante Amigable",
+ "autor" : "Norma Muñoz Ledo"
+ }
+”);
 
+--- ACTUALIZAR DATO DE COLECCION LITERATURA
+ActualizarUnico actualizadoc = nueva ActualizarUnico(“literaturas”,
+“
+{
+ "nombre" : "Obra Literaria"
+},
+{
+ $set: {"autor" : "Mario Vargas"}
+}
+”);
+
+--- ELIMINAR DATO DE LA COLECCION LITERATURA
+EliminarUnico eliminadoc = nueva EliminarUnico(“literaturas”,
+“
+{
+ "nombre" : "Obra Literaria"
+}
+”);
+
+--- BUSCAR TODOS LOS DATOS DE LA COLECCION
+BuscarTodo todo = nueva BuscarTodo (“literaturas”);
+
+--- BUSCAR UN DATO POR COLECCION
+BuscarUnico todo = nueva BuscarUnico (“literaturas”)?
