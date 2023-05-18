@@ -1,0 +1,51 @@
+/* 
+	ARCHIVO DE 
+	CALIFICACION
+CALIFICACION
+*/
+
+
+--- VAMOS A TRADUCIR EL CODIGO CALIFICACION
+
+CrearBD temp1 = nueva CrearBD();
+
+EliminarBD temp1 = nueva EliminarBD();
+
+CrearBD temp = nueva CrearBD();
+
+CrearColeccion colec = nueva CrearColeccion(“literaturas”);
+
+CrearColeccion colec = nueva CrearColeccion(“colectemp”);
+
+EliminarColeccion eliminacolec = nueva EliminarColeccion(“colectemp”);
+
+
+InsertarUnico insert1 = nueva InsertarUnico(“literaturas” ,
+“
+{
+ "nombre" : "Obra Literaria",
+ "autor" : "Jorge Luis"
+ }
+”);
+
+
+ActualizarUnico actualizadoc = nueva ActualizarUnico(“literaturas”,
+“
+{
+ "nombre" : "Obra Literaria"
+},
+{
+ $set: {"autor" : "Mario Vargas"}
+}
+”);
+EliminarUnico eliminadoc = nueva EliminarUnico(“literaturas”,
+“
+{
+ "nombre" : "Obra Literaria"
+}
+”);
+
+BuscarTodo todo = nueva BuscarTodo (“literaturas”);
+
+BuscarUnico unic = nueva BuscarUnico (“literaturas”);
+

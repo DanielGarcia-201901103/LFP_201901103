@@ -1,0 +1,775 @@
+digraph tabla {
+	bgcolor=lightgoldenrodyellow margin=0.1 rankdir=LR ranksep=2 size="8,5"
+	node [shape=plaintext]
+	1 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Capitán América: El primer vengador</b></TD>
+                </TR>
+                <TR>
+                    <TD>2011</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	1:e -> "Chris Evans" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	1:e -> "Tommy Lee Jones" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	1:e -> "Hayley Atwell" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	1:e -> "Sebastian Stan" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	1:e -> "Stan Lee" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	2 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Iron Man</b></TD>
+                </TR>
+                <TR>
+                    <TD>2008</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	2:e -> "Robert Downey Jr." [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	2:e -> "Jon Favreau" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	2:e -> "Gwyneth Paltrow" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	2:e -> "Stan Lee" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	3 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Iron Man 2</b></TD>
+                </TR>
+                <TR>
+                    <TD>2011</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	3:e -> "Robert Downey Jr." [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	3:e -> "Jon Favreau" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	3:e -> "Gwyneth Paltrow" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	3:e -> "Stan Lee" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	3:e -> "Scarlett Johansson" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	4 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Thor</b></TD>
+                </TR>
+                <TR>
+                    <TD>2011</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	4:e -> "Chris Hemsworth" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	4:e -> "Natalie Portman" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	4:e -> "Tom Hiddleston" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	4:e -> "Idris Elba" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	5 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Los Vengadores</b></TD>
+                </TR>
+                <TR>
+                    <TD>2012</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	5:e -> "Scarlett Johansson" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	5:e -> "Gwyneth Paltrow" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	5:e -> "Robert Downey Jr." [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	5:e -> "Jeremy Renner" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	5:e -> "Chris Evans" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	5:e -> "Chris Hemsworth" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	5:e -> "Mark Ruffalo" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	5:e -> "Samuel L. Jackson" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	6 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Thor: El mundo oscuro</b></TD>
+                </TR>
+                <TR>
+                    <TD>2013</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	6:e -> "Chris Hemsworth" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	6:e -> "Natalie Portman" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	6:e -> "Tom Hiddleston" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	6:e -> "Anthony Hopkins" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	6:e -> "Idris Elba" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	6:e -> "Stellan Skarsgård" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	6:e -> "Christopher Eccleston" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	6:e -> "Adrianne Palicki" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	7 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Iron Man 3</b></TD>
+                </TR>
+                <TR>
+                    <TD>2013</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	7:e -> "Robert Downey Jr." [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	7:e -> "Jon Favreau" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	7:e -> "Gwyneth Paltrow" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	7:e -> "Stan Lee" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	8 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Capitán América: El Soldado de Invierno</b></TD>
+                </TR>
+                <TR>
+                    <TD>2014</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	8:e -> "Chris Evans" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	8:e -> "Scarlett Johansson" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	8:e -> "Sebastian Stan" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	8:e -> "Anthony Mackie" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	8:e -> "Samuel L. Jackson" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	8:e -> "Stan Lee" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	9 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>El regalo</b></TD>
+                </TR>
+                <TR>
+                    <TD>2015</TD>
+                    <TD PORT="f1">Drama</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	9:e -> "Jason Bateman" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	9:e -> "Rebecca Hall" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	9:e -> "Joel Edgerton" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	9:e -> "Allison Tolman" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	10 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>La noche del cazador</b></TD>
+                </TR>
+                <TR>
+                    <TD>1955</TD>
+                    <TD PORT="f1">Drama</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	10:e -> "Robert Mitchum" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	10:e -> "Shelley Winters" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	10:e -> "Lillian Gish" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	10:e -> "Peter Graves" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	11 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>La Pasión de Cristo</b></TD>
+                </TR>
+                <TR>
+                    <TD>2004</TD>
+                    <TD PORT="f1">Drama</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	11:e -> "Jim Caviezel" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	11:e -> "Maia Morgenstern" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	11:e -> "Monica Bellucci" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	11:e -> "Christo Jivkov" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	12 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Argo</b></TD>
+                </TR>
+                <TR>
+                    <TD>2012</TD>
+                    <TD PORT="f1">Drama</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	12:e -> "Ben Affleck" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	12:e -> "Bryan Cranston" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	12:e -> "Alan Arkin" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	12:e -> "John Goodman" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	13 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Guardianes de la Galaxia</b></TD>
+                </TR>
+                <TR>
+                    <TD>2014</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	13:e -> "Chris Pratt" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	13:e -> "Zoe Saldana" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	13:e -> "Dave Bautista" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	13:e -> "Vin Diesel" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	14 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Avengers: Age of Ultron</b></TD>
+                </TR>
+                <TR>
+                    <TD>2015</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	14:e -> "Robert Downey Jr." [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	14:e -> "Chris Evans" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	14:e -> "Mark Ruffalo" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	14:e -> "Chris Hemsworth" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	15 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Ant-Man</b></TD>
+                </TR>
+                <TR>
+                    <TD>2015</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	15:e -> "Paul Rudd" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	15:e -> "Michael Douglas" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	15:e -> "Evangeline Lilly" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	15:e -> "Corey Stoll" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	16 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Capitán América: Civil War</b></TD>
+                </TR>
+                <TR>
+                    <TD>2016</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	16:e -> "Chris Evans" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	16:e -> "Robert Downey Jr." [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	16:e -> "Scarlett Johansson" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	16:e -> "Sebastian Stan" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	17 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Guardianes de la Galaxia Vol. 2</b></TD>
+                </TR>
+                <TR>
+                    <TD>2017</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	17:e -> "Chris Pratt" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	17:e -> "Zoe Saldana" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	17:e -> "Dave Bautista" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	17:e -> "Vin Diesel" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	18 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Spider-Man: Homecoming</b></TD>
+                </TR>
+                <TR>
+                    <TD>2017</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	18:e -> "Tom Holland" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	18:e -> "Michael Keaton" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	18:e -> "Robert Downey Jr." [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	18:e -> "Marisa Tomei" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	19 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Thor Ragnarok</b></TD>
+                </TR>
+                <TR>
+                    <TD>2017</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	19:e -> "Chris Hemsworth" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	19:e -> "Tom Hiddleston" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	19:e -> "Cate Blanchett" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	19:e -> "Idris Elba" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	20 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>El regreso de Ben</b></TD>
+                </TR>
+                <TR>
+                    <TD>2017</TD>
+                    <TD PORT="f1">Drama</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	20:e -> "No deberia" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	20:e -> Tener [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	20:e -> Actores [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	20:e -> "Esta es la Buena ":3 [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	21 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Pantera Negra</b></TD>
+                </TR>
+                <TR>
+                    <TD>2018</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	21:e -> "Chadwick Boseman" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	21:e -> "Michael B. Jordan" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	21:e -> "Lupita Nyong'o" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	21:e -> "Danai Gurira" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	22 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Avengers: Infinity War</b></TD>
+                </TR>
+                <TR>
+                    <TD>2018</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	22:e -> "Robert Downey Jr." [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	22:e -> "Chris Hemsworth" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	22:e -> "Mark Ruffalo" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	22:e -> "Chris Evans" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	23 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Ant-Man and the Wasp</b></TD>
+                </TR>
+                <TR>
+                    <TD>2018</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	23:e -> "Paul Rudd" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	23:e -> "Evangeline Lilly" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	23:e -> "Michael Peña" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	23:e -> "Walton Goggins" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	24 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Capitana Marvel</b></TD>
+                </TR>
+                <TR>
+                    <TD>2019</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	24:e -> "Brie Larson" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	24:e -> "Samuel L. Jackson" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	24:e -> "Ben Mendelsohn" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	24:e -> "Jude Law" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	25 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Avengers: Endgame</b></TD>
+                </TR>
+                <TR>
+                    <TD>2019</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	25:e -> "Robert Downey Jr." [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	25:e -> "Chris Evans" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	25:e -> "Mark Ruffalo" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	25:e -> "Chris Hemsworth" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	26 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Spider-Man: Lejos de casa</b></TD>
+                </TR>
+                <TR>
+                    <TD>2019</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	26:e -> "Tom Holland" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	26:e -> "Samuel L. Jackson" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	26:e -> Zendaya [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	26:e -> "Cobie Smulders" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	27 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Black Widow</b></TD>
+                </TR>
+                <TR>
+                    <TD>2020</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	27:e -> "Scarlett Johansson" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	27:e -> "Florence Pugh" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	27:e -> "David Harbour" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	27:e -> "Rachel Weisz" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	28 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Shang-Chi y la leyenda de los Diez Anillos</b></TD>
+                </TR>
+                <TR>
+                    <TD>2021</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	28:e -> "Simu Liu" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	28:e -> Awkwafina [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	28:e -> "Tony Leung" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	28:e -> "Michelle Yeoh" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	29 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Spider-Man: No Way Home</b></TD>
+                </TR>
+                <TR>
+                    <TD>2021</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	29:e -> "Tom Holland" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	29:e -> Zendaya [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	29:e -> "Jacob Batalon" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	29:e -> "Marisa Tomei" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	30 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Doctor Strange en el Multiverso de la Locura</b></TD>
+                </TR>
+                <TR>
+                    <TD>2021</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	30:e -> "Benedict Cumberbatch" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	30:e -> "Elizabeth Olsen" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	30:e -> "Benedict Wong" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	30:e -> "Chiwetel Ejiofor" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	31 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Thor: Love and Thunder</b></TD>
+                </TR>
+                <TR>
+                    <TD>2022</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	31:e -> "Chris Hemsworth" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	31:e -> "Natalie Portman" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	31:e -> "Tessa Thompson" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	31:e -> "Christian Bale" [arrowhead=vee]
+	node [color="" style=""]
+	node [shape=plaintext]
+	32 [label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" ALIGN="CENTER"> 
+                <TR>
+                    <TD COLSPAN="2" BGCOLOR="YELLOW"><b>Black Panther: Wakanda Forever</b></TD>
+                </TR>
+                <TR>
+                    <TD>2022</TD>
+                    <TD PORT="f1">Accion</TD>
+                </TR>
+            </TABLE>>]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	32:e -> "Chadwick Boseman" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	32:e -> "Lupita Nyong'o" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	32:e -> "Danai Gurira" [arrowhead=vee]
+	node [color="" style=""]
+	node [color=black fillcolor=lightsalmon shape=rectangle style=filled]
+	32:e -> "Letitia Wright" [arrowhead=vee]
+	node [color="" style=""]
+}
